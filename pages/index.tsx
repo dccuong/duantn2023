@@ -20,27 +20,7 @@ const index = (props: Props) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="">
-        <div>
-          <div className="relative mt-0">
-        
-            <div className="md:absolute sm:top-[8%] lg:top-[30%]  top-[20px] bottom-0 xl:left-[259px] lg:left-[150px]   sm:left-[65px] left-[10px] md:mx-0 mx-3">
-              <div className="w-100%">
-                <span className="lg:text-[44px] 2xl:text-[64px] md:text-[34px] text-[24px] md:text-white text-black font-bold font-mono">
-                  Lorem ipsum dolor sit amet
-                </span>
-                <br />
-                <span className=" text-[14px] md:text-[18px]  lg:text-[24px]  md:text-white text-black">
-                  Lorem ipsum dolor sit amet consectetur adipisicing
-                </span>
-                <div className="relative w-full">
-                  <div className="w-[100%] rounded-md px-6 bg-black lg:h-[190px] h-[240px]  opacity-[0.5]"></div>
-                  <div className=" absolute top-2 w-full md:px-3 px-1">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      
         {/* ssssssssssss */}
         <div className=" mb-6 grid lg:grid-cols-2 grid-cols-1 gap-2 xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  mt-[40px]">
           <div className="h-[] bg-slate-500 ">
@@ -60,14 +40,12 @@ const index = (props: Props) => {
 
         {/* sssssss */}
 
- 
         {/* tour */}
         <div className="mt-[30px]">
           <div className="flex justify-between xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  font-bold ">
             <span>Địa điểm gần đây</span>
             <span>Tất cả</span>
           </div>
-   
         </div>
 
         <div className="mt-[30px]">
@@ -75,18 +53,14 @@ const index = (props: Props) => {
             <span>Địa điểm gần đây</span>
             <span>Tất cả</span>
           </div>
-          <div className="xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  ">
-          
-          </div>
+          <div className="xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  "></div>
         </div>
         <div className="mt-[30px]">
           <div className="flex justify-between xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px] ] font-bold ">
             <span>Địa điểm gần đây</span>
             <span>Tất cả</span>
           </div>
-          <div className="xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  ">
-
-          </div>
+          <div className="xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  "></div>
         </div>
 
         <div className=" hidden  ">
@@ -128,7 +102,7 @@ const index = (props: Props) => {
                       >
                         <input
                           type="text"
-                          className=" lg:py-3  py-2  w-[100%]   lg:w-[45%] md:rounded-bl-lg  rounded-md mr-2 mb-2 block"
+                          className=" lg:py-3 py-2  w-[100%]   lg:w-[45%] md:rounded-bl-lg  rounded-md mr-2 mb-2 block"
                         />
                         <div>
                           <div className="flex justify-between items-center">

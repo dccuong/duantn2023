@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 // import PrivateRoute from "../../component/Privaterouter";
-import { Tuser } from "../../models/user";
-import { logout } from "../../redux/auth";
-import { RootState } from "../../redux/store";
+// import { Tuser } from "../../models/user";
+// import { logout } from "../../redux/auth";
+// import { RootState } from "../../redux/store";
 
 import AdminMenu from "./Sidebar";
 

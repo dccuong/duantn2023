@@ -1,14 +1,13 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
-import { loginGg, loginnn } from "../Api/auth";
 import { Tuser } from "../models/user";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/auth";
 import { NextPage } from "next";
 import { Carousel, Tabs } from "antd";
 import Link from "next/link";
+import { addUser } from "../Api/auth";
 
 type Props = {};
 
@@ -23,21 +22,12 @@ const Register: NextPage<any> = ({ providers }) => {
   } = useForm<Tuser>();
   const router = useRouter();
   const dispatch = useDispatch<any>();
-  const onsubmit = async (value: Tuser) => {
-    console.log(value);
+  const onSubmit: SubmitHandler<Tuser> = async (value: Tuser) => {
     try {
-      const { token, user } = await loginnn(value);
-      dispatch(login(user));
-      localStorage.setItem("auth_token", token);
-      toast.success("Đăng nhập thành công");
-      if (token) {
-        router.push("/admin");
-      } else {
-        router.push("/");
-      }
-    } catch (error: any) {
-      console.log(error.response.data);
-      toast.error(`${error.response.data.error}`);
+      await addUser(value);
+      toast.success("okok");
+    } catch (error) {
+      toast.error("lỗi");
     }
   };
   return (
@@ -118,7 +108,7 @@ const Register: NextPage<any> = ({ providers }) => {
                       router.asPath == "/register" ? "active block" : "hidden"
                     }
                   >
-                    <form className=" w-full" onSubmit={handleSubmit(onsubmit)}>
+                    <form className=" w-full" onSubmit={handleSubmit(onSubmit)}>
                       <div className="mx-3 flex">
                         <select className="w-[60px] py-1 mr-1 border my-1 rounded-md ">
                           <option value="84">+84</option>
@@ -180,7 +170,7 @@ const Register: NextPage<any> = ({ providers }) => {
                         : "hidden"
                     }
                   >
-                    <form className=" w-full" onSubmit={handleSubmit(onsubmit)}>
+                    <form className=" w-full" onSubmit={handleSubmit(onSubmit)}>
                       <div className="mx-3">
                         <input
                           type="text"

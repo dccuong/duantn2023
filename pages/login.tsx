@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
-import { loginGg, loginnn } from "../Api/auth";
+import { loginnn } from "../Api/auth";
 import { Tuser } from "../models/user";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/auth";
 import { getProviders, useSession, signIn } from "next-auth/react";
 import { NextPage } from "next";
 import { Carousel, Tabs } from "antd";
@@ -29,7 +28,7 @@ const Login: NextPage<any> = ({ providers }) => {
     console.log(value);
     try {
       const { token, user } = await loginnn(value);
-      dispatch(login(user));
+      dispatch(loginnn(user));
       localStorage.setItem("auth_token", token);
       toast.success("Đăng nhập thành công");
       if (token) {
