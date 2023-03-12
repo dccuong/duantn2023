@@ -2,14 +2,14 @@ import axios from "axios";
 
 const axiosClient = axios.create({
 
-    baseURL: "https://duan01cuongnd.herokuapp.com/api/",
+    baseURL: "http://localhost:8080/api/",
     headers: {
         "Content-Type": "application/json",
     },
 })
 
 export const axiosServer = axios.create({
-    baseURL: "https://duan01cuongnd.herokuapp.com/api/",
+    baseURL: "http://localhost:8080/api/",
 
     headers: {
         "Content-Type": "application/json",

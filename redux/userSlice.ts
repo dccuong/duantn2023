@@ -26,7 +26,6 @@ export const deleteUser = createAsyncThunk("user/deleteUser", async (id: string)
 
 export const addUser = createAsyncThunk("user/addUser", async (user: any) => {
     const res = await add(user);
-
     return res;
 });
 
