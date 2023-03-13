@@ -54,10 +54,10 @@ const AdminMenu = (props: Props) => {
           </span>
         </Link>
 
-        <Link href="/admin/hotels">
+        <Link href="/admin/products">
           <span
             className={
-              router.asPath == "/admin/hotels"
+              router.asPath == "/admin/products"
                 ? "active flex items-center justify-between px-4 py-3 transition cursor-pointer group bg-gray-800 text-gray-200  "
                 : " flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200 "
             }
@@ -111,14 +111,19 @@ const AdminMenu = (props: Props) => {
           </span>
         </Link>
 
-        <Link href="/admin/banner">
-          <span className="flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200">
-            <div className="flex items-center">
+        <Link href="/admin/sliders">
+        <span
+            className={
+              router.asPath == "/admin/sliders"
+                ? "active flex items-center justify-between px-4 py-3 transition cursor-pointer group bg-gray-800 text-gray-200  "
+                : " flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200 "
+            }
+          >            <div className="flex items-center">
               <div className="shrink-0 w-5 h-5 mr-2 text-gray-300 transition group-hover:text-gray-300">
                 <FontAwesomeIcon icon={faSlidersH} />
               </div>
               <span>
-                <b>Quản Lý Banner</b>
+                <b>Quản Lý Sliders</b>
               </span>
             </div>
           </span>
@@ -137,15 +142,15 @@ const AdminMenu = (props: Props) => {
                 <FontAwesomeIcon icon={faThList} />
               </div>
               <span>
-                <b>Quản Lý Tour</b>
+                <b>Quản Lý ...</b>
               </span>
             </div>
           </span>
         </Link>
-        <Link href="/admin/tourCates">
+        <Link href="/admin/danhmuc">
           <span
             className={
-              router.asPath == "/admin/tourCates"
+              router.asPath == "/admin/danhmuc"
                 ? "active flex items-center justify-between px-4 py-3 transition cursor-pointer group bg-gray-800 text-gray-200  "
                 : " flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200 "
             }
@@ -155,7 +160,7 @@ const AdminMenu = (props: Props) => {
                 <FontAwesomeIcon icon={faComment} />
               </div>
               <span>
-                <b>Quản lý tourCates</b>
+                <b>Quản lý Danh muc</b>
               </span>
             </div>
           </span>

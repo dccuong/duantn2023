@@ -7,7 +7,7 @@ export const getAll = (): Promise<TSlider[]> => {
 
 export const remove = (id: string): Promise<TSlider> => {
   return axiosClient.delete(`/Slider/${id}`);
-};
+};  
 
 export const add = (slider: TSlider): Promise<TSlider> => {
   return axiosClient.post("/Slider", slider);
