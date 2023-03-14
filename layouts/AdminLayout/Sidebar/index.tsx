@@ -67,7 +67,7 @@ const AdminMenu = (props: Props) => {
                 <FontAwesomeIcon icon={faHospitalAlt} />
               </div>
               <span>
-                <b>Quản Lý Khách Sạn</b>
+                <b>Quản Lý Sản Phẩm</b>
               </span>
             </div>
           </span>

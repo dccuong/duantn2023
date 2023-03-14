@@ -18,3 +18,7 @@ export const formatDate = (dateString: any) => {
 
     return `${formatDate}/${month}/${date.getFullYear()} ${hours}:${minutes}:${seconds}`;
 }; 
+export const formatCurrency = (currency: number) => {
+    const tempCurrency = +currency;
+    return tempCurrency.toLocaleString("it-IT", { style: "currency", currency: "VND" });
+  };
