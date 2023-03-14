@@ -2,7 +2,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import authReducer from "./auth";
 import userReducer from "./userSlice";
 import blogReducer from "./blogSlice";
-import blogCateReducer from "./blogCateSlice";
+import prdCateReducer from "./prdCateSlice";
 import siderReducer from "./sliderSlice";
 import voucheReducer from "./voucheSlice";
 import prdReducer from "./prdSlice";
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
   blog: blogReducer,
-  blogCate: blogCateReducer,
+ prdCate: prdCateReducer,
   slider: siderReducer,
   vouche: voucheReducer,
   prd : prdReducer,

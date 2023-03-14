@@ -13,7 +13,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/auth";
 import { toast } from "react-toastify";
-import { logouttt } from "../../../Api/auth";
+// import { logouttt } from "../../../Api/auth";
 import { useRouter } from "next/router";
 
 type Props = {};
@@ -24,7 +24,7 @@ const AdminMenu = (props: Props) => {
 
   const handleSignout = () => {
     (async () => {
-      await logouttt();
+      // await logouttt();
       dispatch(logout());
       toast.success("Đăng xuất thành công");
     })();
