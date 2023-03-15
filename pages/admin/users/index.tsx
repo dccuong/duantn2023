@@ -29,7 +29,7 @@ const index = (props: Props) => {
         </Link>
       </header>
 
-      <div className="p-6 mt-24 overflow-hidden">
+      <div className="p-6 mt-5 soverflow-hidden">
         <div className="flex flex-col">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

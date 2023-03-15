@@ -61,6 +61,10 @@ const ProductList = (props: Props) => {
               {" "}
               CatygoryId{" "}
             </th>
+            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              {" "}
+              function{" "}
+            </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -71,8 +75,8 @@ const ProductList = (props: Props) => {
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 h-10 w-10">
-                    <div className="w-10 h-10 relative rounded-full object-cover">
-                      {item.image && <Image src={item.image} layout="fill" alt="" className="rounded-full" />}
+                    <div className="w-10 h-10 relative">
+                      {item.image && <img src={item.image} width="50px" alt="" className="rounded-full" />}
                     </div>
                   </div>
                 </div>
@@ -80,7 +84,6 @@ const ProductList = (props: Props) => {
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(item.price)}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.desc.substring(0, 30)}...</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.catygoryId?.name}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-500">{}</td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <Link href={`/admin/product/${item._id}`}>
                   <span className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
