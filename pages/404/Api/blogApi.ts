@@ -1,7 +1,8 @@
 
-import { Tblog } from "../models/blogs";
+
 import { axiosServer } from "./config";
 import axiosClient from "./config";
+import { Tblog } from "../../../models/blogs";
 
 export const getAll = (): Promise<Tblog[]> => {
     return axiosServer.get("/news");

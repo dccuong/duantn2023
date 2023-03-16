@@ -12,7 +12,7 @@ const ClientLayout = ({ children }: ClientLayoutProps) => {
       <header className=" sticky top-0 w-full shadow-lg  pt-3  z-20 bg-white">
         <ClientHeader />
       </header>
-      <main className="pb-6 my-0">{children}</main>
+      <main className="pb-6 my-0 mx-10">{children}</main>
       <footer>
         {" "}
         <ClientFooter />

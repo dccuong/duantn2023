@@ -1,4 +1,4 @@
-import { Tuser } from "../models/user";
+import { Tuser } from "../../../models/user";
 import axiosClient from "./config";
 export const loginnn = (user: Tuser): Promise<{ token: string; user: Tuser }> => {
     return axiosClient.post("signin", user);

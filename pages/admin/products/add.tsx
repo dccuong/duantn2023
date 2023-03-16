@@ -44,7 +44,7 @@ const Add: NextPageWithLayout = (props: Props) => {
     try {
       const { data } = await uploadImage(values.image[0]);
       values.image = data.url;
-
+console.log(values,"pat1")
       await dispatch(addProduct(values)).unwrap();
       toast.success("Thêm SP thành công");
       reset();

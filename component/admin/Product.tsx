@@ -15,7 +15,7 @@ const ProductList = (props: Props) => {
   useEffect(() => {
     dispatch(getproduct());
   }, [dispatch]);
-
+console.log(product,"sss")
   const handleRemove = (id: any) => {
     Swal.fire({
       title: "Bạn có chắc chắn muốn xóa không?",
@@ -32,6 +32,8 @@ const ProductList = (props: Props) => {
       }
     });
   };
+  console.log(product,"pat");
+  
   return (
     <div>
       <table className="min-w-full divide-y divide-gray-200" id="cate__list-table">
@@ -69,6 +71,7 @@ const ProductList = (props: Props) => {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {product?.map((item, index) => (
+            
             <tr key={index}>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{++index}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.name}</td>
@@ -83,7 +86,7 @@ const ProductList = (props: Props) => {
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(item.price)}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.desc.substring(0, 30)}...</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.catygoryId?.name}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.catygoryId}</td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <Link href={`/admin/product/${item._id}`}>
                   <span className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

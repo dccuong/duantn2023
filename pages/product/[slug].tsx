@@ -70,7 +70,7 @@ const ProductDetail = ({ product }: Props) => {
   };
 
   return (
-    <div className="container-base">
+    <div className="mx-auto ">
       <Head>
         <title>{product.name}</title>
       </Head>
@@ -116,14 +116,14 @@ const ProductDetail = ({ product }: Props) => {
             <button
               type="button"
               onClick={handleAddCart}
-              className=" border border-green-600 rounded-full bg-green-50 p-2.5 w-56  font-bold text-primary"
+              className=" border border-orange-300 rounded-full bg-green-50 p-2.5 w-56  font-bold text-primary"
             >
               <FontAwesomeIcon className="px-2" icon={faCartPlus} />
               Thêm vào giỏ hàng
             </button>
             <button
               type="submit"
-              className="border border-green-600 ml-4 mb-7 rounded-full bg-primary p-2 w-52 text-lg font-bold text-white"
+              className="border border-orange-300 ml-4 mb-7 rounded-full bg-primary p-2 w-52 text-lg font-bold text-black"
             >
               Mua ngay
             </button>

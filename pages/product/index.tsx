@@ -18,6 +18,7 @@ type Props = {
 };
 
 const Product = ({ products }: Props) => {
+  console.log(products)
   return (
     <div className="mx-auto max-w-[1240px]">
       <Head>
@@ -68,7 +69,7 @@ const Product = ({ products }: Props) => {
                           </div>
                           <div>
                             <button className="bg-[#FF5722]  leading-[21px]  font-semibold text-white px-2 py-1 rounded-md">
-                              Đặt ngay
+                             Mua ngay
                             </button>
                           </div>
                         </div>
@@ -90,7 +91,6 @@ const Product = ({ products }: Props) => {
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch("http://localhost:8080/api/product");
   const products = await res.json();
-
   return {
     props: {
       products,

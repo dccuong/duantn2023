@@ -41,27 +41,9 @@ const index = (props: Props) => {
         {/* sssssss */}
 
         {/* tour */}
-        <div className="mt-[30px]">
-          <div className="flex justify-between xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  font-bold ">
-            <span>Địa điểm gần đây</span>
-            <span>Tất cả</span>
-          </div>
-        </div>
+    
 
-        <div className="mt-[30px]">
-          <div className="flex justify-between xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px] ] font-bold ">
-            <span>Địa điểm gần đây</span>
-            <span>Tất cả</span>
-          </div>
-          <div className="xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  "></div>
-        </div>
-        <div className="mt-[30px]">
-          <div className="flex justify-between xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px] ] font-bold ">
-            <span>Địa điểm gần đây</span>
-            <span>Tất cả</span>
-          </div>
-          <div className="xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  "></div>
-        </div>
+        
 
         {/* <div className=" hidden  ">
           <div className=" text-[#FF5722] shadow-2xl hover:shadow-2xl">

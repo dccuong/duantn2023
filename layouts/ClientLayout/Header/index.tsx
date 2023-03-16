@@ -10,9 +10,9 @@ const index = (props: any) => {
   const [typing, setTyping] = useState(true);
   const router = useRouter();
   const listnav = [
-    { name: "tất cả", link: "/all" },
-    { name: "khách sạn", link: "/hotels" },
-    { name: "máy bay", link: "/hotles" },
+    { name: "Trang Chủ", link: "/" },
+    { name: "Giày", link: "/product" },
+    { name: "Cart", link: "/cart" },
     { name: "tour", link: "/tours" },
     { name: "tin tức", link: "/news" },
   ];
@@ -216,20 +216,6 @@ const index = (props: any) => {
       {/* ssssssss */}
       <div className="md:block hidden w-full  border-t border-stone-300 pb-[0.5px] ">
         <ul className="flex pt-[10px] md:pt-[18px] text-[14px] md:text-[16px] xl:mx-[200px]  lg:mx-[100px] md:mx-[90px]  sm:mx-[60px] mx-[10px] font-medium">
-          <li className="">
-            {" "}
-            <Link href={"/"}>
-              <span
-                className={
-                  router.asPath == "/"
-                    ? "active   border-b-4 border-orange-500 py-4 text-orange-500 pr-5"
-                    : "pr-5"
-                }
-              >
-                Nơi bạn muốn đến
-              </span>
-            </Link>
-          </li>
           {listnav.map((item, index) => (
             <li className="" key={index}>
               {" "}
