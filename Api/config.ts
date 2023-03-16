@@ -26,19 +26,7 @@ axiosServer.interceptors.response.use(
 );
 
 // Add a request interceptor
-axiosClient.interceptors.request.use((config) => {
-    const token = localStorage.getItem("auth_token");
-    if (token) {
-        config.headers = {
-            Authorization: `Bearer ${token}`,
-        };
-    }
-    // Do something before request is sent
-    return config;
-}, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-});
+
 
 // Add a response interceptor
 axiosClient.interceptors.response.use(

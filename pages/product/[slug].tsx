@@ -9,20 +9,20 @@ import Link from "next/link";
 import React, { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { get } from "../../api-client/cateProductApi";
-import { getAll, getS } from "../../api-client/productApi";
-import Comment from "../../components/Comment";
-import { PrdCate } from "../../models/cateProduct";
+import { get } from "../../Api/prdCateApi";
+import { getAll, getS } from "../../Api/productApi";
+
+import { TPrdCate } from "../../models/prdCates";
 import { Product } from "../../models/product";
 import { addCart } from "../../redux/cartSlice";
-import { formatCurrency } from "../../utils";
+import { formatCurrency } from "../../untils";
 
 type Props = {
   product: Product;
-  catePrd: PrdCate;
+ 
 };
 
-const ProductDetail = ({ product, catePrd }: Props) => {
+const ProductDetail = ({ product }: Props) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
@@ -88,7 +88,7 @@ const ProductDetail = ({ product, catePrd }: Props) => {
       <section className="grid grid-cols-1 md:grid-cols-2 my-10 gap-8">
         <div className="border h-full w-full text-center">
           {" "}
-          {product.image && <Image src={product.image} className="" alt="" width={450} height={450} />}
+          {product.image && <img src={product.image} className="" alt="" width={450} height={450} />}
         </div>
         <section>
           <div>
@@ -140,14 +140,14 @@ const ProductDetail = ({ product, catePrd }: Props) => {
         </section>
       </section>
 
-      <Comment product={product} />
+  
 
       <section>
         <h1 className="text-3xl font-semibold pt-50 text-center">CÓ THỂ BẠN THÍCH</h1>
       </section>
       <section className="col-span-12 lg:col-span-9 pb-10">
         <div className="grid grid-cols-2 md:grid-clos-3 lg:grid-cols-4 gap-4">
-          {catePrd.cateproduct.products?.slice(0, 4).map((item, index) => (
+          {/* {catePrd.cateproduct.products?.slice(0, 4).map((item, index) => (
             <div className="group" key={index}>
               <div className="relative bg-[#f7f7f7] overflow-hidden border mt-10 pt-[100%]">
                 {item.image && <Image src={item.image} alt="" layout="fill" />}
@@ -164,7 +164,7 @@ const ProductDetail = ({ product, catePrd }: Props) => {
                 </span>
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </section>
     </div>
@@ -172,8 +172,9 @@ const ProductDetail = ({ product, catePrd }: Props) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await getAll();
-  const paths = data.map((product) => ({ params: { slug: product.slug } }));
+  const res = await fetch("http://localhost:8080/api/product");
+  const data = await res.json();
+  const paths = data.map((product:any) => ({ params: { slug: product.slug } }));
   return {
     paths,
     fallback: "blocking",
@@ -182,10 +183,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (context: GetStaticPropsContext) => {
   const slug = context.params?.slug as string;
   const product = await getS(slug);
-  const catePrd = await get(product.catygoryId);
-
   return {
-    props: { product, catePrd },
+    props: { product },
     revalidate: 6,
   };
 };

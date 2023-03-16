@@ -63,7 +63,7 @@ const index = (props: Props) => {
           <div className="xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  "></div>
         </div>
 
-        <div className=" hidden  ">
+        {/* <div className=" hidden  ">
           <div className=" text-[#FF5722] shadow-2xl hover:shadow-2xl">
             1231
           </div>
@@ -199,7 +199,7 @@ const index = (props: Props) => {
               ]}
             />
           </>
-        </div>
+        </div> */}
       </div>
     </>
   );
