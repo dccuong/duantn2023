@@ -10,6 +10,7 @@ import prdColorReducer from "./prdColorSlice";
 import prdAmountReducer from "./prdAmountSlice";
 import prdSizeReducer from "./prdSizeSlice";
 import cartReducer from "./cartSlice";
+import orderReducer from "./orderSlice"
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   product: productReducer,
   prdColor: prdColorReducer,
   prdAmount: prdAmountReducer,
+  order: orderReducer,
   prdSize: prdSizeReducer,
   cart: cartReducer,
 });
