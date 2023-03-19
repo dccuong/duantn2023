@@ -1,6 +1,6 @@
 import moment from "moment";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { deleteOrder, getOrders } from "../../redux/orderSlice";
@@ -41,25 +41,46 @@ const OrderList = (props: Props) => {
   };
 
   return (
-    <table className="min-w-full divide-y divide-gray-200" id="cate__list-table">
+    <table
+      className="min-w-full divide-y divide-gray-200"
+      id="cate__list-table"
+    >
       <thead className="bg-gray-50">
         <tr>
-          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
             STT
           </th>
-          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
             Customer
           </th>
-          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
             Tổng tiền
           </th>
-          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
             Trạng thái
           </th>
-          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
             Thời gian đặt
           </th>
-          <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th
+            scope="col"
+            className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
             Actions
           </th>
         </tr>
@@ -67,18 +88,26 @@ const OrderList = (props: Props) => {
       <tbody className="bg-white divide-y divide-gray-200" id="cart__list">
         {orders?.map((item, index) => (
           <tr key={index}>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{++index}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {++index}
+            </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-              <div className="text-sm font-medium text-gray-900">{item.customerName}</div>
+              <div className="text-sm font-medium text-gray-900">
+                {item.customerName}
+              </div>
               <div className="text-sm text-gray-500">{item.phone}</div>
               <div className="text-sm text-gray-500">{item.email}</div>
               <div className="text-sm text-gray-500">{item.address}</div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(item.totalPrice)}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              {formatCurrency(item.totalPrice)}
+            </td>
             <td className="px-6 py-4 whitespace-nowrap">
               <span
                 className={`${
-                  item.status !== 4 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                  item.status !== 4
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
                 } px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}
               >
                 {!item.status
