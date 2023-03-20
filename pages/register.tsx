@@ -1,240 +1,141 @@
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import Image from "next/image";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Tuser } from "../models/user";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
-import { NextPage } from "next";
-import { Carousel, Tabs } from "antd";
-import Link from "next/link";
 import { addUser } from "../Api/auth";
-
+import { useRouter } from "next/router";
+import Head from "next/head";
+import { NextPage } from "next";
 type Props = {};
 
-const Register: NextPage<any> = ({ providers }) => {
-  const onChange = (key: string) => {
-    console.log(key);
-  };
+type Inputs = {
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+};
+
+
+
+const Register: NextPage<any> = ({ providers}) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Tuser>();
-  const router = useRouter();
-  const dispatch = useDispatch<any>();
-  const onSubmit: SubmitHandler<Tuser> = async (value: Tuser) => {
+    reset,
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
     try {
-      await addUser(value);
-      toast.success("okok");
+      await addUser(values);
+      reset();
+      toast.success("Đăng ký thành công, vui lòng đăng nhập");
+      router.push("/signin");
     } catch (error) {
-      toast.error("lỗi");
+      console.log(error);
+      toast.error("Có lỗi xảy ra, vui lòng thử lại");
     }
   };
+
   return (
-    <div>
-      <div className="relative ">
-        <Carousel autoplay>
-          <img src="/2.png" alt="" className={""} />
-
-          <img src="/2.png" alt="" className={" "} />
-        </Carousel>
-        <div className=" sm:absolute top-[5%] xl:right-[259px] sm:right-[65px] h-[85%] lg:w-[30%] sm:w-[85%]   m-3">
-          {" "}
-          <div className=" md:bg-white bg-gradient-to-r from-orange-300 to-blue-500 bg-opacity-70 rounded-xl   ">
-            <div className="xl:pt-6 pt-3 mx-8">
-              <div className="lg:block flex justify-between">
-                <div>
-                  <div className="text-[26px] font-medium leading-8">
-                    Đăng Ký
-                  </div>
-                  <p className="text-[12px] text-gray-500">
-                    Tài khoản TripFinder sẽ được đăng nhập bằng SĐT hoặc
-                    <br />
-                    tài khoản bên thứ ba đã đăng ký
-                  </p>
-                </div>
-                <div className="flex justify-around lg:my-4 my-2">
-                  <div className="text-center  mx-2">
-                    <div className="ml-2 w-[40px] h-[40px] rounded-full bg-slate-700"></div>
-                    <div>facebook</div>
-                  </div>
-                  <div className="text-center  mx-2">
-                    <div className="ml-2 w-[40px] h-[40px] rounded-full bg-slate-700"></div>
-                    <div>facebook</div>
-                  </div>
-                  <div className="text-center  mx-2">
-                    <div className="ml-2 w-[40px] h-[40px] rounded-full bg-slate-700"></div>
-                    <div>facebook</div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-around items-center xl:my-2">
-                <span className="border-2 border-gray-500 bg-slate-500 w-[25%]"></span>
-                <div className="text-[12px] text-gray-500">
-                  hoặc đăng nhập bằng
-                </div>
-                <span className="border-2 border-gray-500 bg-slate-500 w-[25%]"></span>
-              </div>
-              <div className=" font-medium ">
-                <nav className="flex justify-center">
-                  {" "}
-                  <Link href="./register">
-                    <div
-                      className={
-                        router.asPath == "/register"
-                          ? "active   border-b-4 border-orange-500 text-orange-500 xl:p-2 p-1 "
-                          : "p-1  xl:p-2"
-                      }
-                    >
-                      Đăng Ký Sđt
-                    </div>
-                  </Link>
-                  <Link href="/register#email">
-                    <div
-                      className={
-                        router.asPath == "/register#email"
-                          ? "active   border-b-4 border-orange-500 text-orange-500  xl:p-2  p-1"
-                          : " xl:p-2 p-1"
-                      }
-                    >
-                      Đăng Ký Email
-                    </div>
-                  </Link>
-                </nav>
-                <div>
-                  {" "}
-                  <div
-                    className={
-                      router.asPath == "/register" ? "active block" : "hidden"
-                    }
-                  >
-                    <form className=" w-full" onSubmit={handleSubmit(onSubmit)}>
-                      <div className="mx-3 flex">
-                        <select className="w-[60px] py-1 mr-1 border my-1 rounded-md ">
-                          <option value="84">+84</option>
-                          <option value="B">Banana</option>
-                          <option value="C">Cranberry</option>
-                        </select>
-
-                        <input
-                          type="number"
-                          id="username"
-                          className="py-1 mx-auto border w-[100%] my-1 rounded-md "
-                          placeholder="Phone Number"
-                          {...register("name", { required: true })}
-                        />
-                        {errors.name?.type === "required" && (
-                          <span className="text-red-700">is required</span>
-                        )}
-                      </div>
-                      <div className="mx-3">
-                        <button
-                          placeholder=" gửi xác nhận "
-                          className="py-1 border w-[100%] rounded-md my-1"
-                        >
-                          {" "}
-                          gửi xác nhận
-                        </button>
-                      </div>
-                      <div className="mx-3">
-                        <button
-                          type="submit"
-                          className="w-full text-white bg-orange-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-normal rounded-lg   py-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                        >
-                          Đăng nhập
-                        </button>
-                      </div>
-                      <div className=" w-full  rounded-b-md mx-3 flex justify-around items-center">
-                        <span className="text-[12px]">
-                          {" "}
-                          <input type="radio" /> Nhớ mật khẩu{" "}
-                        </span>{" "}
-                        <Link href={"register"}>
-                          <button className=" bo-neutral-700 rounded-sm">
-                            {" "}
-                            <span className="text-[12px] px-1">
-                              Quên mật khẩu?
-                            </span>
-                          </button>
-                        </Link>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div>
-                  {" "}
-                  <div
-                    className={
-                      router.asPath == "/register#email"
-                        ? "active block"
-                        : "hidden"
-                    }
-                  >
-                    <form className=" w-full" onSubmit={handleSubmit(onSubmit)}>
-                      <div className="mx-3">
-                        <input
-                          type="text"
-                          id="username"
-                          className="py-1 mx-auto border w-[100%] my-1 rounded-md "
-                          placeholder="username"
-                          {...register("name", { required: true })}
-                        />
-                        {errors.name?.type === "required" && (
-                          <span className="text-red-700">is required</span>
-                        )}
-                      </div>
-                      <div className="mx-3">
-                        <input
-                          type="password"
-                          id="password"
-                          placeholder="••••••••"
-                          className="py-1 border w-[100%] rounded-md my-1"
-                          {...register("password", { required: true })}
-                        />
-                        {errors.password?.type === "required" && (
-                          <span className="text-red-700">is required</span>
-                        )}
-                      </div>
-
-                      <div className="mx-3">
-                        <button
-                          type="submit"
-                          className="w-full text-white bg-orange-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-normal rounded-lg   py-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                        >
-                          Đăng nhập
-                        </button>
-                      </div>
-                      <div className=" w-full  rounded-b-md mx-3 flex justify-around items-center">
-                        <span className="text-[12px]">
-                          {" "}
-                          <input type="radio" /> Nhớ mật khẩu{" "}
-                        </span>{" "}
-                        <Link href={"register"}>
-                          <button className=" bo-neutral-700 rounded-sm">
-                            {" "}
-                            <span className="text-[12px] px-1">
-                              Quên mật khẩu?
-                            </span>
-                          </button>
-                        </Link>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className=" w-full bg-[#FFA588] rounded-b-md py-1 px-3 mt-3 flex justify-around items-center">
-              <span className="text-[12px]"> Bạn đã có tài khoản ? </span>{" "}
-              <Link href={"login"}>
-                <button className="border-2 border-gray-50 bo-neutral-700 rounded-sm">
-                  {" "}
-                  <span className="text-[12px] px-1"> Đăng Nhập Ngay </span>
-                </button>
-              </Link>
-            </div>
+    <div className="container-base pt-[15px]">
+      <Head>
+        <title>Signup</title>
+      </Head>
+      <div className="menu_top ">
+        <span className="text-[#4d8a54]">
+          <a href="" className="text-[#000000]">
+            Trang chủ
+          </a>{" "}
+          / Đăng ký tài khoản
+        </span>
+      </div>
+      <div className="row pt-[60px] text-center">
+        <div className="page-login">
+          <h1 className="text-2xl font-semibold">Đăng ký</h1>
+          <div className="pt-[15px]">
+            {" "}
+            <span>
+              Đã có tài khoản, đăng nhập
+              <a href="" className="hover:text-[#4d8a54]">
+                {" "}
+                tại đây
+              </a>
+            </span>
           </div>
-          <div className="text-[12px] text-white font-normal text-center">
-            Bằng cách đăng ký hoặc đăng nhập, bạn đã hiểu và đồng ý với
+        </div>
+        <div className="section">
+          <form action="" onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-signup">
+              <div>
+                <input
+                  type="text"
+                  {...register("name", { required: "Vui lòng nhập họ tên" })}
+                  className="mt-[20px] px-[20px] outline-none border-solid border-[1px] border-[#e1e1e1] w-[100%] md:w-[30%] h-[40px]"
+                  placeholder="Họ tên"
+                />
+                <p className="text-red-400">{errors.name?.message}</p>
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  {...register("email", { required: "Vui lòng nhập email" })}
+                  className="mt-[17px] px-[20px] outline-none border-solid border-[1px] border-[#e1e1e1] w-[100%] md:w-[30%] h-[40px]"
+                  placeholder="Email"
+                />
+                <p className="text-red-400">{errors.email?.message}</p>
+              </div>
+
+              <div>
+                <input
+                  {...register("phone", { required: "Vui lòng nhập số điện thoại" })}
+                  type="text"
+                  className="mt-[17px] px-[20px] outline-none border-solid border-[1px] border-[#e1e1e1] w-[100%] md:w-[30%] h-[40px]"
+                  placeholder="Số điện thoại"
+                />
+                <p className="text-red-400">{errors.phone?.message}</p>
+              </div>
+
+              <div>
+                <input
+                  type="password"
+                  {...register("password", { required: "Vui lòng nhập mật khẩu" })}
+                  className="mt-[17px] px-[20px] outline-nonemt-[17px] outline-none border-solid border-[1px] border-[#e1e1e1] w-[100%] md:w-[30%] h-[40px]"
+                  placeholder="Mật khẩu"
+                />
+                <p className="text-red-400">{errors.password?.message}</p>
+              </div>
+            </div>
+            <button className="bg-[#4d8a54] text-white mt-[17px] w-[100%] md:w-[30%] h-[40px] font-semibold">
+              ĐĂNG KÝ
+            </button>
+          </form>
+          <div className="login-fb pt-[50px] pb-[50px]">
+            <p>Hoặc đăng nhập bằng</p>
+            <div className="pt-[20px]">
+              {" "}
+              <a href="">
+                <img
+                  src="https://bizweb.dktcdn.net/assets/admin/images/login/fb-btn.svg"
+                  className=""
+                  alt=""
+                  width={129}
+                  height={36}
+                />
+              </a>
+              <a href="">
+                <img
+                  src="https://bizweb.dktcdn.net/assets/admin/images/login/gp-btn.svg"
+                  className=""
+                  alt=""
+                  width={129}
+                  height={36}
+                />
+              </a>
+            </div>
           </div>
         </div>
       </div>

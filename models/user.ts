@@ -4,7 +4,7 @@ export interface Tuser {
     email: string
     phone?: string
     name?: string
-    role?: string
+    role?: any
     avatar?: string
 }
 export interface userErr {
