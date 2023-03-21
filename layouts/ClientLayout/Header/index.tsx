@@ -12,9 +12,9 @@ const index = (props: any) => {
   const listnav = [
     { name: "Trang Chủ", link: "/" },
     { name: "Giày", link: "/product" },
-    { name: "Cart", link: "/cart" },
-    { name: "tour", link: "/tours" },
-    { name: "tin tức", link: "/news" },
+    { name: "Giỏ Hàng", link: "/cart" },
+    { name: "Danh Mục", link: "/tours" },
+    { name: "Tin Tức", link: "/blog" },
   ];
   return (
     <div>
@@ -74,11 +74,14 @@ const index = (props: any) => {
               );
             })}
           </div> */}
-
-          <li className=" w-[40px] h-[18px] flex mx-2">VND</li>
-          <li> Đăng Ký</li>
+          {}
           <li>
             {" "}
+            <Link href={`./register`}>
+              <button>Đăng Ký</button>
+            </Link>
+          </li>
+          <li>
             <Link href={`./login`}>
               <span className=" bg-[#FF5722] lg:p-[14px] p-[12px] mx-2 rounded-xl font-bold text-white">
                 Đăng Nhập
@@ -182,7 +185,9 @@ const index = (props: any) => {
           <div className=" w-[40px] h-[18px]  mx-2 ">VND</div>
         </div>
         <div className="  flex  py-5 mx-auto border-t border-stone-300  w-full px-3">
-          <div> Đăng Ký</div>
+          <Link href={`./register`}>
+            <button>Đăng Ký</button>
+          </Link>
           <div>
             <Link href={`./login`}>
               <span className=" bg-[#FF5722] p-[10px] mx-3 rounded-xl font-bold text-white">

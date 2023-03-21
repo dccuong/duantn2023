@@ -161,7 +161,7 @@ const CheckoutPage = (props: Props) => {
               </div>
             </div>
           </div>
-          <div className="col-span-12 lg:col-span-4 border-l p-4 border-2 border-[#4d8a54] min-h-40">
+          <div className="col-span-12 lg:col-span-4 border-l p-4 border-2 border-[#ff5722] min-h-40">
             <h3 className="uppercase text-gray-500 font-semibold mb-3 text-lg">Đơn hàng của bạn</h3>
             <table className="w-full text-left">
               <thead>
@@ -196,7 +196,7 @@ const CheckoutPage = (props: Props) => {
                 </tr>
               </tfoot>
             </table>
-            <button className="mt-4 px-3 py-2 bg-[#4d8a54] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+            <button className="mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
               Đặt hàng
             </button>
           </div>

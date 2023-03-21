@@ -1,18 +1,8 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
+import { getAll } from "../../Api/productApi";
 import { Product } from "../../models/product";
-import { formatCurrency } from "../../untils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar,
-  faPlaneUp,
-  faHotel,
-  faClock,
-  faCalendarDays,
-} from "@fortawesome/free-solid-svg-icons";
-import { Carousel } from "antd";
 type Props = {
   products: Product[];
 };
@@ -89,8 +79,7 @@ const Product = ({ products }: Props) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("https://3953-27-76-236-105.ap.ngrok.io/api/product");
-  const products = await res.json();
+  const products = await await getAll();;
   return {
     props: {
       products,

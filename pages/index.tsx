@@ -1,7 +1,11 @@
-import React, { useState } from "react";
 import Head from "next/head";
-import { GetStaticProps } from "next";
-import { Tabs } from "antd";
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import Banner from "../component/Banner";
+import Carousel from "../component/Carousel";
+import { getSlider } from "../redux/sliderSlice";
+import { RootState } from "../redux/store";
 
 type Props = {
   hotels: any[];
@@ -10,40 +14,31 @@ type Props = {
 };
 
 const index = (props: Props) => {
-  const onChange = (key: string) => {
-    console.log(key);
-  };
+  const slide = useSelector((state: RootState) => state.slider.slider);
+  const dispatch = useDispatch<any>();
+  useEffect(() => {
+    dispatch(getSlider("6419df7b1f7f7523701e1093"));
+  }, [dispatch]);
+  console.log(slide, "Sss");
   return (
     <>
       <Head>
         <title>Home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="">
-      
-        {/* ssssssssssss */}
-        <div className=" mb-6 grid lg:grid-cols-2 grid-cols-1 gap-2 xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  mt-[40px]">
-          <div className="h-[] bg-slate-500 ">
-            {" "}
-            <img src="/ban1.png" alt="" className="h-full w-[100%]" />
-          </div>
-          <div className="h-[] bg-slate-500 ">
-            {" "}
-            <img src="/ban2.png" alt="" className="h-full w-[100%]" />
-          </div>
+      <div>
+        <div className="relative mt-0">
+          <Banner data={slide} />
+          {/* ssssssssssss */}
         </div>
-        {/* ssssssssssssssss */}
+
         <div className="flex justify-between xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  font-bold ">
           <span>Địa điểm gần đây</span>
           <span>Tất cả</span>
         </div>
-
         {/* sssssss */}
 
         {/* tour */}
-    
-
-        
 
         {/* <div className=" hidden  ">
           <div className=" text-[#FF5722] shadow-2xl hover:shadow-2xl">

@@ -57,7 +57,7 @@ const HomeProducts = ({ products }: HomeProductsProps) => {
               </div>
 
               <div className="text-center text-lg font-bold py-3">
-                <h3 className="hover:text-[#4d8a54]">
+                <h3 className="hover:text-[#ff5722]">
                   <Link href={`/product/${item.slug}`}>{item.name}</Link>
                 </h3>
                 <p>

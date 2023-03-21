@@ -20,7 +20,6 @@ import { formatCurrency } from "../../untils";
 
 type Props = {
   product: Product;
- 
 };
 
 const ProductDetail = ({ product }: Props) => {
