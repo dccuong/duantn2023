@@ -2,14 +2,14 @@ import axios from "axios";
 
 const axiosClient = axios.create({
 
-    baseURL: "http://localhost:8080/api/",
+    baseURL: "https://3953-27-76-236-105.ap.ngrok.io",
     headers: {
         "Content-Type": "application/json",
     },
 })
 
 export const axiosServer = axios.create({
-    baseURL: "http://localhost:8080/api/",
+    baseURL: "https://3953-27-76-236-105.ap.ngrok.io",
 
     headers: {
         "Content-Type": "application/json",
