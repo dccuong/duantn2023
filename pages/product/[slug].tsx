@@ -1,5 +1,6 @@
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { GetStaticProps, GetStaticPropsContext, GetStaticPaths } from "next";
 import Head from "next/head";
 
@@ -172,9 +173,8 @@ const ProductDetail = ({ product }: Props) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch("https://3953-27-76-236-105.ap.ngrok.io/api/product");
-  const data = await res.json();
-  const paths = data.map((product:any) => ({ params: { slug: product.slug } }));
+  const res = await getAll();
+  const paths = res.map((product:any) => ({ params: { slug: product.slug } }));
   return {
     paths,
     fallback: "blocking",
