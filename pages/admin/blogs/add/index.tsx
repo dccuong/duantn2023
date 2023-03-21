@@ -8,8 +8,9 @@ import { Router } from "react-router-dom";
 import { toast } from "react-toastify";
 import "suneditor/dist/css/suneditor.min.css"; // Import Sun Editor's CSS File to the _app.js
 import { AdminLayout } from "../../../../layouts";
-import { typeBlog } from "../../../../models/typeBlog";
-import { addBlogs } from "../../../../redux/blogSlice";
+import { Tblog } from "../../../../models/blogs";
+
+import { addBlog } from "../../../../redux/blogSlice";
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
   //besure to import dynamically
@@ -25,7 +26,7 @@ const Add = (props: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<typeBlog>();
+  } = useForm<Tblog>();
   let handle = (content: any) => {
     setSun(content);
   };
@@ -35,7 +36,7 @@ const Add = (props: Props) => {
       Content: sun,
     };
     console.log(data);
-    await dispatch(addBlogs(data)).unwrap();
+    await dispatch(addBlog(data)).unwrap();
     toast.success("Thêm bài viết thành công");
     router.push("/admin/blogs");
   };
@@ -74,9 +75,9 @@ const Add = (props: Props) => {
                       className="shadow appearance-none border rounded w-full py-2 px-3  mb-5 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       type="text"
                       placeholder="Name"
-                      {...register("Title", { required: true })}
+                      {...register("title", { required: true })}
                     />
-                    {errors.Title?.type === "required" && (
+                    {errors.title?.type === "required" && (
                       <span className="text-red-700">is required</span>
                     )}
 
