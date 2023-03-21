@@ -89,7 +89,7 @@ const Product = ({ products }: Props) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("http://localhost:8080/api/product");
+  const res = await fetch("https://3953-27-76-236-105.ap.ngrok.io/api/product");
   const products = await res.json();
   return {
     props: {

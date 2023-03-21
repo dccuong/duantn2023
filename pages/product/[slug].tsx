@@ -172,7 +172,7 @@ const ProductDetail = ({ product }: Props) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch("http://localhost:8080/api/product");
+  const res = await fetch("https://3953-27-76-236-105.ap.ngrok.io/api/product");
   const data = await res.json();
   const paths = data.map((product:any) => ({ params: { slug: product.slug } }));
   return {
