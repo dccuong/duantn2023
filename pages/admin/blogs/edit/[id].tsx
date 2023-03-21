@@ -6,10 +6,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "suneditor/dist/css/suneditor.min.css"; // Import Sun Editor's CSS File to the _app.js
-import { get } from "../../../../Api/newsApi";
+import { get } from "../../../../Api/blogApi";
 import { AdminLayout } from "../../../../layouts";
-import { typeBlog } from "../../../../models/typeBlog";
-import { getBlog, upBlogs } from "../../../../redux/blogSlice";
+import { Tblog } from "../../../../models/blogs";
+
+import { getBlog, updateBlog} from "../../../../redux/blogSlice";
 
 type Props = {};
 const Edit = (props: Props) => {
@@ -24,7 +25,7 @@ const Edit = (props: Props) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<typeBlog>();
+  } = useForm<Tblog>();
   const modules = {
     toolbar: [
       [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -103,14 +104,14 @@ const Edit = (props: Props) => {
     "video",
   ];
   const onSubmit: SubmitHandler<any> = async ({ Title }: any) => {
-    const data: typeBlog = {
-      ID: newid,
-      Title,
-      Content: value,
-      IsFeature: false,
+    const data: Tblog = {
+      _id: newid,
+      title:Title,
+      content: value,
+   
     };
     console.log(data);
-    await dispatch(upBlogs(data)).unwrap();
+    await dispatch(updateBlog(data)).unwrap();
     toast.success("Sửa bài viết thành công");
     router.push("/admin/blogs");
   };
@@ -118,13 +119,13 @@ const Edit = (props: Props) => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await get(newid);
+        const data = await get(newid);
         console.log("day la res", data);
         const response = { ...data };
         // const data = response.content;
         reset(response);
         console.log("data", response);
-        setValue(data.Content);
+        setValue(data.content);
       } catch (error) {
         console.log(error);
       }
@@ -165,7 +166,7 @@ const Edit = (props: Props) => {
                       className="shadow appearance-none border rounded w-full py-2 px-3  mb-5 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       type="text"
                       placeholder="Name"
-                      {...register("Title", { required: true })}
+                      {...register("title", { required: true })}
                     />
 
                     <button className=" bg-blue-500 rounded-md px-4 py-2 text-white mt-5">

@@ -1,11 +1,11 @@
 export interface Tblog {
-    _id?: string,
-    title: string,
-    slug: string,
-    thumbnail: string,
-    desc: string,
+    _id?: any
+    title?: string,
+    slug?: string,
+    thumbnail?: string,
+    desc?: string,
     content: string,
-    categoryId: {
+    categoryId?: {
         name: string
     },
 }

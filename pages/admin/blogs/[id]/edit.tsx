@@ -7,10 +7,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "suneditor/dist/css/suneditor.min.css"; // Import Sun Editor's CSS File to the _app.js
-import { get } from "../../../../Api/newsApi";
+import { get } from "../../../../Api/blogApi";
 import { AdminLayout } from "../../../../layouts";
-import { typeBlog } from "../../../../models/typeBlog";
-import { upBlogs } from "../../../../redux/blogSlice";
+import { Tblog } from "../../../../models/blogs";
+import { updateBlog } from "../../../../redux/blogSlice";
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
   //besure to import dynamically
@@ -31,19 +31,18 @@ const Edit = (props: Props) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<typeBlog>();
+  } = useForm<Tblog>();
   const handle = (content: any) => {
     setSun(content);
   };
   const onSubmit: SubmitHandler<any> = async ({ Title }: any) => {
-    const data: typeBlog = {
-      ID: newid,
-      Title,
-      Content: sun,
-      IsFeature: false,
+    const data: Tblog = {
+      _id: newid,
+      title:Title,
+      content: sun,
     };
     console.log(data);
-    await dispatch(upBlogs(data)).unwrap();
+    await dispatch(updateBlog(data)).unwrap();
     toast.success("Sửa bài viết thành công");
     router.push("/admin/blogs");
   };
@@ -51,13 +50,13 @@ const Edit = (props: Props) => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await get(newid);
+        const data= await get(newid);
         console.log("day la res", data);
         const response = { ...data };
         // const data = response.content;
         reset(data);
         console.log("data", data);
-        setSun2(data.Content);
+        setSun2(data.content);
       } catch (error) {
         console.log(error);
       }
@@ -98,7 +97,7 @@ const Edit = (props: Props) => {
                       className="shadow appearance-none border rounded w-full py-2 px-3  mb-5 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       type="text"
                       placeholder="Name"
-                      {...register("Title", { required: true })}
+                      {...register("title", { required: true })}
                     />
                     <SunEditor
                       autoFocus={true}

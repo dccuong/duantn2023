@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 
-
 type PrivateRouteProps = {
   children: any;
   roleAccept?: number;
@@ -11,7 +10,7 @@ type PrivateRouteProps = {
 
 const PrivateRoute = ({ children, roleAccept = 1 }: PrivateRouteProps) => {
   const isLogged = useSelector((state: RootState) => state.auth.isLogged);
-  const currentUser = useSelector((state: RootState) => state.auth.currentUser) as User;
+  const currentUser = useSelector((state: RootState) => state.auth.currentUser) as any;
   const router = useRouter();
 
   if (!isLogged) {

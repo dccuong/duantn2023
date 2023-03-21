@@ -15,7 +15,7 @@ export const add = (blog: Tblog): Promise<Tblog> => {
     return axiosClient.post("/news", blog);
 };
 
-export const get = (id: string): Promise<Tblog> => {
+export const get = (id: any): Promise<Tblog> => {
     return axiosServer.get(`/news/${id}`);
 };
 

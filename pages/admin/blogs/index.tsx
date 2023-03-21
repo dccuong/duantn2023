@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import React, { ReactElement, useState } from "react";
-import ListBlogs from "../../../component/admin/blog/ListBlog";
-import ListHotels from "../../../component/admin/hotel/ListHotels";
+
 import { AdminLayout } from "../../../layouts";
 
 
@@ -27,7 +26,7 @@ const Blogs = (props: Props) => {
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <ListBlogs />
+               
               </div>
             </div>
           </div>
