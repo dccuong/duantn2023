@@ -13,7 +13,6 @@ import { getSlider } from "../redux/sliderSlice";
 // };
 type Prop = {
   hight: string;
-  data:any
 };
 
 const Banner: any = (prop: Prop) => {
@@ -26,19 +25,19 @@ const Banner: any = (prop: Prop) => {
   return (
     <Carousel autoplay>
       <div className="">
-        <img src={prop.data.url1} alt="" className={"w-[100%] lg:h-screen "} />
+        <img src={slide?.url1} alt="" className={"w-[100%] lg:h-screen "} />
       </div>
       <div className="">
-        <img src={prop.data.url2} alt="" className={"w-[100%] lg:h-screen "} />
+        <img src={slide?.url2} alt="" className={"w-[100%] lg:h-screen "} />
       </div>
       <div className="">
-        <img src={prop.data.url3} alt="" className={"w-[100%] lg:h-screen "} />
+        <img src={slide?.url3} alt="" className={"w-[100%] lg:h-screen "} />
       </div>
       <div className="">
-        <img src={prop.data.url4} alt="" className={"w-[100%] lg:h-screen "} />
+        <img src={slide?.url4} alt="" className={"w-[100%] lg:h-screen "} />
       </div>
       <div className="">
-        <img src={prop.data.url5} alt="" className={"w-[100%] lg:h-screen "} />
+        <img src={slide?.url5} alt="" className={"w-[100%] lg:h-screen "} />
       </div>
     </Carousel>
   );
