@@ -1,25 +1,21 @@
+import { GetStaticProps } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+import { getAll } from "../Api/productApi";
 import Banner from "../component/Banner";
 import Carousel from "../component/Carousel";
 import { getSlider } from "../redux/sliderSlice";
 import { RootState } from "../redux/store";
+import Product from "./product";
 
 type Props = {
-  hotels: any[];
-  blogs: any[];
-  tour: any[];
+  products: any[];
 };
 
 const index = (props: Props) => {
-  const slide = useSelector((state: RootState) => state.slider.slider);
-  const dispatch = useDispatch<any>();
-  useEffect(() => {
-    dispatch(getSlider("6419df7b1f7f7523701e1093"));
-  }, [dispatch]);
-  console.log(slide, "Sss");
+  
   return (
     <>
       <Head>
@@ -28,13 +24,12 @@ const index = (props: Props) => {
       </Head>
       <div>
         <div className="relative mt-0">
-          <Banner data={slide} />
+          <Banner  />
           {/* ssssssssssss */}
         </div>
 
         <div className="flex justify-between xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  font-bold ">
-          <span>Địa điểm gần đây</span>
-          <span>Tất cả</span>
+       <Product  products={props.products}/>
         </div>
         {/* sssssss */}
 
@@ -182,17 +177,15 @@ const index = (props: Props) => {
   );
 };
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   let responseHotel = await fetch(
-//     "http://178.128.84.143:8080/api/v1/hotel?page=1&pageSize=8",
-//     {
-//       method: "GET",
-//       headers: {
-//         Authorization:
-//           "Basic " + btoa("tripfinder:438d25c3665d6c9d5535f1cbc41c3710"),
-//       },
-//     }
-//   );
+export const getStaticProps: GetStaticProps = async () => {
+  const products = await await getAll();;
+  return {
+    props: {
+      products,
+    },
+    revalidate: 60,
+  };
+};
 //   let responseTour = await fetch(
 //     "http://178.128.84.143:8080/api/v1/tour?page=1&pageSize=8",
 //     {

@@ -147,10 +147,10 @@ const AdminMenu = (props: Props) => {
             </div>
           </span>
         </Link>
-        <Link href="/admin/danhmuc">
+        <Link href="/admin/prdCates">
           <span
             className={
-              router.asPath == "/admin/danhmuc"
+              router.asPath == "/admin/prdCates"
                 ? "active flex items-center justify-between px-4 py-3 transition cursor-pointer group bg-gray-800 text-gray-200  "
                 : " flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200 "
             }

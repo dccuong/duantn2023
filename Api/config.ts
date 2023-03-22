@@ -2,14 +2,14 @@ import axios from "axios";
 
 const axiosClient = axios.create({
 
-    baseURL: "http://localhost:8080/api/",
+    baseURL: "https://duantn2023.onrender.com/api/",
     headers: {
         "Content-Type": "application/json",
     },
 })
 
 export const axiosServer = axios.create({
-    baseURL: "http://localhost:8080/api/",
+    baseURL: "https://duantn2023.onrender.com/api/",
 
     headers: {
         "Content-Type": "application/json",

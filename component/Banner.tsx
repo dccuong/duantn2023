@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
 import { Carousel } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { getSlider } from "../redux/sliderSlice";
 // const contentStyle: React.CSSProperties = {
 //   height: "160px",
 //   color: "#fff",
@@ -15,7 +17,12 @@ type Prop = {
 };
 
 const Banner: any = (prop: Prop) => {
-  console.log(prop.hight);
+    const slide = useSelector((state: RootState) => state.slider.slider);
+    const dispatch = useDispatch<any>();
+    useEffect(() => {
+      dispatch(getSlider("641a788168e7709108d74825"));
+    }, [dispatch]);
+    console.log(slide, "Sss");
   return (
     <Carousel autoplay>
       <div className="">
