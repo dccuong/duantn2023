@@ -1,13 +1,19 @@
+import crypto from "crypto";
+import dateFormat from "dateformat";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { add, addOrderDetail } from "../../Api/orderApi";
 import CartNav from "../../component/CartNav";
 import { Tuser } from "../../models/user";
-import { finishOrder, selectCarts, selectTotalPrice } from "../../redux/cartSlice";
+import {
+  finishOrder,
+  selectCarts,
+  selectTotalPrice,
+} from "../../redux/cartSlice";
 import { RootState } from "../../redux/store";
 import { formatCurrency } from "../../untils";
 
@@ -23,12 +29,42 @@ type Inputs = {
 
 const CheckoutPage = (props: Props) => {
   const isLogged = useSelector((state: RootState) => state.auth.isLogged);
-  const currentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
+  const currentUser = useSelector(
+    (state: RootState) => state.auth.currentUser
+  ) as Tuser;
   const carts = useSelector(selectCarts);
   const totalPrice = useSelector(selectTotalPrice);
   const dispatch = useDispatch();
   const router = useRouter();
+  const vnPayy = (vnp_Amount: any, namePrd: any) => {
+    let date = new Date();
+    let createDate =Number(dateFormat(date,"yyyymmddHHmmss"))+700;
+console.log(createDate,"createDate")
+    let vnp_TxnRef = "100";
+    console.log(vnp_Amount);
+     const vnp_ExpireDate=createDate+30000
+     console.log(vnp_ExpireDate,"s")
+    let signData = `vnp_Amount=${
+      Number(vnp_Amount) * 100
+    }&vnp_Command=pay&vnp_CreateDate=${String(createDate)}&vnp_CurrCode=VND&vnp_ExpireDate=20240324214049&vnp_IpAddr=192.168.0.102&vnp_Locale=vn&vnp_OrderInfo=thanh+toan+don+hang&vnp_OrderType=other&vnp_ReturnUrl=https%3A%2F%2Fduantn2023-5eeyjqq2h-dccuong.vercel.app%2F&vnp_TmnCode=OG4BJSNB&vnp_TxnRef=123&vnp_Version=2.1.0` as string;
 
+    //var signed = crypto.createHmac("sha512", secretKey).update(signData).digest("hex");
+
+    let hmac = crypto.createHmac("sha512", "ZPTGSZUBDGKRWWSRAEPICFEUDQSOUJMO");
+
+    //passing the data to be hashed
+    let data = hmac.update(signData);
+    //Creating the hmac in the required format
+    let gen_hmac = data.digest("hex");
+    console.log(gen_hmac, "gen_hmac");
+    let vnpUrl = signData + "&vnp_SecureHash=" + gen_hmac;
+    console.log(
+      `https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?${String(vnpUrl)}`,
+      "vnpUrl"
+    );
+
+    // router.push(`https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?${String(vnpUrl)}`);
+  };
   const {
     register,
     handleSubmit,
@@ -39,7 +75,11 @@ const CheckoutPage = (props: Props) => {
   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
     try {
       // save cart
-      const order = await add({ ...values, totalPrice, userId: isLogged ? currentUser._id : "" });
+      const order = await add({
+        ...values,
+        totalPrice,
+        userId: isLogged ? currentUser._id : "",
+      });
 
       // save order detail
       carts.forEach(async ({ productId, productPrice, quantity }) => {
@@ -48,6 +88,7 @@ const CheckoutPage = (props: Props) => {
           productId,
           productPrice,
           quantity,
+          pay: false,
         });
       });
 
@@ -79,10 +120,16 @@ const CheckoutPage = (props: Props) => {
       <CartNav />
 
       <div className="form-checkout__page">
-        <form action="" className="mx-auto px-3 mt-10 mb-9 grid grid-cols-12 gap-5" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          action=""
+          className="mx-auto px-3 mt-10 mb-9 grid grid-cols-12 gap-5"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="col-span-12 lg:col-span-8 border-t-2 pt-3">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="uppercase text-gray-500 font-semibold text-lg">Thông tin thanh toán</h3>
+              <h3 className="uppercase text-gray-500 font-semibold text-lg">
+                Thông tin thanh toán
+              </h3>
             </div>
             <div className="grid grid-cols-12 gap-x-4">
               <div className="col-span-6 mb-3">
@@ -91,11 +138,15 @@ const CheckoutPage = (props: Props) => {
                 </label>
                 <input
                   type="text"
-                  {...register("customerName", { required: "Vui lòng nhập họ tên" })}
+                  {...register("customerName", {
+                    required: "Vui lòng nhập họ tên",
+                  })}
                   className="shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-none focus:shadow-[0_0_5px_#ccc] w-full border px-2 h-10 text-sm outline-none"
                   placeholder="Nhập đầy đủ họ tên"
                 />
-                <p className="text-red-500 text-sm">{errors.customerName?.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.customerName?.message}
+                </p>
               </div>
               <div className="col-span-6 mb-3">
                 <label htmlFor="" className="font-semibold mb-1 block">
@@ -139,14 +190,20 @@ const CheckoutPage = (props: Props) => {
                 </label>
                 <input
                   type="text"
-                  {...register("address", { required: "Vui lòng nhập địa chỉ người nhận" })}
+                  {...register("address", {
+                    required: "Vui lòng nhập địa chỉ người nhận",
+                  })}
                   className="shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-none focus:shadow-[0_0_5px_#ccc] w-full border px-2 h-10 text-sm outline-none"
                   placeholder="Địa chỉ"
                 />
-                <p className="text-red-500 text-sm">{errors.address?.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.address?.message}
+                </p>
               </div>
             </div>
-            <h3 className="uppercase text-gray-500 font-semibold my-2 text-lg">Thông tin bổ sung</h3>
+            <h3 className="uppercase text-gray-500 font-semibold my-2 text-lg">
+              Thông tin bổ sung
+            </h3>
             <div className="grid grid-cols-12">
               <div className="col-span-12 mb-3">
                 <label htmlFor="" className="font-semibold mb-1 block">
@@ -162,12 +219,18 @@ const CheckoutPage = (props: Props) => {
             </div>
           </div>
           <div className="col-span-12 lg:col-span-4 border-l p-4 border-2 border-[#ff5722] min-h-40">
-            <h3 className="uppercase text-gray-500 font-semibold mb-3 text-lg">Đơn hàng của bạn</h3>
+            <h3 className="uppercase text-gray-500 font-semibold mb-3 text-lg">
+              Đơn hàng của bạn
+            </h3>
             <table className="w-full text-left">
               <thead>
                 <tr>
-                  <th className="uppercase text-gray-500 text-sm pb-1.5 border-b-2">Sản phẩm</th>
-                  <th className="uppercase text-gray-500 text-sm pb-1.5 border-b-2 text-right">Tổng</th>
+                  <th className="uppercase text-gray-500 text-sm pb-1.5 border-b-2">
+                    Sản phẩm
+                  </th>
+                  <th className="uppercase text-gray-500 text-sm pb-1.5 border-b-2 text-right">
+                    Tổng
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -188,17 +251,31 @@ const CheckoutPage = (props: Props) => {
               <tfoot>
                 <tr className="border-b">
                   <td className="font-semibold text-sm py-2">Tạm tính</td>
-                  <td className="font-semibold text-right">{formatCurrency(totalPrice)}</td>
+                  <td className="font-semibold text-right">
+                    {formatCurrency(totalPrice)}
+                  </td>
                 </tr>
                 <tr className="border-b">
                   <td className="font-semibold text-sm py-2">Tổng</td>
-                  <td className="font-semibold text-right">{formatCurrency(totalPrice)}</td>
+                  <td className="font-semibold text-right">
+                    {formatCurrency(totalPrice)}
+                  </td>
                 </tr>
               </tfoot>
             </table>
-            <button className="mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
-              Đặt hàng
-            </button>
+            <div>
+              <div
+                onClick={() => {
+                  vnPayy(totalPrice, totalPrice);
+                }}
+                className="mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]"
+              >
+                Đặt hàng và thanh toán
+              </div>
+              <button className="mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+                Thanh toán khi nhận hàng
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -206,4 +283,4 @@ const CheckoutPage = (props: Props) => {
   );
 };
 
-export default CheckoutPage
+export default CheckoutPage;
