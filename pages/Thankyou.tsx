@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useEffect} from "react";
 import crypto from "crypto";
 import { useDispatch, useSelector } from "react-redux";
 import { finishOrder, selectCarts, selectTotalPrice } from "../redux/cartSlice";
@@ -61,15 +61,16 @@ const Thankyou = (props: Props) => {
             dispatch(finishOrder());
             toast.success("Đặt hàng thành công");
       }
-      createOrder()
+    return  createOrder()
       } catch (error) {
         toast.error("Có lỗi xảy ra, vui lòng thử lại");
       }
   }else if(vnp_TransactionStatus==null) {
     title="giao dịch không thành công "
   }
-  
-  let hmac = crypto.createHmac("sha512", "ZPTGSZUBDGKRWWSRAEPICFEUDQSOUJMO");
+  useEffect(() => {
+ 
+  }, []);
   return <div>
     <div className="container-base pt-[15px]">
       <Head>
