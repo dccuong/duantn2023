@@ -2,7 +2,7 @@ import crypto from "crypto";
 import dateFormat from "dateformat";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -29,6 +29,7 @@ type Inputs = {
 
 const CheckoutPage = (props: Props) => {
   const isLogged = useSelector((state: RootState) => state.auth.isLogged);
+  const [checPay, setCheckPay] = useState(false);
   const currentUser = useSelector(
     (state: RootState) => state.auth.currentUser
   ) as Tuser;
@@ -36,17 +37,22 @@ const CheckoutPage = (props: Props) => {
   const totalPrice = useSelector(selectTotalPrice);
   const dispatch = useDispatch();
   const router = useRouter();
-  const vnPayy = (vnp_Amount: any, namePrd: any) => {
+  const vnPayy = (vnp_Amount: any) => {
     let date = new Date();
-    let createDate =Number(dateFormat(date,"yyyymmddHHmmss"))+700;
-console.log(createDate,"createDate")
-    let vnp_TxnRef = "100";
+    let createDate = Number(dateFormat(date, "yyyymmddHHmmss")) + 700;
+    console.log(createDate, "createDate");
     console.log(vnp_Amount);
-     const vnp_ExpireDate=createDate+30000
-     console.log(vnp_ExpireDate,"s")
+    const vnp_ExpireDate = createDate + 30000;
+    console.log(vnp_ExpireDate, "s");
     let signData = `vnp_Amount=${
       Number(vnp_Amount) * 100
-    }&vnp_Command=pay&vnp_CreateDate=${String(createDate)}&vnp_CurrCode=VND&vnp_ExpireDate=20240324214049&vnp_IpAddr=192.168.0.102&vnp_Locale=vn&vnp_OrderInfo=thanh+toan+don+hang&vnp_OrderType=other&vnp_ReturnUrl=https%3A%2F%2Fduantn2023-5eeyjqq2h-dccuong.vercel.app%2F&vnp_TmnCode=OG4BJSNB&vnp_TxnRef=123&vnp_Version=2.1.0` as string;
+    }&vnp_Command=pay&vnp_CreateDate=${String(
+      createDate
+    )}&vnp_CurrCode=VND&vnp_ExpireDate=${String(
+      createDate + 3000
+    )}&vnp_IpAddr=192.168.0.101&vnp_Locale=vn&vnp_OrderInfo=thanh+toan+don+hang&vnp_OrderType=other&vnp_ReturnUrl=https%3A%2F%2Fduantn2023-git-dev-dccuong.vercel.app%2FThankyou&vnp_TmnCode=OG4BJSNB&vnp_TxnRef=${String(
+      createDate
+    )}&vnp_Version=2.1.0` as string;
 
     //var signed = crypto.createHmac("sha512", secretKey).update(signData).digest("hex");
 
@@ -64,6 +70,7 @@ console.log(createDate,"createDate")
     );
 
     // router.push(`https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?${String(vnpUrl)}`);
+
   };
   const {
     register,
@@ -73,30 +80,35 @@ console.log(createDate,"createDate")
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
-    try {
-      // save cart
-      const order = await add({
-        ...values,
-        totalPrice,
-        userId: isLogged ? currentUser._id : "",
-      });
-
-      // save order detail
-      carts.forEach(async ({ productId, productPrice, quantity }) => {
-        await addOrderDetail({
-          orderId: order?._id!,
-          productId,
-          productPrice,
-          quantity,
-          pay: false,
+    if (checPay == false) {
+      try {
+        // save cart
+        const order = await add({
+          ...values,
+          totalPrice,
+          userId: isLogged ? currentUser._id : "",
         });
-      });
 
-      dispatch(finishOrder());
-      router.push("/thankyou");
-      toast.success("Đặt hàng thành công");
-    } catch (error) {
-      toast.error("Có lỗi xảy ra, vui lòng thử lại");
+        // save order detail
+        carts.forEach(async ({ productId, productPrice, quantity }) => {
+          await addOrderDetail({
+            orderId: order?._id!,
+            productId,
+            productPrice,
+            quantity,
+            pay: false,
+          });
+        });
+
+        dispatch(finishOrder());
+        router.push("/thankyou");
+        toast.success("Đặt hàng thành công");
+      } catch (error) {
+        toast.error("Có lỗi xảy ra, vui lòng thử lại");
+      }
+    } else {    
+      localStorage.setItem("order", JSON.stringify(values));
+      vnPayy(totalPrice);
     }
   };
 
@@ -264,15 +276,15 @@ console.log(createDate,"createDate")
               </tfoot>
             </table>
             <div>
-              <div
+              <button
                 onClick={() => {
-                  vnPayy(totalPrice, totalPrice);
+                  setCheckPay(true);
                 }}
-                className="mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]"
+                className="mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)] "
               >
                 Đặt hàng và thanh toán
-              </div>
-              <button className="mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+              </button>
+              <button className="w-[100%] mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
                 Thanh toán khi nhận hàng
               </button>
             </div>
