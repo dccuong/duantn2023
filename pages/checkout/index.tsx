@@ -69,7 +69,7 @@ const CheckoutPage = (props: Props) => {
       "vnpUrl"
     );
 
-    // router.push(`https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?${String(vnpUrl)}`);
+    router.push(`https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?${String(vnpUrl)}`);
 
   };
   const {
