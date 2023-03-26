@@ -101,7 +101,7 @@ const CheckoutPage = (props: Props) => {
         });
 
         dispatch(finishOrder());
-        router.push("/thankyou");
+        router.push("/Thankyou");
         toast.success("Đặt hàng thành công");
       } catch (error) {
         toast.error("Có lỗi xảy ra, vui lòng thử lại");
@@ -280,11 +280,13 @@ const CheckoutPage = (props: Props) => {
                 onClick={() => {
                   setCheckPay(true);
                 }}
-                className="mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)] "
+                className="w-[100%] mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)] "
               >
                 Đặt hàng và thanh toán
               </button>
-              <button className="w-[100%] mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+              <button   onClick={() => {
+                  setCheckPay(false);
+                }} className="w-[100%] mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
                 Thanh toán khi nhận hàng
               </button>
             </div>
