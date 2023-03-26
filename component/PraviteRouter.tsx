@@ -16,7 +16,7 @@ const PrivateRoute = ({ children, roleAccept = 1 }: PrivateRouteProps) => {
   if (!isLogged) {
     router.push("/login");
     return;
-  } else if (currentUser.role !== 0 && currentUser.role !== roleAccept) {
+  } else if (currentUser.role == 0 && currentUser.role !== roleAccept) {
     router.push("/");
     return;
   }
