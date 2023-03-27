@@ -1,19 +1,65 @@
+import { faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import Typewriter from "typewriter-effect";
+import { searchProduct } from "../../../Api/productApi";
+import { Tuser } from "../../../models/user";
+import { selectCarts } from "../../../redux/cartSlice";
+import { getprdCates } from "../../../redux/prdCateSlice";
+import { RootState } from "../../../redux/store";
+import { formatCurrency } from "../../../untils";
 
 const index = (props: any) => {
+  const isLogged = useSelector((state: RootState) => state.auth.isLogged);
+  const curentUser = useSelector(
+    (state: RootState) => state.auth.currentUser
+  ) as Tuser;
+  const router = useRouter();
+  const cateProduct = useSelector((state: RootState) => state.prdCate.prdCates);
+  const dispatch = useDispatch<any>();
+  const carts = useSelector(selectCarts);
+  const [search, setSearch] = useState("");
+  const [productsSearch, setProductsSearch] = useState<any[]>();
   const [show, setshow] = useState(false);
   const [typing, setTyping] = useState(true);
-  const router = useRouter();
+  const handleSearchChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const searchStr = e.target.value;
+    setSearch(searchStr);
+    const products = await searchProduct(searchStr);
+    setProductsSearch(products);
+  };
+
+  const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!search.trim()) {
+      toast.info("Vui lòng nhập tên SP");
+      return;
+    }
+
+    router.push(`/search/${search}`);
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await dispatch(getprdCates()).unwrap();
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [dispatch]);
   const listnav = [
     { name: "Trang Chủ", link: "/" },
     { name: "Giày", link: "/product" },
     { name: "Giỏ Hàng", link: "/cart" },
-    { name: "Danh Mục", link: "/tours" },
+    { name: "Danh Mục", link: "/prdCate" },
     { name: "Tin Tức", link: "/blog" },
   ];
   return (
@@ -26,38 +72,49 @@ const index = (props: any) => {
               alt=""
             />
           </div>
-          <div className="flex justify-center">
-            <div className="relative">
-              <div
-                className={typing ? `absolute top-1 md:top-2 left-5` : "hidden"}
-              >
-                {
-                  <Typewriter
-                    options={{
-                      strings: ["Search nowww!"],
-                      autoStart: true,
-                      loop: true,
-                    }}
+   
+          <div className="relative group flex items-center ml-3 cursor-pointer border-1px ">
+              <FontAwesomeIcon icon={faSearch} className="text-base" />
+              <span className="ml-1 group-hover:text-[#282828]">Tìm kiếm</span>
+
+              <div className="hidden min-w-[280px] z-20 group-hover:block absolute top-full -right-[100px] bg-white shadow p-3 opacity-100">
+                <form action="" className="flex" onSubmit={handleSearchSubmit}>
+                  <input
+                    type="text"
+                    onChange={handleSearchChange}
+                    className="text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-none focus:shadow-[0_0_5px_#ccc] flex-1 border px-2 h-8 text-sm outline-none"
+                    placeholder="Nhập tên sản phẩm"
                   />
-                }
-                <button
-                  className={
-                    typing ? "hidden" : ` absolute top-1 md:top-2 right-0`
-                  }
-                ></button>
+                  <button className="px-3 bg-[#FF5722] transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+                    <FontAwesomeIcon icon={faSearch} />
+                  </button>
+                </form>
+
+                <ul className="mt-3 grid grid-cols-1 divide-y max-h-[70vh] overflow-y-auto">
+                  {search && !productsSearch?.length && <p className="text-black">Không tìm thấy SP!</p>}
+
+                  {productsSearch?.map((item, index) => (
+                    <li key={index}>
+                      <Link href={`/product/${item.slug}`}>
+                        <div className="flex py-2 transition duration-200 hover:bg-gray-50 hover:text-[#D9A953] text-black items-center px-2">
+                          <div className="w-10 h-10 object-cover rounded-full relative">
+                            {item.image && (
+                              <img
+                                src={item.image}
+                                className="w-10 h-10 object-cover rounded-full bg-[#f7f7f7]"
+                                alt=""
+                              />
+                            )}
+                          </div>
+                          <p className="pl-1 pr-2 normal-case font-normal">{item.name}</p>
+                          <p className="font-medium ml-auto">{formatCurrency(item.price)}</p>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <input
-                type="search"
-                className="mx-3 form-control block 2xl:w-[110%] w-[80%] px-3 h-[30px]  md:h-[35px] text-base font-normal
-        text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-2xl transition ease-in-out m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
-                onClick={() => {
-                  setTyping(false);
-                }}
-              />
             </div>
-          </div>
         </div>
 
         <ul className="hidden md:flex items-center mt-3  ">
@@ -74,20 +131,31 @@ const index = (props: any) => {
               );
             })}
           </div> */}
-          {}
-          <li>
-            {" "}
-            <Link href={`./register`}>
-              <button>Đăng Ký</button>
-            </Link>
-          </li>
-          <li>
-            <Link href={`./login`}>
-              <span className=" bg-[#FF5722] lg:p-[14px] p-[12px] mx-2 rounded-xl font-bold text-white">
-                Đăng Nhập
+          {isLogged ? (
+            <li className="relative flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">
+              <FontAwesomeIcon icon={faUser} className="text-base" />
+              <span className="ml-1 hover:text-[#282828]">
+                <Link href={curentUser.role ? "/admin" : "/profile"}>
+                  {curentUser.name}
+                </Link>
               </span>
-            </Link>
-          </li>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link href={`/register`}>
+                  <button>Đăng Ký</button>
+                </Link>
+              </li>
+              <li>
+                <Link href={`/login`}>
+                  <span className=" bg-[#FF5722] lg:p-[14px] p-[12px] mx-2 rounded-xl font-bold text-white">
+                    Đăng Nhập
+                  </span>
+                </Link>
+              </li>{" "}
+            </>
+          )}
         </ul>
 
         <div
@@ -152,24 +220,7 @@ const index = (props: any) => {
           </svg>
         </div>
 
-        {/* <div
-          id="MobileNavigation"
-          className={`${show ? "block" : "hidden"} sm:hidden mt-4 mx-auto`}
-        >
-          <ul className="flex items-center mt-3">
-            <li className=" w-[40px] h-[18px] flex">
-              <img src="/image 11.png" alt="" />
-            </li>
-            <li className=" w-[40px] h-[18px] flex mx-2">VND</li>
-            <li> Đăng Ký</li>
-            <li>
-              {" "}
-              <span className=" bg-[#FF5722] p-[14px] mx-3 rounded-xl font-bold text-white">
-                Đăng Nhập
-              </span>
-            </li>
-          </ul>
-        </div> */}
+       
       </div>
       {/* ssssssssssss */}
       <div

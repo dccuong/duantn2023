@@ -45,7 +45,7 @@ const Product = ({ products }: Props) => {
                           />
                         </div>
                         <div className="mx-3 mt-2">
-                          <span className="  text-[12px]">Pacgake tour </span>
+                          <span className="  text-[12px]">Sản Phẩm </span>
                           <div className=" md:text-[21px] text-[18px]   text-black font-medium ">
                           {item.name}
                           </div>

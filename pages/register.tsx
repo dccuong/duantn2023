@@ -32,7 +32,7 @@ const Register: NextPage<any> = ({ providers}) => {
       await addUser(values);
       reset();
       toast.success("Đăng ký thành công, vui lòng đăng nhập");
-      router.push("/signin");
+      router.push("/login");
     } catch (error) {
       console.log(error);
       toast.error("Có lỗi xảy ra, vui lòng thử lại");

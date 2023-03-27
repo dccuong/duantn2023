@@ -157,7 +157,7 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
                     <td>{++index}</td>
                     <td className="py-2 flex items-center">
                       <div className="w-10 h-10 object-cover relative">
-                        {item.product?.image && <Image src={item.product?.image} alt="" layout="fill" />}
+                        {item.product?.image && <img src={item.product?.image} alt="" width={"fill"} />}
                       </div>
 
                       <div className="pl-3">
