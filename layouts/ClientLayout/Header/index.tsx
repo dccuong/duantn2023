@@ -22,6 +22,7 @@ const index = (props: any) => {
   ) as Tuser;
   const router = useRouter();
   const cateProduct = useSelector((state: RootState) => state.prdCate.prdCates);
+  console.log(cateProduct, "ssssssss");
   const dispatch = useDispatch<any>();
   const carts = useSelector(selectCarts);
   const [search, setSearch] = useState("");
@@ -59,7 +60,6 @@ const index = (props: any) => {
     { name: "Trang Chủ", link: "/" },
     { name: "Giày", link: "/product" },
     { name: "Giỏ Hàng", link: "/cart" },
-    { name: "Danh Mục", link: "/prdCate" },
     { name: "Tin Tức", link: "/blog" },
   ];
   return (
@@ -72,65 +72,58 @@ const index = (props: any) => {
               alt=""
             />
           </div>
-   
+
           <div className="relative group flex items-center ml-3 cursor-pointer border-1px ">
-              <FontAwesomeIcon icon={faSearch} className="text-base" />
-              <span className="ml-1 group-hover:text-[#282828]">Tìm kiếm</span>
+            <FontAwesomeIcon icon={faSearch} className="text-base" />
+            <span className="ml-1 group-hover:text-[#282828]">Tìm kiếm</span>
 
-              <div className="hidden min-w-[280px] z-20 group-hover:block absolute top-full -right-[100px] bg-white shadow p-3 opacity-100">
-                <form action="" className="flex" onSubmit={handleSearchSubmit}>
-                  <input
-                    type="text"
-                    onChange={handleSearchChange}
-                    className="text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-none focus:shadow-[0_0_5px_#ccc] flex-1 border px-2 h-8 text-sm outline-none"
-                    placeholder="Nhập tên sản phẩm"
-                  />
-                  <button className="px-3 bg-[#FF5722] transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
-                    <FontAwesomeIcon icon={faSearch} />
-                  </button>
-                </form>
+            <div className="hidden min-w-[280px] z-20 group-hover:block absolute top-full -right-[100px] bg-white shadow p-3 opacity-100">
+              <form action="" className="flex" onSubmit={handleSearchSubmit}>
+                <input
+                  type="text"
+                  onChange={handleSearchChange}
+                  className="text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-none focus:shadow-[0_0_5px_#ccc] flex-1 border px-2 h-8 text-sm outline-none"
+                  placeholder="Nhập tên sản phẩm"
+                />
+                <button className="px-3 bg-[#FF5722] transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+                  <FontAwesomeIcon icon={faSearch} />
+                </button>
+              </form>
 
-                <ul className="mt-3 grid grid-cols-1 divide-y max-h-[70vh] overflow-y-auto">
-                  {search && !productsSearch?.length && <p className="text-black">Không tìm thấy SP!</p>}
+              <ul className="mt-3 grid grid-cols-1 divide-y max-h-[70vh] overflow-y-auto">
+                {search && !productsSearch?.length && (
+                  <p className="text-black">Không tìm thấy SP!</p>
+                )}
 
-                  {productsSearch?.map((item, index) => (
-                    <li key={index}>
-                      <Link href={`/product/${item.slug}`}>
-                        <div className="flex py-2 transition duration-200 hover:bg-gray-50 hover:text-[#D9A953] text-black items-center px-2">
-                          <div className="w-10 h-10 object-cover rounded-full relative">
-                            {item.image && (
-                              <img
-                                src={item.image}
-                                className="w-10 h-10 object-cover rounded-full bg-[#f7f7f7]"
-                                alt=""
-                              />
-                            )}
-                          </div>
-                          <p className="pl-1 pr-2 normal-case font-normal">{item.name}</p>
-                          <p className="font-medium ml-auto">{formatCurrency(item.price)}</p>
+                {productsSearch?.map((item, index) => (
+                  <li key={index}>
+                    <Link href={`/product/${item.slug}`}>
+                      <div className="flex py-2 transition duration-200 hover:bg-gray-50 hover:text-[#D9A953] text-black items-center px-2">
+                        <div className="w-10 h-10 object-cover rounded-full relative">
+                          {item.image && (
+                            <img
+                              src={item.image}
+                              className="w-10 h-10 object-cover rounded-full bg-[#f7f7f7]"
+                              alt=""
+                            />
+                          )}
                         </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                        <p className="pl-1 pr-2 normal-case font-normal">
+                          {item.name}
+                        </p>
+                        <p className="font-medium ml-auto">
+                          {formatCurrency(item.price)}
+                        </p>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
+          </div>
         </div>
 
         <ul className="hidden md:flex items-center mt-3  ">
-          {/* <div>
-            {locales?.map((l, i) => {
-              return (
-                <span key={i}>
-                  <li className=" w-[40px] h-[18px] flex">
-                    <Link href={asPath} locale={l}>
-                      {l}
-                    </Link>
-                  </li>
-                </span>
-              );
-            })}
-          </div> */}
           {isLogged ? (
             <li className="relative flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">
               <FontAwesomeIcon icon={faUser} className="text-base" />
@@ -219,8 +212,6 @@ const index = (props: any) => {
             />
           </svg>
         </div>
-
-       
       </div>
       {/* ssssssssssss */}
       <div
@@ -253,7 +244,6 @@ const index = (props: any) => {
               className="mr-[15px] md:mr-[25px] lg:mr-[70px] mt-2"
               key={index}
             >
-              {" "}
               <Link href={item.link}>
                 <span
                   className={
@@ -262,11 +252,38 @@ const index = (props: any) => {
                       : "px-1"
                   }
                 >
+                  {item.name == "Giỏ Hàng" ? (
+                    <label className="absolute text-xs w-5 h-5 font-semibold flex justify-center items-center border-2 border-[#4d8a54] rounded-full left-[10px] -top-[10px] bg-white text-primary">
+                      {carts.length}
+                    </label>
+                  ) : null}
                   {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
                 </span>
               </Link>
             </li>
           ))}
+          <li
+            className={`z-[50] group relative font-bold hover:text-[#4d8a54] cursor-pointer text-[#282828] mx-3 ${
+              router.pathname === "/product" && "text-primary"
+            }`}
+          >
+            <div className="flex">
+              <Link href="/product">Danh Mục</Link>
+            </div>
+
+            <ul className="bg-white hidden group-hover:block absolute top-full left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
+              {cateProduct?.map((item, index) => (
+                <Link href={`/cateproduct/${item._id}`}>
+                  <li
+                    key={index}
+                    className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]"
+                  >
+                    {item.name}
+                  </li>
+                </Link>
+              ))}
+            </ul>
+          </li>
         </ul>
       </div>
       {/* ssssssss */}
@@ -274,7 +291,6 @@ const index = (props: any) => {
         <ul className="flex pt-[10px] md:pt-[18px] text-[14px] md:text-[16px] xl:mx-[200px]  lg:mx-[100px] md:mx-[90px]  sm:mx-[60px] mx-[10px] font-medium">
           {listnav.map((item, index) => (
             <li className="" key={index}>
-              {" "}
               <Link href={item.link}>
                 <span
                   className={
@@ -288,6 +304,28 @@ const index = (props: any) => {
               </Link>
             </li>
           ))}
+          <li
+            className={`z-[50] group relative font-medium cursor-pointer text-[#282828] mx-3 ${
+              router.pathname === "/product" && "text-primary"
+            }`}
+          >
+            <Link href="/product">
+              <div className="flex">Danh mục</div>
+            </Link>
+            
+            <ul className="bg-white hidden group-hover:block absolute top-full left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
+              {cateProduct?.map((item, index) => (
+                <Link href={`/prdCate/${item._id}`}>
+                  <li
+                    key={index}
+                    className="text-[#282828] text-sm py-1.5 font-semibold"
+                  >
+                    {item.name}
+                  </li>
+                </Link>
+              ))}
+            </ul>
+          </li>
         </ul>
       </div>
     </div>

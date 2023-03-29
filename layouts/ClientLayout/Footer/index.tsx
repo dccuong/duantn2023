@@ -176,7 +176,7 @@ const index = (props: Props) => {
               <Link href={`ss`}>
                 <span className={`text-[#FFFFFF] leading-6  my-3`}>
                   {" "}
-                  Tour Châu Á
+                  Sản Phẩm Châu Á
                 </span>
               </Link>
               <div>
@@ -225,7 +225,7 @@ const index = (props: Props) => {
               <Link href={`ss`}>
                 <span className={`text-[#FFFFFF] leading-6  my-3`}>
                   {" "}
-                  Tour Châu Âu
+                  Sản Phẩm Châu Âu
                 </span>
               </Link>
               <div>
@@ -274,7 +274,7 @@ const index = (props: Props) => {
               <Link href={`ss`}>
                 <span className={`text-[#FFFFFF] leading-6  my-3`}>
                   {" "}
-                  Tour Châu Úc
+                  Sản Phẩm Châu Úc
                 </span>
               </Link>
               <div>

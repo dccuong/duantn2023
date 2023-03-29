@@ -1,9 +1,17 @@
+import { Product } from "./product";
 export interface TPrdCate {
-    _id?: string,
-    name: string,
-    image?:string,
-    slug: string ,
-}
-export interface userErr {
-    error: "string"
-}
+      _id?: string;
+      name: string;
+      image: string;
+      products: Product[];
+    };
+    
+    export type PrdCate = {
+      cateproduct: {
+        _id: string;
+        name: string;
+        status: number;
+        products?: Product[];
+      };
+      products: Product[];
+    };
