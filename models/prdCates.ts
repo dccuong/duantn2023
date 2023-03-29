@@ -3,6 +3,7 @@ export interface TPrdCate {
       _id?: string;
       name: string;
       image: string;
+      slug?:string
       products: Product[];
     };
     
