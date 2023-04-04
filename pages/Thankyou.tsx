@@ -9,22 +9,16 @@ import { Tuser } from "../models/user";
 import Link from "next/link";
 import CartNav from "../component/CartNav";
 import Head from "next/head";
+import { useNavigate } from "react-router-dom";
 type Props = {};
 
 const Thankyou = (props: Props) => {
   const isLogged = useSelector((state: RootState) => state.auth.isLogged);
   const queryParameters = new URLSearchParams(window.location.search);
+  const navigation= useNavigate()
   console.log(queryParameters);
   const vnp_Amount = queryParameters.get("vnp_Amount");
   console.log(vnp_Amount);
-  const vnp_BankCode = queryParameters.get("vnp_BankCode");
-
-  const vnp_BankTranNo = queryParameters.get("vnp_BankTranNo");
-  const vnp_CardType = queryParameters.get("vnp_CardType");
-  const vnp_OrderInfo = queryParameters.get("vnp_OrderInfo");
-  const vnp_PayDate = queryParameters.get("vnp_PayDate");
-  const vnp_ResponseCode = queryParameters.get("vnp_ResponseCode");
-  const vnp_TmnCode = queryParameters.get("vnp_TmnCode");
   const vnp_TransactionNo = queryParameters.get("vnp_TransactionNo");
   const vnp_TransactionStatus = queryParameters.get("vnp_TransactionStatus");
 
@@ -40,7 +34,6 @@ const Thankyou = (props: Props) => {
   const createOrder = async () => {
     try {
       const data: any = localStorage.getItem("order");
-
       const order = await add({
         ...data,
         totalPrice,
@@ -60,13 +53,14 @@ const Thankyou = (props: Props) => {
 
       dispatch(finishOrder());
       toast.success("Đặt hàng thành công");
+      navigation("")
     } catch (error) {
       toast.error("Có lỗi xảy ra, vui lòng thử lại");
     }
   };
-  if (vnp_TransactionStatus! && vnp_TransactionStatus == "00") {
-    title = " giao dichj thanfh coong";
 
+  if (vnp_TransactionStatus! && vnp_TransactionStatus == "00") {
+    title = " giao dịch thanfh coong";
     createOrder();
   } else if (vnp_TransactionStatus == null) {
     title = "giao dịch không thành công ";
