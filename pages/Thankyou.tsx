@@ -10,12 +10,13 @@ import Link from "next/link";
 import CartNav from "../component/CartNav";
 import Head from "next/head";
 import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 type Props = {};
 
 const Thankyou = (props: Props) => {
   const isLogged = useSelector((state: RootState) => state.auth.isLogged);
   const queryParameters = new URLSearchParams(window.location.search);
-  const navigation= useNavigate()
+  const router = useRouter();
   console.log(queryParameters);
   const vnp_Amount = queryParameters.get("vnp_Amount");
   console.log(vnp_Amount);
@@ -53,7 +54,7 @@ const Thankyou = (props: Props) => {
 
       dispatch(finishOrder());
       toast.success("Đặt hàng thành công");
-      navigation("")
+      router.push("");
     } catch (error) {
       toast.error("Có lỗi xảy ra, vui lòng thử lại");
     }
