@@ -123,8 +123,8 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
       <div className="p-6 mt-24 overflow-hidden">
         <div className="shadow sm:rounded-md bg-white p-5">
           <div>
-            {" "}
-            Đơn hàng #<mark>{order._id}</mark> đặt lúc <mark>{formatDate(order.createdAt!)}</mark> hiện tại{" "}
+          
+            Đơn hàng #<mark>{order._id}</mark> đặt lúc <mark>{formatDate(order.createdAt!)}</mark> hiện tại
             <mark>
               {order.status === 0
                 ? "Đang chờ xác nhận"
@@ -148,7 +148,10 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
                   <th className="pb-1 border-b-2 uppercase text-sm">Sản phẩm</th>
                   <th className="pb-1 border-b-2 uppercase text-sm">Đơn giá</th>
                   <th className="pb-1 border-b-2 uppercase text-sm">Số lượng</th>
+                  <th className="pb-1 border-b-2 uppercase text-sm">Size</th>
                   <th className="pb-1 border-b-2 uppercase text-sm text-right">Thành tiền</th>
+                  <th className="pb-1 border-b-2 uppercase text-sm text-right">Thanh Toán</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -168,8 +171,12 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
                     </td>
                     <td className="py-2">{formatCurrency(item.productPrice)}</td>
                     <td className="py-2">{item.quantity}</td>
+                    <td className="py-2">{item.size}</td>
                     <td className="py-2 text-right text-black font-medium">
                       {formatCurrency(item.productPrice * item.quantity)}
+                    </td>
+                    <td className="py-2 text-right text-black font-medium">
+                    {item.pay==true?"đã thanh toán ":"thanh toán khi nhận hàng"}
                     </td>
                   </tr>
                 ))}

@@ -26,7 +26,7 @@ const CartList = (props: Props) => {
   const carts = useSelector(selectCarts);
   const totalPrice = useSelector(selectTotalPrice);
   const dispatch = useDispatch();
-
+  console.log(carts,"carts")
   const handleIncreaseQnt = (productId: string) => {
     dispatch(increaseQnt(productId));
   };
@@ -85,6 +85,9 @@ const CartList = (props: Props) => {
                     </th>
                     <th className="pb-1 uppercase text-sm text-gray-500">
                       Số lượng
+                    </th>
+                    <th className="pb-1 uppercase text-sm text-gray-500">
+                      Size
                     </th>
                     <th className="pb-1 uppercase text-sm text-gray-500 text-right">
                       Tạm tính
@@ -150,6 +153,7 @@ const CartList = (props: Props) => {
                           </button>
                         </div>
                       </td>
+                      <td className="font-bold">{item.size}</td>
                       <td className="font-bold text-right">
                         {formatCurrency(item.productPrice * item.quantity)}
                       </td>

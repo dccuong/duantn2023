@@ -17,6 +17,7 @@ import { TPrdCate } from "../../models/prdCates";
 import { Product } from "../../models/product";
 import { addCart } from "../../redux/cartSlice";
 import { formatCurrency } from "../../untils";
+import Item from "antd/lib/list/Item";
 
 type Props = {
   product: Product;
@@ -24,8 +25,9 @@ type Props = {
 
 const ProductDetail = ({ product }: Props) => {
   const [quantity, setQuantity] = useState(1);
+  const [orderSize,setSize]=useState<any>(null)
   const dispatch = useDispatch();
-
+  const size=[45,44,43,42,41,40,39,38,37,36,35]
   const handleChangeQnt = (e: ChangeEvent<HTMLInputElement>) => {
     const qnt = +e.target.value;
 
@@ -50,7 +52,7 @@ const ProductDetail = ({ product }: Props) => {
   };
 
   const handleAddCart = () => {
-    if (quantity < 1) {
+    if (quantity < 1 || orderSize==null ) {
       toast.info("Vui lòng chọn ít nhất 1 sản phẩm");
       return;
     }
@@ -63,6 +65,7 @@ const ProductDetail = ({ product }: Props) => {
         image: product.image,
         slug: product.slug,
         name: product.name,
+        size: String(orderSize)
       }),
     );
     toast.success(`Đã thêm ${product.name} vào giỏ hàng`);
@@ -87,7 +90,6 @@ const ProductDetail = ({ product }: Props) => {
       </div>
       <section className="grid grid-cols-1 md:grid-cols-2 my-10 gap-8">
         <div className="border h-full w-full text-center">
-          {" "}
           {product.image && <img src={product.image} className="" alt="" width={450} height={450} />}
         </div>
         <section>
@@ -97,6 +99,12 @@ const ProductDetail = ({ product }: Props) => {
             <p className="text-lg">
               Giá: <span className="text-primary text-2xl font-bold">{formatCurrency(product.price)}</span>{" "}
             </p>
+            <p>Size</p>
+            <div className=" flex justify-between"> {size.map((Item,index)=>(
+              <div className={`p-2 border-solid  border-2 `+`${orderSize==Item?"border-[#ff5722]" :"border-sky-500"}`} key={index} onClick={()=>{
+                setSize(Item) 
+              }}>{Item}</div>
+            ))} </div>
             <span>Số lượng:</span>
             <button className="border px-2 ml-5 my-5" onClick={decreaseQnt}>
               -

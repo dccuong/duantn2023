@@ -90,12 +90,13 @@ const CheckoutPage = (props: Props) => {
         });
 
         // save order detail
-        carts.forEach(async ({ productId, productPrice, quantity }) => {
+        carts.forEach(async ({ productId, productPrice, quantity ,size}) => {
           await addOrderDetail({
             orderId: order?._id!,
             productId,
             productPrice,
             quantity,
+            size,
             pay: false,
           });
         });
@@ -251,6 +252,7 @@ const CheckoutPage = (props: Props) => {
                     <td className="text-sm leading-5 py-3 text-gray-500 pr-1">
                       <p className="text-base">
                         <span>{item.name}</span>
+                        <span>{item.size}</span>
                         <strong> x {item.quantity}</strong>
                       </p>
                     </td>

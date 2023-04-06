@@ -91,6 +91,9 @@ const Detailorder: NextPageWithLayout = (props: Props) => {
                 Đơn giá
               </th>
               <th scope="col" className="py-3 px-6 ">
+               Size
+              </th>
+              <th scope="col" className="py-3 px-6 ">
                 Số lượng
               </th>
               <th scope="col" className="py-3 px-6 ">
@@ -103,11 +106,12 @@ const Detailorder: NextPageWithLayout = (props: Props) => {
               <tr className="bg-white" key={index}>
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                   <div className="w-24 h-24 relative">
-                    {item.product?.image && <Image src={item.product?.image} layout="fill" alt="" />}
+                    {item.product?.image && <img src={item.product?.image}  alt="" />}
                   </div>
                 </th>
                 <td className="">{item.product?.name}</td>
                 <td className="py-4 px-6">{formatCurrency(item.productPrice)}</td>
+                <td className="py-4 px-6">{item.size}</td>
                 <td className="py-4 px-6">{item.quantity}</td>
                 <td className="py-4 px-6 ">{formatCurrency(item.productPrice * item.quantity)}</td>
               </tr>

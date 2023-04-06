@@ -61,13 +61,11 @@ const Thankyou = (props: Props) => {
   };
 
   if (vnp_TransactionStatus! && vnp_TransactionStatus == "00") {
-    title = " giao dịch thanfh coong";
+    title = "giao dịch không thành công";
     createOrder();
   } else if (vnp_TransactionStatus == null) {
-    title = "giao dịch không thành công ";
+    title = "giao dịch không thành công";
   }
-
-  let hmac = crypto.createHmac("sha512", "ZPTGSZUBDGKRWWSRAEPICFEUDQSOUJMO");
   return (
     <div>
       <div className="container-base pt-[15px]">

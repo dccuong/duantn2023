@@ -22,5 +22,6 @@ export type OrderDetail = {
   product?: Product;
   orderId: string;
   productId: string;
+  size:any;
   pay?:boolean
 };
