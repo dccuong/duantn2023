@@ -42,8 +42,9 @@ const Thankyou = (props: Props) => {
       });
 
       // save order detail
-      carts.forEach(async ({ productId, productPrice, quantity }) => {
+      carts.forEach(async ({ productId, productPrice, quantity,size }) => {
         await addOrderDetail({
+          size,
           orderId: order?._id!,
           productId,
           productPrice,
