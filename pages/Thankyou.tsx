@@ -42,20 +42,19 @@ const Thankyou = (props: Props) => {
       });
 
       // save order detail
-      carts.forEach(async ({ productId, productPrice, quantity,size }) => {
+      carts.forEach(async ({ productId, productPrice, quantity, size }) => {
         await addOrderDetail({
-          size,
           orderId: order?._id!,
           productId,
           productPrice,
           quantity,
-          pay: false,
+          size,
+          pay: true,
         });
       });
 
       dispatch(finishOrder());
       toast.success("Đặt hàng thành công");
-      router.push("");
     } catch (error) {
       toast.error("Có lỗi xảy ra, vui lòng thử lại");
     }
@@ -64,6 +63,7 @@ const Thankyou = (props: Props) => {
   if (vnp_TransactionStatus! && vnp_TransactionStatus == "00") {
     title = "giao dịch không thành công";
     createOrder();
+    return;
   } else if (vnp_TransactionStatus == null) {
     title = "giao dịch không thành công";
   }
