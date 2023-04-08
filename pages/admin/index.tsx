@@ -17,6 +17,7 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
   const users = useSelector((state: RootState) => state.user.users);
   const order = useSelector((state: RootState) => state.order.orders);
   const dispatch = useDispatch<any>();
+  const currentUser = useSelector((state: RootState) => state.auth.currentUser) as any;
 console.log(users,"S")
   let a =0
   order.forEach((item) => {
