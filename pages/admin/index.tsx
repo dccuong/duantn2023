@@ -19,11 +19,11 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
   const products = useSelector((state: RootState) => state.product.products);
   console.log(products, "ssss");
   const maxBuy = products.reduce(
-    (max:any, item) => (item.buy||0 > max.buy ? item : max),
+    (max:any, item:any) => (item.buy > max.buy ? item : max),
     products[0]
   );
   let oldestPerson2 = products?.reduce(
-    (max:any, person) => (person.buy || 0 < max.buy ? person : max),
+    (max:any, person:any) => (person.buy  < max.buy ? person : max),
     products[0]
   );
   const [orders, setOrders] = useState<any[]>([]);
