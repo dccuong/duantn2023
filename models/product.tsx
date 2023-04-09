@@ -5,6 +5,7 @@ export type Product = {
   price: number;
   desc: string;
   slug: string;
-  size:string;
+  size?:string;
   catygoryId: string;
+  buy?:number
 };

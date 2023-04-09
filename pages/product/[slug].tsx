@@ -18,6 +18,7 @@ import { Product } from "../../models/product";
 import { addCart } from "../../redux/cartSlice";
 import { formatCurrency } from "../../untils";
 import Item from "antd/lib/list/Item";
+import { useRouter } from "next/router";
 
 type Props = {
   product: Product;
@@ -26,6 +27,7 @@ type Props = {
 const ProductDetail = ({ product }: Props) => {
   const [quantity, setQuantity] = useState(1);
   const [orderSize,setSize]=useState<any>(null)
+  const router = useRouter();
   const dispatch = useDispatch();
   const size=[45,44,43,42,41,40,39,38,37,36,35]
   const handleChangeQnt = (e: ChangeEvent<HTMLInputElement>) => {
@@ -68,9 +70,32 @@ const ProductDetail = ({ product }: Props) => {
         size: String(orderSize)
       }),
     );
-    toast.success(`Đã thêm ${product.name} vào giỏ hàng`);
+   
     setQuantity(1);
   };
+  const handleBuyNow = () => {
+    if (quantity < 1 || orderSize==null ) {
+      toast.info("Vui lòng chọn ít nhất 1 sản phẩm");
+      return;
+    }
+
+    dispatch(
+      addCart({
+        quantity,
+        productId: product._id,
+        productPrice: product.price,
+        image: product.image,
+        slug: product.slug,
+        name: product.name,
+        size: String(orderSize)
+      }),
+    );
+    setTimeout(()=>{
+      router.push("/cart") 
+    },500)
+    setQuantity(1);
+  };
+
 
   return (
     <div className="mx-auto ">
@@ -130,6 +155,7 @@ const ProductDetail = ({ product }: Props) => {
               Thêm vào giỏ hàng
             </button>
             <button
+            onClick={handleBuyNow}
               type="submit"
               className="border border-orange-300 ml-4 mb-7 rounded-full bg-primary p-2 w-52 text-lg font-bold text-black"
             >

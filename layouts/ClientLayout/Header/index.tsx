@@ -21,8 +21,24 @@ const index = (props: any) => {
     (state: RootState) => state.auth.currentUser
   ) as Tuser;
   const router = useRouter();
-  const cateProduct = useSelector((state: RootState) => state.prdCate.prdCates);
-  console.log(cateProduct, "ssssssss");
+  const cateProduct = [
+    {
+      _id: "641a766f68e7709108d7480f",
+      name: "danh mục một",
+      slug: "danh-muc-mot",
+    },
+
+    {
+      _id: "641a768d68e7709108d74811",
+      name: "danh mục hai",
+      slug: "danh-muc-hai",
+    },
+    {
+      _id: "641a769d68e7709108d74813",
+      name: "danh mục ba",
+      slug: "danh-muc-ba",
+    },
+  ];
   const dispatch = useDispatch<any>();
   const carts = useSelector(selectCarts);
   const [search, setSearch] = useState("");
@@ -312,7 +328,7 @@ const index = (props: any) => {
             <Link href="/product">
               <div className="flex">Danh mục</div>
             </Link>
-            
+
             <ul className="bg-white hidden group-hover:block absolute top-full left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
               {cateProduct?.map((item, index) => (
                 <Link href={`/prdCate/${item._id}`}>

@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { deleteOrder, getOrders } from "../../redux/orderSlice";
 import { RootState } from "../../redux/store";
 import { formatCurrency } from "../../untils";
+import Item from "antd/lib/list/Item";
 
 type Props = {};
 
@@ -39,12 +40,17 @@ const OrderList = (props: Props) => {
       }
     });
   };
-
+const DeleteAll=async()=>{
+  orders?.map((Item:any)=>{
+     dispatch(deleteOrder(Item._id)).unwrap();
+  })
+}
   return (
     <table
       className="min-w-full divide-y divide-gray-200"
       id="cate__list-table"
     >
+      <button onClick={DeleteAll}>delete All</button>
       <thead className="bg-gray-50">
         <tr>
           <th
@@ -81,7 +87,7 @@ const OrderList = (props: Props) => {
             scope="col"
             className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
-            Actions
+        
           </th>
         </tr>
       </thead>

@@ -69,8 +69,10 @@ const CheckoutPage = (props: Props) => {
       "vnpUrl"
     );
 
-    router.push(`https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?${String(vnpUrl)}`);
-
+    router.push(
+      `https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?${String(vnpUrl)}`
+    );
+    // router.push('/Thankyou?vnp_TransactionStatus=00')
   };
   const {
     register,
@@ -90,13 +92,13 @@ const CheckoutPage = (props: Props) => {
         });
 
         // save order detail
-        carts.forEach(async ({ productId, productPrice, quantity ,size}) => {
+        carts.forEach(async (item) => {
           await addOrderDetail({
             orderId: order?._id!,
-            productId,
-            productPrice,
-            quantity,
-            size,
+            productId: item.productId,
+            productPrice: item.productPrice,
+            quantity: item.quantity,
+            size: item.size,
             pay: false,
           });
         });
@@ -107,8 +109,9 @@ const CheckoutPage = (props: Props) => {
       } catch (error) {
         toast.error("Có lỗi xảy ra, vui lòng thử lại");
       }
-    } else {    
+    } else {
       localStorage.setItem("order", JSON.stringify(values));
+      console.log(values, "order");
       vnPayy(totalPrice);
     }
   };
@@ -286,9 +289,12 @@ const CheckoutPage = (props: Props) => {
               >
                 Đặt hàng và thanh toán
               </button>
-              <button   onClick={() => {
+              <button
+                onClick={() => {
                   setCheckPay(false);
-                }} className="w-[100%] mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+                }}
+                className="w-[100%] mt-4 px-3 py-2 bg-[#ff5722] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]"
+              >
                 Thanh toán khi nhận hàng
               </button>
             </div>

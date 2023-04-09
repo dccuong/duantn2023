@@ -4,6 +4,6 @@ export type Cart = {
   quantity: number;
   slug: string;
   image: string;
-  size:string
+  size:any
   name: string;
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import crypto from "crypto";
 import { useDispatch, useSelector } from "react-redux";
 import { finishOrder, selectCarts, selectTotalPrice } from "../redux/cartSlice";
@@ -11,6 +11,7 @@ import CartNav from "../component/CartNav";
 import Head from "next/head";
 import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
+
 type Props = {};
 
 const Thankyou = (props: Props) => {
@@ -22,7 +23,6 @@ const Thankyou = (props: Props) => {
   console.log(vnp_Amount);
   const vnp_TransactionNo = queryParameters.get("vnp_TransactionNo");
   const vnp_TransactionStatus = queryParameters.get("vnp_TransactionStatus");
-
   const carts = useSelector(selectCarts);
   const totalPrice = useSelector(selectTotalPrice);
   const dispatch = useDispatch();
@@ -30,55 +30,53 @@ const Thankyou = (props: Props) => {
     (state: RootState) => state.auth.currentUser
   ) as Tuser;
   let title = "";
-
-  console.log(vnp_TransactionNo, vnp_TransactionStatus);
-  const createOrder = async () => {
-    try {
-      const data: any = localStorage.getItem("order");
-      const order = await add({
-        ...data,
-        totalPrice,
-        userId: isLogged ? currentUser._id : "",
-      });
-
-      // save order detail
-      carts.forEach(async ({ productId, productPrice, quantity, size }) => {
-        await addOrderDetail({
-          orderId: order?._id!,
-          productId,
-          productPrice,
-          quantity,
-          size,
-          pay: true,
-        });
-      });
-
-      dispatch(finishOrder());
-      toast.success("Đặt hàng thành công");
-    } catch (error) {
-      toast.error("Có lỗi xảy ra, vui lòng thử lại");
-    }
-  };
+ 
 
   if (vnp_TransactionStatus! && vnp_TransactionStatus == "00") {
-    title = "giao dịch không thành công";
+    const createOrder = async () => {
+      const a = localStorage.getItem("order") as any;
+      const data = JSON.parse(a);
+      try {
+        const order = await add({
+          ...data,
+          totalPrice,
+          userId: isLogged ? currentUser._id : "",
+        });
+  
+        // save order detail
+        carts.forEach(async (item) => {
+          await addOrderDetail({
+            orderId: order?._id!,
+            productId: item.productId,
+            productPrice: item.productPrice,
+            quantity: item.quantity,
+            size: item.size,
+            pay: true,
+          });
+        });
+        dispatch(finishOrder());
+      } catch (error) {
+        toast.error("Có lỗi xảy ra, vui lòng thử lại");
+      }
+    };
     createOrder();
-    return;
+    router.push("/Thankyou2");
   } else if (vnp_TransactionStatus == null) {
     title = "giao dịch không thành công";
   }
+
   return (
     <div>
       <div className="container-base pt-[15px]">
         <Head>
-          <title>Đặt hàng thành công</title>
+          <title>{title}</title>
         </Head>
         <div className="mb-32">
           <CartNav />
 
           <div className="content mx-auto">
             <h1 className="text-center mt-4 font-semibold text-2xl uppercase">
-              Đặt hàng thành công
+              {title}
             </h1>
             <p className="text-center mt-2">
               {title} Nhân viên sẽ gọi điện từ số điện thoại bạn đã cung cấp để
