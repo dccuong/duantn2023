@@ -34,7 +34,7 @@ const AdminMenu = (props: Props) => {
       <Link href="/">
         <div>
           <span className="flex items-center p-4 text-white font-bold text-3xl cursor-pointer">
-            Trip finder
+            Sneaker Pop
           </span>
         </div>
       </Link>
@@ -146,7 +146,7 @@ const AdminMenu = (props: Props) => {
                 <FontAwesomeIcon icon={faThList} />
               </div>
               <span>
-              <b>Quản lý Danh muc</b>
+                <b>Quản lý Danh muc</b>
               </span>
             </div>
           </span>
@@ -209,7 +209,6 @@ const AdminMenu = (props: Props) => {
             </div>
           </span>
         </Link> */}
-
       </nav>
       <button
         className="py-2 w-full text-white font-bold text-md cursor-pointer fixed bottom-0 border-solid border-t-2 border-b-2 border-sky-500"
