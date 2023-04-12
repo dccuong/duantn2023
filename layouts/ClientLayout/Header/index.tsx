@@ -76,16 +76,16 @@ const index = (props: any) => {
     { name: "Trang Chủ", link: "/" },
     { name: "Giày", link: "/product" },
     { name: "Giỏ Hàng", link: "/cart" },
-    { name: "Tin Tức", link: "/blog" },
+    // { name: "Tin Tức", link: "/blog" },
   ];
   return (
     <div>
-      <div className="flex justify-between items-center xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px] mb-3 ">
-        <div className=" flex  items-center mb-3">
-          <div className="bg-white md:w-[110px]  lg:w-[135px]  w-[70px]  ">
+      <div className="flex justify-between items-center xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px] ">
+        <div className=" flex  items-center">
+          <div className="bg-white md:w-[110px]  lg:w-[100px]  w-[70px]  ">
             <img
-              src="https://bizweb.dktcdn.net/100/374/261/themes/747465/assets/logo.png?1661325852781"
-              alt=""
+              src="https://sgweb.vn/wp-content/uploads/2022/12/Logo-giup-khach-hang-nho-toi-shop-giay-cua-ban-lau-hon.jpg"
+              alt="logo"
             />
           </div>
 
@@ -289,11 +289,8 @@ const index = (props: any) => {
 
             <ul className="bg-white hidden group-hover:block absolute top-full left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
               {cateProduct?.map((item, index) => (
-                <Link href={`/cateproduct/${item._id}`}>
-                  <li
-                    key={index}
-                    className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]"
-                  >
+                <Link href={`/cateproduct/${item._id}`} key={index}>
+                  <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]">
                     {item.name}
                   </li>
                 </Link>
@@ -303,8 +300,8 @@ const index = (props: any) => {
         </ul>
       </div>
       {/* ssssssss */}
-      <div className="md:block hidden w-full  border-t border-stone-300 pb-[0.5px] ">
-        <ul className="flex pt-[10px] md:pt-[18px] text-[14px] md:text-[16px] xl:mx-[200px]  lg:mx-[100px] md:mx-[90px]  sm:mx-[60px] mx-[10px] font-medium">
+      <div className="md:block hidden w-full h-full border-t border-stone-300 pb-[0.5px] ">
+        <ul className="flex pt-[10px] md:py-[15px] text-[14px] md:text-[16px] xl:mx-[200px]  lg:mx-[100px] md:mx-[90px]  sm:mx-[60px] mx-[10px] font-medium">
           {listnav.map((item, index) => (
             <li className="" key={index}>
               <Link href={item.link}>
@@ -331,11 +328,8 @@ const index = (props: any) => {
 
             <ul className="bg-white hidden group-hover:block absolute top-full left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
               {cateProduct?.map((item, index) => (
-                <Link href={`/prdCate/${item._id}`}>
-                  <li
-                    key={index}
-                    className="text-[#282828] text-sm py-1.5 font-semibold"
-                  >
+                <Link href={`/prdCate/${item._id}`} key={index}>
+                  <li className="text-[#282828] text-sm py-1.5 font-semibold">
                     {item.name}
                   </li>
                 </Link>
