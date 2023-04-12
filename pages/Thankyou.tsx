@@ -32,7 +32,7 @@ const Thankyou = (props: Props) => {
  
 
   if (vnp_TransactionStatus! && vnp_TransactionStatus == "00") {
-    const createOrder =useCallback(async () => {
+    const createOrder =async () => {
       const a = localStorage.getItem("order") as any;
       const data = JSON.parse(a);
       try {
@@ -57,7 +57,7 @@ const Thankyou = (props: Props) => {
       } catch (error) {
         toast.error("Có lỗi xảy ra, vui lòng thử lại");
       }
-    },[]) 
+    }
     createOrder();
     router.push("/Thankyou2");
   } else if (vnp_TransactionStatus == null) {
