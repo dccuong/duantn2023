@@ -19,21 +19,21 @@ type HomeProductsProps = {
 const HomeProducts = ({ products }: HomeProductsProps) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
-  const handleAddCart = (key:any) => {
-
+  const handleAddCart = (key: any) => {
     dispatch(
       addCart({
-        quantity:1,
+        quantity: 1,
         productId: products[key]._id,
         productPrice: products[key].price,
         image: products[key].image,
-        slug:products[key].slug,
+        slug: products[key].slug,
         name: products[key].name,
-      }),
+      })
     );
     toast.success(`Đã thêm ${products[key].name} vào giỏ hàng`);
     setQuantity(1);
   };
+
   return (
     <section className="container-base">
       <div className="py-16">
@@ -45,10 +45,17 @@ const HomeProducts = ({ products }: HomeProductsProps) => {
             <div key={index}>
               <div className="border border-[#ebebeb] relative cursor-pointer group overflow-hidden">
                 <Link href={`/product/${item.slug}`}>
-                  {item.image && <img src={item.image} alt="" width={"fill"} />}
+                  {item.image && (
+                    <img src={item.image} alt="" width={"470px"} />
+                  )}
                 </Link>
 
-                <button  onClick={()=>{handleAddCart(index)}} className="absolute bg-[#ff5722] bottom-0 w-full h-10 bg-primary text-white font-bold translate-y-full group-hover:translate-y-0 transition-all duration-300 opacity-90 hover:opacity-100">
+                <button
+                  onClick={() => {
+                    handleAddCart(index);
+                  }}
+                  className="absolute bg-[#ff5722] bottom-0 w-full h-10 bg-primary text-white font-bold translate-y-full group-hover:translate-y-0 transition-all duration-300 opacity-90 hover:opacity-100"
+                >
                   Thêm vào giỏ hàng
                 </button>
               </div>
@@ -60,8 +67,8 @@ const HomeProducts = ({ products }: HomeProductsProps) => {
                   </div>
                 </div>
                 <div className="flex justify-between items-center mt-2 pb-3  mx-3">
-                  <div className="text-[16px] leading-[21px]  font-normal text-[#FF5722] p-2">
-                    {item.price}
+                  <div className="text-[20px] leading-[21px]  font-normal text-[#FF5722] p-2">
+                    {item.price} VND
                   </div>
                   <div>
                     <button className="bg-[#FF5722]  leading-[21px]  font-semibold text-white px-2 py-1 rounded-md">

@@ -21,6 +21,7 @@ const index = (props: Props) => {
       <Head>
         <title>Home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <script src="https://cdn.tailwindcss.com" async></script>
       </Head>
       <div>
         <div className="relative mt-0">
