@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import crypto from "crypto";
 import { useDispatch, useSelector } from "react-redux";
 import { finishOrder, selectCarts, selectTotalPrice } from "../redux/cartSlice";
@@ -21,7 +21,6 @@ const Thankyou = (props: Props) => {
   console.log(queryParameters);
   const vnp_Amount = queryParameters.get("vnp_Amount");
   console.log(vnp_Amount);
-  const vnp_TransactionNo = queryParameters.get("vnp_TransactionNo");
   const vnp_TransactionStatus = queryParameters.get("vnp_TransactionStatus");
   const carts = useSelector(selectCarts);
   const totalPrice = useSelector(selectTotalPrice);
@@ -33,7 +32,7 @@ const Thankyou = (props: Props) => {
  
 
   if (vnp_TransactionStatus! && vnp_TransactionStatus == "00") {
-    const createOrder = async () => {
+    const createOrder =useCallback(async () => {
       const a = localStorage.getItem("order") as any;
       const data = JSON.parse(a);
       try {
@@ -58,7 +57,7 @@ const Thankyou = (props: Props) => {
       } catch (error) {
         toast.error("Có lỗi xảy ra, vui lòng thử lại");
       }
-    };
+    },[]) 
     createOrder();
     router.push("/Thankyou2");
   } else if (vnp_TransactionStatus == null) {

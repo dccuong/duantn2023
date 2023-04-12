@@ -75,14 +75,14 @@ const index = (props: any) => {
   const listnav = [
     { name: "Trang Chủ", link: "/" },
     { name: "Giày", link: "/product" },
-    { name: "Giỏ Hàng", link: "/cart" },
+    { name: "Giỏ Hàng", link: "/cart" },  
     // { name: "Tin Tức", link: "/blog" },
   ];
   return (
     <div>
       <div className="flex justify-between items-center xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px] ">
         <div className=" flex  items-center">
-          <div className="bg-white md:w-[110px]  lg:w-[100px]  w-[70px]  ">
+          <div className="bg-white md:w-[70px]  lg:w-[50px]  w-[40.px]  ">
             <img
               src="https://sgweb.vn/wp-content/uploads/2022/12/Logo-giup-khach-hang-nho-toi-shop-giay-cua-ban-lau-hon.jpg"
               alt="logo"
