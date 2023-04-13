@@ -29,40 +29,45 @@ const Thankyou = (props: Props) => {
     (state: RootState) => state.auth.currentUser
   ) as Tuser;
   let title = "";
- 
 
-  if (vnp_TransactionStatus! && vnp_TransactionStatus == "00") {
-    const createOrder =async () => {
-      const a = localStorage.getItem("order") as any;
-      const data = JSON.parse(a);
-      try {
-        const order = await add({
-          ...data,
-          totalPrice,
-          userId: isLogged ? currentUser._id : "",
-        });
-  
-        // save order detail
-        carts.forEach(async (item) => {
-          await addOrderDetail({
-            orderId: order?._id!,
-            productId: item.productId,
-            productPrice: item.productPrice,
-            quantity: item.quantity,
-            size: item.size,
-            pay: true,
+  const handleTransaction = async () => {
+    if (vnp_TransactionStatus! && vnp_TransactionStatus == "00") {
+      const createOrder = async () => {
+        const a = localStorage.getItem("order") as any;
+        const data = JSON.parse(a);
+        try {
+          const order = await add({
+            ...data,
+            totalPrice,
+            userId: isLogged ? currentUser._id : "",
           });
-        });
-        dispatch(finishOrder());
-      } catch (error) {
-        toast.error("Có lỗi xảy ra, vui lòng thử lại");
-      }
+
+          // save order detail
+          carts.forEach(async (item) => {
+            await addOrderDetail({
+              orderId: order?._id!,
+              productId: item.productId,
+              productPrice: item.productPrice,
+              quantity: item.quantity,
+              size: item.size,
+              pay: true,
+            });
+          });
+          dispatch(finishOrder());
+        } catch (error) {
+          toast.error("Có lỗi xảy ra, vui lòng thử lại");
+        }
+      };
+      await createOrder();
+      router.push("/Thankyou2");
+    } else if (vnp_TransactionStatus == null) {
+      title = "giao dịch không thành công";
     }
-    createOrder();
-    router.push("/Thankyou2");
-  } else if (vnp_TransactionStatus == null) {
-    title = "giao dịch không thành công";
-  }
+  };
+
+  useEffect(() => {
+    handleTransaction();
+  }, []);
 
   return (
     <div>
