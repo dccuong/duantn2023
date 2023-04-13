@@ -20,9 +20,10 @@ type Props = {};
 const OrderDetail: NextPageWithLayout = (props: Props) => {
   const router = useRouter();
   const { id } = router.query;
+  console.log(id, "myid");
   const dispatch = useDispatch<any>();
   const order = useSelector((state: RootState) => state.order.order) as Order;
-  console.log(order.orderDetails, "order");
+  console.log(order, "order");
   useEffect(() => {
     if (id) {
       (async () => {
@@ -54,23 +55,24 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
       }
     });
   };
-  const handleUpdateBuy=async(prd?:any[])=>{
-    console.log(prd,"ssssss")
-    prd?.forEach((item)=>{
-      const newprd={
-        _id:item.productId,
+  const handleUpdateBuy = async (prd?: any[]) => {
+    console.log(prd, "ssssss");
+    prd?.forEach((item) => {
+      const newprd = {
+        _id: item.productId,
         name: item.product.name,
         image: item.product.image,
         price: item.product.price,
         desc: item.product.desc,
         slug: item.product.desc,
-        catygoryId:  item.product.catygoryId,
-        buy:item.product.buy? (item.product.buy+item.quantity):item.product.buy+item.quantity
-      }
-       dispatch(updateproduct(newprd))
-    })
-
-  }
+        catygoryId: item.product.catygoryId,
+        buy: item.product.buy
+          ? item.product.buy + item.quantity
+          : item.product.buy + item.quantity,
+      };
+      dispatch(updateproduct(newprd));
+    });
+  };
 
   const formatDate = (dateStr: Date) => {
     return moment(dateStr).format("DD/MM/YYYY HH:mm:ss");
@@ -112,7 +114,7 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
               type="button"
               onClick={() => {
                 handleUpdateStt(3);
-                handleUpdateBuy(order?.orderDetails)
+                handleUpdateBuy(order?.orderDetails);
               }}
               className="mr-2 btn-update-stt btn-update-stt-success inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
@@ -193,23 +195,30 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
                     <td>{++index}</td>
                     <td className="py-2 flex items-center">
                       <div className="w-10 h-10 object-cover relative">
-                        {item.product?.image && (
-                          <img
-                            src={item.product?.image}
-                            alt=""
-                            width={"fill"}
-                          />
+                        {item.product == null ? (
+                          <>{"Sản phẩm đã bị xóa"}</>
+                        ) : (
+                          item.product.image && (
+                            <img
+                              src={item.product?.image}
+                              alt=""
+                              width={"fill"}
+                            />
+                          )
                         )}
                       </div>
-
-                      <div className="pl-3">
-                        <Link
-                          href={`/product/${item.product?.slug}`}
-                          className="text-blue-500"
-                        >
-                          {item.product?.name}
-                        </Link>
-                      </div>
+                      {item.product == null ? (
+                        <>Sản phẩm ko tồn tại</>
+                      ) : (
+                        <div className="pl-3">
+                          <Link
+                            href={`/product/${item.product.slug }`}
+                            className="text-blue-500"
+                          >
+                            {item.product?.name}
+                          </Link>
+                        </div>
+                      )}
                     </td>
                     <td className="py-2">
                       {formatCurrency(item.productPrice)}

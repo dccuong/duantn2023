@@ -21,10 +21,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   ) as Tuser;
   const dispatch = useDispatch();
 
-  const handleSignout = () => {
-    dispatch(logout());
-    toast.success("Đăng xuất thành công");
-  };
+
 
   return (
     <PrivateRoute>
