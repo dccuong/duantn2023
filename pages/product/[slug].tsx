@@ -70,7 +70,7 @@ const ProductDetail = ({ product }: Props) => {
         size: String(orderSize),
       })
     );
-
+    toast.success("Thêm thành công");
     setQuantity(1);
   };
   const handleBuyNow = () => {
@@ -113,7 +113,7 @@ const ProductDetail = ({ product }: Props) => {
         </ul>
       </div>
       <section className="grid grid-cols-1 md:grid-cols-2 my-10 gap-8 place-items-center">
-        <div className="border h-full w-full text-center max-w-[450px]">
+        <div className=" h-full w-full text-center max-w-[450px]">
           {product.image && (
             <img
               src={product.image}
@@ -141,7 +141,7 @@ const ProductDetail = ({ product }: Props) => {
               {size.map((Item, index) => (
                 <div
                   className={
-                    `p-2 border-solid  border-2 ` +
+                    `p-2 border-solid font-bold  border-2 mx-2 rounded-md ` +
                     `${
                       orderSize == Item ? "border-[#ff5722]" : "border-gray-500"
                     }`
