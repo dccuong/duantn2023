@@ -28,7 +28,7 @@ const Cateproduct = ({ cateproduct }: Props) => {
               </li>{" "}
               <span className="px-3 ">/</span>
               <li>
-                <Link href="/">Tất cả sản phẩm</Link>
+                <Link href="/">Danh mục</Link>
               </li>
             </ul>
           </div>

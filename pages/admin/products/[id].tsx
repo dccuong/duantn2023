@@ -43,15 +43,13 @@ const ProductEdit: NextPageWithLayout = (props: Props) => {
 
   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
     try {
-if (values?.image)
       if (typeof values?.image === "object") {
         const { data } = await uploadImage(values.image[0]);
         values.image = data.url;
       }
-
       await dispatch(updateproduct(values)).unwrap();
       toast.success("Cập nhật thành công");
-      router.push("/admin/product");
+      router.push("/admin/products");
       reset();
       setPreview("");
     } catch (error) {
@@ -231,7 +229,7 @@ if (values?.image)
                           <span>Upload a file</span>
                           <input
                             id="form__add-user-image"
-                            {...register("image")}
+                            {...register("image", { required: false })}
                             onChange={(e: any) => {
                               setPreview(
                                 URL.createObjectURL(e.target.files[0])
@@ -247,9 +245,6 @@ if (values?.image)
                         PNG, JPG, GIF up to 10MB
                       </p>
                     </div>
-                  </div>
-                  <div className="text-sm mt-0.5 text-red-500">
-                    {errors.image?.message}
                   </div>
                 </div>
               </div>

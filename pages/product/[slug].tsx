@@ -54,8 +54,12 @@ const ProductDetail = ({ product }: Props) => {
   };
 
   const handleAddCart = () => {
-    if (quantity < 1 || orderSize == null) {
+    if (quantity < 1 ) {
       toast.info("Vui lòng chọn ít nhất 1 sản phẩm");
+      return;
+    }
+    if ( orderSize == null) {
+      toast.info("Vui lòng chọn size");
       return;
     }
 
@@ -74,8 +78,12 @@ const ProductDetail = ({ product }: Props) => {
     setQuantity(1);
   };
   const handleBuyNow = () => {
-    if (quantity < 1 || orderSize == null) {
+    if (quantity < 1 ) {
       toast.info("Vui lòng chọn ít nhất 1 sản phẩm");
+      return;
+    }
+    if ( orderSize == null) {
+      toast.info("Vui lòng chọn size");
       return;
     }
 
