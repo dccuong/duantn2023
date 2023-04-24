@@ -5,10 +5,11 @@ export const uploadImage = (image: any): any => {
   formData.append("file", image);
   formData.append("upload_preset", "uiqccvxh");
 
-  return axios.post(
+  const data= axios.post(
     "https://api.cloudinary.com/v1_1/dcjtdlsw7/image/upload",
     formData
   );
+  return data
 };
 export const formatDate = (dateString: any) => {
   const date = new Date(dateString);
