@@ -26,7 +26,9 @@ const cartSlice = createSlice({
       if (exitsProduct) {
         exitsProduct.quantity += payload.quantity;
       } else {
-        state.carts = [...state.carts, payload,];
+        // const data = [...state.carts, payload,{key:state.carts.length+1}];
+        // console.log(data,"sssssss")
+        // state.carts=[...data]
       }
 
       state.totalPrice = state.carts.reduce((total, item) => {

@@ -116,7 +116,7 @@ const ProductDetail = ({ product }: Props) => {
           </li>{" "}
           <span className="px-3 ">/</span>
           <li>
-            <Link href="/">Tất cả sản phẩm</Link>
+            <Link href="/"> {product.name}</Link>
           </li>
         </ul>
       </div>
