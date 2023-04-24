@@ -18,19 +18,19 @@ type Props = {};
 type Inputs = {
   title: string;
   url1: {
-    0: File;
+    0: any;
   };
   url2: {
-    0: File;
+    0: any;
   };
   url3: {
-    0: File;
+    0: any;
   };
   url4: {
-    0: File;
+    0: any;
   };
   url5: {
-    0: File;
+    0: any;
   };
 };
 
