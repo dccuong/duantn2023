@@ -82,7 +82,7 @@ const index = (props: any) => {
     <div>
       <div className="flex justify-between items-center xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px] ">
         <div className=" flex  items-center">
-          <div className="bg-white md:w-[70px]  lg:w-[50px]  w-[40.px]  ">
+          <div className="bg-white md:w-[35px]  lg:w-[40px]  w-[30px]  ">
             <img
               src="https://sgweb.vn/wp-content/uploads/2022/12/Logo-giup-khach-hang-nho-toi-shop-giay-cua-ban-lau-hon.jpg"
               alt="logo"
