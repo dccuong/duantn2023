@@ -1,18 +1,8 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
+import { getAll } from "../../Api/productApi";
 import { Product } from "../../models/product";
-import { formatCurrency } from "../../untils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar,
-  faPlaneUp,
-  faHotel,
-  faClock,
-  faCalendarDays,
-} from "@fortawesome/free-solid-svg-icons";
-import { Carousel } from "antd";
 type Props = {
   products: Product[];
 };
@@ -55,7 +45,7 @@ const Product = ({ products }: Props) => {
                           />
                         </div>
                         <div className="mx-3 mt-2">
-                          <span className="  text-[12px]">Pacgake tour </span>
+                          <span className="  text-[12px]">Sản Phẩm </span>
                           <div className=" md:text-[21px] text-[18px]   text-black font-medium ">
                           {item.name}
                           </div>
@@ -89,8 +79,7 @@ const Product = ({ products }: Props) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("http://localhost:8080/api/product");
-  const products = await res.json();
+  const products = await await getAll();;
   return {
     props: {
       products,

@@ -55,7 +55,7 @@ const Login: NextPage<any> = ({ providers }) => {
         <title>Signin</title>
       </Head>
       <div className="menu_top ">
-        <span className="text-[#4d8a54]">
+        <span className="text-[#ff5722]">
           <a href="" className="text-[#000000]">
             Trang chủ
           </a>{" "}
@@ -70,7 +70,7 @@ const Login: NextPage<any> = ({ providers }) => {
             <span>
               Nếu bạn chưa có tài khoản,
               <Link href="/signup">
-                <span className="cursor-pointer hover:text-[#4d8a54]"> đăng ký tại đây</span>
+                <span className="cursor-pointer hover:text-[#ff5722]"> đăng ký tại đây</span>
               </Link>
             </span>
           </div>
@@ -98,7 +98,7 @@ const Login: NextPage<any> = ({ providers }) => {
                 <p className="text-red-400">{errors.password?.message}</p>
               </div>
             </div>
-            <button className="bg-[#4d8a54] text-white mt-[17px] w-[100%] md:w-[30%] h-[40px] font-semibold">
+            <button className="bg-[#ff5722] text-white mt-[17px] w-[100%] md:w-[30%] h-[40px] font-semibold">
               ĐĂNG NHẬP
             </button>
           </form>
@@ -109,28 +109,7 @@ const Login: NextPage<any> = ({ providers }) => {
           </div>
 
           <div className="login-fb pt-[50px] pb-[50px]">
-            <p>Hoặc đăng nhập bằng</p>
-            <div className="pt-[20px]">
-              {" "}
-              <a href="">
-                <img
-                  src="https://bizweb.dktcdn.net/assets/admin/images/login/fb-btn.svg"
-                  className=""
-                  alt=""
-                  width={129}
-                  height={36}
-                />
-              </a>
-              <a href="">
-                <img
-                  src="https://bizweb.dktcdn.net/assets/admin/images/login/gp-btn.svg"
-                  className=""
-                  alt=""
-                  width={129}
-                  height={36}
-                />
-              </a>
-            </div>
+      
           </div>
         </div>
       </div>

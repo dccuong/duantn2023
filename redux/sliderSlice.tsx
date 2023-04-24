@@ -5,7 +5,7 @@ import { TSlider } from "../models/slider";
 
 type SliderState = {
     sliders: TSlider[];
-    slider: TSlider | {};
+    slider: TSlider | any;
 };
 
 const initialState: SliderState = {
@@ -17,7 +17,7 @@ export const getSliders = createAsyncThunk("Slider/getSliders", async () => {
     const response = await getAll();
 
     return response;
-});
+}); 
 
 export const deleteSlider = createAsyncThunk("Slider/deleteSlider", async (id: string) => {
     const res = await remove(id);

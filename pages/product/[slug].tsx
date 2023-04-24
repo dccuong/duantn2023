@@ -1,5 +1,6 @@
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { GetStaticProps, GetStaticPropsContext, GetStaticPaths } from "next";
 import Head from "next/head";
 
@@ -16,16 +17,19 @@ import { TPrdCate } from "../../models/prdCates";
 import { Product } from "../../models/product";
 import { addCart } from "../../redux/cartSlice";
 import { formatCurrency } from "../../untils";
+import Item from "antd/lib/list/Item";
+import { useRouter } from "next/router";
 
 type Props = {
   product: Product;
- 
 };
 
 const ProductDetail = ({ product }: Props) => {
   const [quantity, setQuantity] = useState(1);
+  const [orderSize, setSize] = useState<any>(null);
+  const router = useRouter();
   const dispatch = useDispatch();
-
+  const size = [45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35];
   const handleChangeQnt = (e: ChangeEvent<HTMLInputElement>) => {
     const qnt = +e.target.value;
 
@@ -50,8 +54,12 @@ const ProductDetail = ({ product }: Props) => {
   };
 
   const handleAddCart = () => {
-    if (quantity < 1) {
+    if (quantity < 1 ) {
       toast.info("Vui lòng chọn ít nhất 1 sản phẩm");
+      return;
+    }
+    if ( orderSize == null) {
+      toast.info("Vui lòng chọn size");
       return;
     }
 
@@ -63,9 +71,36 @@ const ProductDetail = ({ product }: Props) => {
         image: product.image,
         slug: product.slug,
         name: product.name,
-      }),
+        size: String(orderSize),
+      })
     );
-    toast.success(`Đã thêm ${product.name} vào giỏ hàng`);
+    toast.success("Thêm thành công");
+    setQuantity(1);
+  };
+  const handleBuyNow = () => {
+    if (quantity < 1 ) {
+      toast.info("Vui lòng chọn ít nhất 1 sản phẩm");
+      return;
+    }
+    if ( orderSize == null) {
+      toast.info("Vui lòng chọn size");
+      return;
+    }
+
+    dispatch(
+      addCart({
+        quantity,
+        productId: product._id,
+        productPrice: product.price,
+        image: product.image,
+        slug: product.slug,
+        name: product.name,
+        size: String(orderSize),
+      })
+    );
+    setTimeout(() => {
+      router.push("/cart");
+    }, 500);
     setQuantity(1);
   };
 
@@ -81,22 +116,53 @@ const ProductDetail = ({ product }: Props) => {
           </li>{" "}
           <span className="px-3 ">/</span>
           <li>
-            <Link href="/">Tất cả sản phẩm</Link>
+            <Link href="/product">Sản phẩm</Link>
           </li>
         </ul>
       </div>
-      <section className="grid grid-cols-1 md:grid-cols-2 my-10 gap-8">
-        <div className="border h-full w-full text-center">
-          {" "}
-          {product.image && <img src={product.image} className="" alt="" width={450} height={450} />}
+      <section className="grid grid-cols-1 md:grid-cols-2 my-10 gap-8 place-items-center">
+        <div className=" h-full w-full text-center max-w-[450px]">
+          {product.image && (
+            <img
+              src={product.image}
+              className=""
+              alt=""
+              width={450}
+              height={450}
+            />
+          )}
         </div>
         <section>
           <div>
-            <h2 className="text-2xl text-normal font-semibold pt-50">{product.name}</h2>
+            <h2 className="text-2xl text-normal font-semibold pt-50">
+              {product.name}
+            </h2>
             <p className="italic pt-3">{product.desc}</p>
             <p className="text-lg">
-              Giá: <span className="text-primary text-2xl font-bold">{formatCurrency(product.price)}</span>{" "}
+              Giá:{" "}
+              <span className="text-primary text-2xl font-bold">
+                {formatCurrency(product.price)}
+              </span>{" "}
             </p>
+            <p>Size</p>
+            <div className=" flex ">
+              {size.map((Item, index) => (
+                <div
+                  className={
+                    `p-2 border-solid font-bold  border-2 mx-2 rounded-md ` +
+                    `${
+                      orderSize == Item ? "border-[#ff5722]" : "border-gray-500"
+                    }`
+                  }
+                  key={index}
+                  onClick={() => {
+                    setSize(Item);
+                  }}
+                >
+                  {Item}
+                </div>
+              ))}{" "}
+            </div>
             <span>Số lượng:</span>
             <button className="border px-2 ml-5 my-5" onClick={decreaseQnt}>
               -
@@ -122,6 +188,7 @@ const ProductDetail = ({ product }: Props) => {
               Thêm vào giỏ hàng
             </button>
             <button
+              onClick={handleBuyNow}
               type="submit"
               className="border border-orange-300 ml-4 mb-7 rounded-full bg-primary p-2 w-52 text-lg font-bold text-black"
             >
@@ -131,19 +198,21 @@ const ProductDetail = ({ product }: Props) => {
           <hr />
           <div className="py-3">
             <p>
-              <span className="font-semibold pb-3">Giao hàng miễn phí:</span> Áp dụng đơn hàng {">"} 200.000đ
+              <span className="font-semibold pb-3">Giao hàng miễn phí:</span> Áp
+              dụng đơn hàng {">"} 200.000đ
             </p>
             <p>
-              <span className="font-semibold">Thanh toán tại nhà:</span> Nhanh chóng và an toàn
+              <span className="font-semibold">Thanh toán tại nhà:</span> Nhanh
+              chóng và an toàn
             </p>
           </div>
         </section>
       </section>
 
-  
-
       <section>
-        <h1 className="text-3xl font-semibold pt-50 text-center">CÓ THỂ BẠN THÍCH</h1>
+        <h1 className="text-3xl font-semibold pt-50 text-center">
+          CÓ THỂ BẠN THÍCH
+        </h1>
       </section>
       <section className="col-span-12 lg:col-span-9 pb-10">
         <div className="grid grid-cols-2 md:grid-clos-3 lg:grid-cols-4 gap-4">
@@ -172,15 +241,16 @@ const ProductDetail = ({ product }: Props) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch("http://localhost:8080/api/product");
-  const data = await res.json();
-  const paths = data.map((product:any) => ({ params: { slug: product.slug } }));
+  const res = await getAll();
+  const paths = res.map((product: any) => ({ params: { slug: product.slug } }));
   return {
     paths,
     fallback: "blocking",
   };
 };
-export const getStaticProps: GetStaticProps<Props> = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps<Props> = async (
+  context: GetStaticPropsContext
+) => {
   const slug = context.params?.slug as string;
   const product = await getS(slug);
   return {

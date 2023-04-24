@@ -1,8 +1,11 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { Product } from "../../models/product";
+import { addCart } from "../../redux/cartSlice";
 import { formatCurrency } from "../../untils";
 
 import styles from "./HomeProduct.module.scss";
@@ -14,55 +17,58 @@ type HomeProductsProps = {
 };
 
 const HomeProducts = ({ products }: HomeProductsProps) => {
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const handleAddCart = (key: any) => {
+    dispatch(
+      addCart({
+        quantity: 1,
+        productId: products[key]._id,
+        productPrice: products[key].price,
+        image: products[key].image,
+        slug: products[key].slug,
+        name: products[key].name,
+      })
+    );
+    toast.success(`Đã thêm ${products[key].name} vào giỏ hàng`);
+    setQuantity(1);
+  };
+
   return (
     <section className="container-base">
       <div className="py-16">
-        <h2 className="uppercase font-bebas text-4xl text-normal text-center">Menu hôm nay</h2>
-
-        {/* tab */}
-        {/* <div className="flex justify-center flex-wrap">
-          <button
-            className={`${cx(
-              "btn-tab-active",
-            )} mt-6 h-12 px-4 mx-2 rounded-full text-normal font-bold border border-[#ebebeb] hover:bg-[#4d8a54] hover:text-white hover:border-[#4d8a54]`}
-          >
-            Trà nóng
-          </button>
-          <button className="mt-6 h-12 px-4 mx-2 rounded-full text-normal font-bold border border-[#ebebeb] hover:bg-[#4d8a54] hover:text-white hover:border-[#4d8a54]">
-            Trà hoa quả
-          </button>
-          <button className="mt-6 h-12 px-4 mx-2 rounded-full text-normal font-bold border border-[#ebebeb] hover:bg-[#4d8a54] hover:text-white hover:border-[#4d8a54]">
-            Smoothies
-          </button>
-          <button className="mt-6 h-12 px-4 mx-2 rounded-full text-normal font-bold border border-[#ebebeb] hover:bg-[#4d8a54] hover:text-white hover:border-[#4d8a54]">
-            Bánh ngọt
-          </button>
-          <button className="mt-6 h-12 px-4 mx-2 rounded-full text-normal font-bold border border-[#ebebeb] hover:bg-[#4d8a54] hover:text-white hover:border-[#4d8a54]">
-            Trà nóng
-          </button>
-        </div> */}
-
-        {/* product */}
+        <h2 className="uppercase font-bebas text-4xl text-normal text-center">
+          Sản phầm mới
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-12 gap-5">
           {products.slice(0, 8).map((item, index) => (
             <div key={index}>
-              <div className="border border-[#ebebeb] relative pt-[100%] cursor-pointer group overflow-hidden">
+              <div className="border border-[#ebebeb] relative cursor-pointer group overflow-hidden">
                 <Link href={`/product/${item.slug}`}>
-                  {item.image && <Image src={item.image} layout="fill" alt="" />}
+                  {item.image && (
+                    <img src={item.image} alt="" width={"470px"} />
+                  )}
                 </Link>
 
-                <button className="absolute bottom-0 w-full h-10 bg-primary text-white font-bold translate-y-full group-hover:translate-y-0 transition-all duration-300 opacity-90 hover:opacity-100">
-                  Thêm vào giỏ hàng
-                </button>
+             
               </div>
 
               <div className="text-center text-lg font-bold py-3">
-                <h3 className="hover:text-[#4d8a54]">
-                  <Link href={`/product/${item.slug}`}>{item.name}</Link>
-                </h3>
-                <p>
-                  <span className="font-normal">Giá</span>: {formatCurrency(item.price)}
-                </p>
+                <div className="mx-3 mt-2">
+                  <div className=" md:text-[21px] text-[18px]   text-black font-medium ">
+                    {item.name}
+                  </div>
+                </div>
+                <div className="flex justify-between items-center mt-2 pb-3  mx-3">
+                  <div className="text-[20px] leading-[21px]  font-normal text-[#FF5722] p-2">
+                    {formatCurrency(item.price  )}
+                  </div>
+                  <div>
+                    <button className="bg-[#FF5722]  leading-[21px]  font-semibold text-white px-2 py-1 rounded-md">
+                      Mua ngay
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           ))}

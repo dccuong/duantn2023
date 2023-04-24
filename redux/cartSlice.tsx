@@ -17,7 +17,11 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addCart(state, { payload }) {
-      const exitsProduct = state.carts.find((item) => item.productId === payload.productId);
+      const exitsProduct = state.carts.find((item) => {
+        return (
+          item.productId === payload.productId && item.size == payload.size
+        );
+      });
 
       if (exitsProduct) {
         exitsProduct.quantity += payload.quantity;
@@ -31,7 +35,9 @@ const cartSlice = createSlice({
     },
 
     increaseQnt(state, { payload }) {
-      const exitsProduct = state.carts.find((item) => item.productId === payload);
+      const exitsProduct = state.carts.find(
+        (item) => item.productId === payload
+      );
 
       exitsProduct!.quantity++;
 
@@ -42,7 +48,9 @@ const cartSlice = createSlice({
     },
 
     decreaseQnt(state, { payload }) {
-      const exitsProduct = state.carts.find((item) => item.productId === payload);
+      const exitsProduct = state.carts.find(
+        (item) => item.productId === payload
+      );
 
       if (exitsProduct?.quantity! <= 1) {
         state.carts = state.carts.filter((item) => item.productId !== payload);
@@ -57,7 +65,15 @@ const cartSlice = createSlice({
     },
 
     removeCart(state, { payload }) {
-      state.carts = state.carts.filter((item) => item.productId !== payload);
+      console.log(payload, "sssssss");
+      state.carts = state.carts.filter((item) => {
+        return (
+          item.productId &&
+          item.size &&
+          (item.size !== payload.prdSize ||
+            item.productId !== payload.productId)
+        );
+      });
       // update total price
       state.totalPrice = state.carts.reduce((total, item) => {
         return total + item.productPrice * item.quantity;
@@ -72,5 +88,6 @@ const cartSlice = createSlice({
 
 export const selectCarts = (state: RootState) => state.cart.carts;
 export const selectTotalPrice = (state: RootState) => state.cart.totalPrice;
-export const { addCart, increaseQnt, decreaseQnt, removeCart, finishOrder } = cartSlice.actions;
+export const { addCart, increaseQnt, decreaseQnt, removeCart, finishOrder } =
+  cartSlice.actions;
 export default cartSlice.reducer;

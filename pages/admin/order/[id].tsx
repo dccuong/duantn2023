@@ -12,15 +12,18 @@ import { Order } from "../../../models/order";
 import { getOrder, updateStt } from "../../../redux/orderSlice";
 import { RootState } from "../../../redux/store";
 import { formatCurrency } from "../../../untils";
+import { update } from "../../../Api/productApi";
+import { updateproduct } from "../../../redux/productSlice";
 
 type Props = {};
 
 const OrderDetail: NextPageWithLayout = (props: Props) => {
   const router = useRouter();
   const { id } = router.query;
+  console.log(id, "myid");
   const dispatch = useDispatch<any>();
   const order = useSelector((state: RootState) => state.order.order) as Order;
-
+  console.log(order, "order");
   useEffect(() => {
     if (id) {
       (async () => {
@@ -45,9 +48,29 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await dispatch(updateStt({ orderId: order._id!, status: stt })).unwrap();
+        await dispatch(
+          updateStt({ orderId: order._id!, status: stt })
+        ).unwrap();
         Swal.fire("Thành công!", "Cập nhật thành công.", "success");
       }
+    });
+  };
+  const handleUpdateBuy = async (prd?: any[]) => {
+    console.log(prd, "ssssss");
+    prd?.forEach((item) => {
+      const newprd = {
+        _id: item.productId,
+        name: item.product.name,
+        image: item.product.image,
+        price: item.product.price,
+        desc: item.product.desc,
+        slug: item.product.desc,
+        catygoryId: item.product.catygoryId,
+        buy: item.product.buy
+          ? item.product.buy + item.quantity
+          : item.product.buy + item.quantity,
+      };
+      dispatch(updateproduct(newprd));
     });
   };
 
@@ -89,7 +112,10 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
           ) : order.status === 2 ? (
             <button
               type="button"
-              onClick={() => handleUpdateStt(3)}
+              onClick={() => {
+                handleUpdateStt(3);
+                handleUpdateBuy(order?.orderDetails);
+              }}
               className="mr-2 btn-update-stt btn-update-stt-success inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Đã giao hàng
@@ -123,8 +149,8 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
       <div className="p-6 mt-24 overflow-hidden">
         <div className="shadow sm:rounded-md bg-white p-5">
           <div>
-            {" "}
-            Đơn hàng #<mark>{order._id}</mark> đặt lúc <mark>{formatDate(order.createdAt!)}</mark> hiện tại{" "}
+            Đơn hàng #<mark>{order._id}</mark> đặt lúc{" "}
+            <mark>{formatDate(order.createdAt!)}</mark> hiện tại
             <mark>
               {order.status === 0
                 ? "Đang chờ xác nhận"
@@ -140,15 +166,27 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
             </mark>
           </div>
           <section>
-            <h2 className="font-semibold text-gray-600 text-2xl">Chi tiết đơn hàng</h2>
+            <h2 className="font-semibold text-gray-600 text-2xl">
+              Chi tiết đơn hàng
+            </h2>
             <table className="mt-3 text-gray-600 w-full text-left">
               <thead>
                 <tr>
                   <th className="pb-1 border-b-2 uppercase text-sm">STT</th>
-                  <th className="pb-1 border-b-2 uppercase text-sm">Sản phẩm</th>
+                  <th className="pb-1 border-b-2 uppercase text-sm">
+                    Sản phẩm
+                  </th>
                   <th className="pb-1 border-b-2 uppercase text-sm">Đơn giá</th>
-                  <th className="pb-1 border-b-2 uppercase text-sm">Số lượng</th>
-                  <th className="pb-1 border-b-2 uppercase text-sm text-right">Thành tiền</th>
+                  <th className="pb-1 border-b-2 uppercase text-sm">
+                    Số lượng
+                  </th>
+                  <th className="pb-1 border-b-2 uppercase text-sm">Size</th>
+                  <th className="pb-1 border-b-2 uppercase text-sm text-right">
+                    Thành tiền
+                  </th>
+                  <th className="pb-1 border-b-2 uppercase text-sm text-right">
+                    Thanh Toán
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -157,19 +195,43 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
                     <td>{++index}</td>
                     <td className="py-2 flex items-center">
                       <div className="w-10 h-10 object-cover relative">
-                        {item.product?.image && <Image src={item.product?.image} alt="" layout="fill" />}
+                        {item.product == null ? (
+                          <>{"Sản phẩm đã bị xóa"}</>
+                        ) : (
+                          item.product.image && (
+                            <img
+                              src={item.product?.image}
+                              alt=""
+                              width={"fill"}
+                            />
+                          )
+                        )}
                       </div>
-
-                      <div className="pl-3">
-                        <Link href={`/product/${item.product?.slug}`} className="text-blue-500">
-                          {item.product?.name}
-                        </Link>
-                      </div>
+                      {item.product == null ? (
+                        <>Sản phẩm ko tồn tại</>
+                      ) : (
+                        <div className="pl-3">
+                          <Link
+                            href={`/product/${item.product.slug }`}
+                            className="text-blue-500"
+                          >
+                            {item.product?.name}
+                          </Link>
+                        </div>
+                      )}
                     </td>
-                    <td className="py-2">{formatCurrency(item.productPrice)}</td>
+                    <td className="py-2">
+                      {formatCurrency(item.productPrice)}
+                    </td>
                     <td className="py-2">{item.quantity}</td>
+                    <td className="py-2">{item.size}</td>
                     <td className="py-2 text-right text-black font-medium">
                       {formatCurrency(item.productPrice * item.quantity)}
+                    </td>
+                    <td className="py-2 text-right text-black font-medium">
+                      {item.pay == true
+                        ? "đã thanh toán "
+                        : "thanh toán khi nhận hàng"}
                     </td>
                   </tr>
                 ))}
@@ -177,22 +239,30 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
             </table>
           </section>
           <section className="mt-4">
-            <h2 className="font-semibold text-gray-600 text-2xl">Tổng thanh toán</h2>
+            <h2 className="font-semibold text-gray-600 text-2xl">
+              Tổng thanh toán
+            </h2>
             <table className="mt-1 text-gray-600 w-full text-left">
               <tbody>
                 <tr className="border-b">
                   <td className="py-1.5 font-medium">Tiền tạm tính:</td>
-                  <td className="py-1.5 text-right">{formatCurrency(order?.totalPrice || 0)}</td>
+                  <td className="py-1.5 text-right">
+                    {formatCurrency(order?.totalPrice || 0)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-1.5 font-medium">Tổng tiền:</td>
-                  <td className="py-1.5 text-right">{formatCurrency(order.totalPrice)}</td>
+                  <td className="py-1.5 text-right">
+                    {formatCurrency(order.totalPrice)}
+                  </td>
                 </tr>
               </tbody>
             </table>
           </section>
           <section className="mt-4">
-            <h2 className="font-semibold text-gray-600 text-2xl">Thông tin vận chuyển</h2>
+            <h2 className="font-semibold text-gray-600 text-2xl">
+              Thông tin vận chuyển
+            </h2>
             <table className="mt-1 text-gray-600 w-full text-left">
               <tbody>
                 <tr className="border-b">
@@ -213,11 +283,15 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
                 </tr>
                 <tr className="border-b">
                   <td className="py-1.5 font-medium">Thời gian đặt:</td>
-                  <td className="py-1.5 text-right">{formatDate(order?.createdAt!)}</td>
+                  <td className="py-1.5 text-right">
+                    {formatDate(order?.createdAt!)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-1.5 font-medium">Ghi chú:</td>
-                  <td className="py-1.5 text-right">{order?.message || "Không có"}</td>
+                  <td className="py-1.5 text-right">
+                    {order?.message || "Không có"}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -228,6 +302,8 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
   );
 };
 
-OrderDetail.getLayout = (page: ReactElement) => <AdminLayout>{page}</AdminLayout>;
+OrderDetail.getLayout = (page: ReactElement) => (
+  <AdminLayout>{page}</AdminLayout>
+);
 
 export default OrderDetail;

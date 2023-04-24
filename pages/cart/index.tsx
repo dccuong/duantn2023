@@ -26,7 +26,7 @@ const CartList = (props: Props) => {
   const carts = useSelector(selectCarts);
   const totalPrice = useSelector(selectTotalPrice);
   const dispatch = useDispatch();
-
+  console.log(carts,"carts")
   const handleIncreaseQnt = (productId: string) => {
     dispatch(increaseQnt(productId));
   };
@@ -35,7 +35,7 @@ const CartList = (props: Props) => {
     dispatch(decreaseQnt(productId));
   };
 
-  const handleRemoveCart = (productId: string) => {
+  const handleRemoveCart = (productId: string,prdSize:any) => {
     Swal.fire({
       title: "Bạn có chắc chắn muốn xóa SP",
       text: "Không thể hoàn tác sau khi xóa",
@@ -46,7 +46,7 @@ const CartList = (props: Props) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(removeCart(productId));
+        dispatch(removeCart({productId,prdSize}));
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
@@ -86,6 +86,9 @@ const CartList = (props: Props) => {
                     <th className="pb-1 uppercase text-sm text-gray-500">
                       Số lượng
                     </th>
+                    <th className="pb-1 uppercase text-sm text-gray-500">
+                      Size
+                    </th>
                     <th className="pb-1 uppercase text-sm text-gray-500 text-right">
                       Tạm tính
                     </th>
@@ -97,7 +100,7 @@ const CartList = (props: Props) => {
                       <td>
                         <button
                           type="button"
-                          onClick={() => handleRemoveCart(item.productId)}
+                          onClick={() => handleRemoveCart(item.productId,item.size)}
                           className="p-2 text-gray-400 text-xl transition ease-linear duration-200 hover:text-black"
                         >
                           <FontAwesomeIcon icon={faTimes} />
@@ -150,6 +153,7 @@ const CartList = (props: Props) => {
                           </button>
                         </div>
                       </td>
+                      <td className="font-bold">{item.size}</td>
                       <td className="font-bold text-right">
                         {formatCurrency(item.productPrice * item.quantity)}
                       </td>
@@ -162,7 +166,7 @@ const CartList = (props: Props) => {
                   <Link href="/product">
                     <button
                       type="button"
-                      className="select-none uppercase h-8 text-primary font-semibold text-sm border-[#4d8a54] border-2 px-3 transition ease-linear duration-300 hover:bg-[#4d8a54] hover:text-white"
+                      className="select-none uppercase h-8 text-primary font-semibold text-sm border-[#ff5722] border-2 px-3 transition ease-linear duration-300 hover:bg-[#ff5722] hover:text-white"
                     >
                       <FontAwesomeIcon icon={faLeftLong} />
                       <span> Tiếp tục xem sản phẩm</span>
@@ -196,7 +200,7 @@ const CartList = (props: Props) => {
                 </tbody>
               </table>
               <Link href="/checkout">
-                <button className="mt-4 w-full px-3 py-2 bg-primary font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+                <button className="mt-4 w-full px-3 py-2 bg-primary font-semibold uppercase text-black text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
                   Tiến hành thanh toán
                 </button>
               </Link>
@@ -240,7 +244,7 @@ const CartList = (props: Props) => {
             <p>Chưa có sản phẩm nào trong giỏ hàng</p>
             <Link href="/product">
               <div className="block mt-4">
-                <button className="uppercase h-8 text-[#4d8a54] font-semibold text-sm border-[#4d8a54] border-2 px-3 transition ease-linear duration-300 hover:bg-[#4d8a54] hover:text-white">
+                <button className="uppercase h-8 text-[#ff5722] font-semibold text-sm border-[#ff5722] border-2 px-3 transition ease-linear duration-300 hover:bg-[#ff5722] hover:text-white">
                   <FontAwesomeIcon icon={faLongArrowAltLeft} />
                   <span> Tiếp tục mua hàng</span>
                 </button>

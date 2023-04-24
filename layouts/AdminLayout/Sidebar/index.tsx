@@ -32,9 +32,11 @@ const AdminMenu = (props: Props) => {
   return (
     <nav className="dashboard__sidebar fixed top-0 left-0 z-20 h-full pb-10 overflow-x-hidden overflow-y-auto transition origin-left transform bg-gray-900 w-60 md:translate-x-0 -translate-x-full">
       <Link href="/">
-        <span className="flex items-center p-4 text-white font-bold text-3xl cursor-pointer">
-          Trip finder
-        </span>
+        <div>
+          <span className="flex items-center p-4 text-white font-bold text-3xl cursor-pointer">
+            Sneaker Pop
+          </span>
+        </div>
       </Link>
       <nav
         className="text-sm font-medium text-gray-500"
@@ -92,7 +94,7 @@ const AdminMenu = (props: Props) => {
           </span>
         </Link>
 
-        <Link href="/admin/blogs">
+        {/* <Link href="/admin/blogs">
           <span
             className={
               router.asPath == "/admin/blogs"
@@ -109,16 +111,18 @@ const AdminMenu = (props: Props) => {
               </span>
             </div>
           </span>
-        </Link>
+        </Link> */}
 
         <Link href="/admin/sliders">
-        <span
+          <span
             className={
               router.asPath == "/admin/sliders"
                 ? "active flex items-center justify-between px-4 py-3 transition cursor-pointer group bg-gray-800 text-gray-200  "
                 : " flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200 "
             }
-          >            <div className="flex items-center">
+          >
+            {" "}
+            <div className="flex items-center">
               <div className="shrink-0 w-5 h-5 mr-2 text-gray-300 transition group-hover:text-gray-300">
                 <FontAwesomeIcon icon={faSlidersH} />
               </div>
@@ -129,10 +133,10 @@ const AdminMenu = (props: Props) => {
           </span>
         </Link>
 
-        <Link href="/admin/tours">
+        <Link href="/admin/prdCates">
           <span
             className={
-              router.asPath == "/admin/tours"
+              router.asPath == "/admin/prdCates"
                 ? "active flex items-center justify-between px-4 py-3 transition cursor-pointer group bg-gray-800 text-gray-200  "
                 : " flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200 "
             }
@@ -142,15 +146,15 @@ const AdminMenu = (props: Props) => {
                 <FontAwesomeIcon icon={faThList} />
               </div>
               <span>
-                <b>Quản Lý ...</b>
+                <b>Quản lý Danh muc</b>
               </span>
             </div>
           </span>
         </Link>
-        <Link href="/admin/danhmuc">
+        <Link href="/admin/order">
           <span
             className={
-              router.asPath == "/admin/danhmuc"
+              router.asPath == "/admin/order"
                 ? "active flex items-center justify-between px-4 py-3 transition cursor-pointer group bg-gray-800 text-gray-200  "
                 : " flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200 "
             }
@@ -160,7 +164,7 @@ const AdminMenu = (props: Props) => {
                 <FontAwesomeIcon icon={faComment} />
               </div>
               <span>
-                <b>Quản lý Danh muc</b>
+                <b>Quản lý Order</b>
               </span>
             </div>
           </span>
@@ -205,25 +209,6 @@ const AdminMenu = (props: Props) => {
             </div>
           </span>
         </Link> */}
-
-        <Link href="/admin/bookings">
-          <span
-            className={
-              router.asPath == "/admin/bookings"
-                ? "active flex items-center justify-between px-4 py-3 transition cursor-pointer group bg-gray-800 text-gray-200  "
-                : " flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200 "
-            }
-          >
-            <div className="flex items-center">
-              <div className="shrink-0 w-5 h-5 mr-2 text-gray-300 transition group-hover:text-gray-300">
-                <FontAwesomeIcon icon={faComment} />
-              </div>
-              <span>
-                <b>Quản lý Booking</b>
-              </span>
-            </div>
-          </span>
-        </Link>
       </nav>
       <button
         className="py-2 w-full text-white font-bold text-md cursor-pointer fixed bottom-0 border-solid border-t-2 border-b-2 border-sky-500"

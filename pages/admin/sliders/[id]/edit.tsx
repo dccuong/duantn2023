@@ -18,19 +18,19 @@ type Props = {};
 type Inputs = {
   title: string;
   url1: {
-    0: File;
+    0: any;
   };
   url2: {
-    0: File;
+    0: any;
   };
   url3: {
-    0: File;
+    0: any;
   };
   url4: {
-    0: File;
+    0: any;
   };
   url5: {
-    0: File;
+    0: any;
   };
 };
 
@@ -54,14 +54,14 @@ const EditSlider: NextPageWithLayout = (props: Props) => {
 
   const onSubmit: SubmitHandler<any> = async (values: Inputs) => {
     try {
-      if (typeof values.url1 === "object") {
-        const data1 = await uploadImage(values.url1[0]);
-
-        //   const data2 = await uploadImage(values.url2[0]);
-        //   const data3 = await uploadImage(values.url3[0]);
-        //   const data4 = await uploadImage(values.url4[0]);
-        //   const data5 = await uploadImage(values.url5[0]);
-
+      if (
+        typeof values.url1 === "object" ||
+        typeof values.url2 === "object" ||
+        typeof values.url3 === "object" ||
+        typeof values.url4 === "object" ||
+        typeof values.url5 === "object"
+      ) {
+        var data1 = await uploadImage(values.url1[0]);
         const valuesss = {
           _id: id,
           title: values.title,
@@ -71,71 +71,73 @@ const EditSlider: NextPageWithLayout = (props: Props) => {
           url4: preview4,
           url5: preview5,
         };
+        console.log(1);
         await dispatch(updateSlider(valuesss)).unwrap();
-        toast.success("Thêm ảnh thành công");
-      }
-      if (typeof values.url2 === "object") {
-        const data2 = await uploadImage(values.url2[0]);
+        toast.success("Thêm ảnh thành công1");
+      } else if (typeof values.url2 === "object") {
+        var data2 = await uploadImage(values.url2[0]);
+        console.log(data2, "sssssssss");
         const valuesss = {
           _id: id,
           title: values.title,
+          url1: data1.data.url ? data1.data.url : preview1,
           url2: data2.data.url,
-          url1: preview1,
           url3: preview3,
           url4: preview4,
           url5: preview5,
         };
+        console.log(2);
         await dispatch(updateSlider(valuesss)).unwrap();
-        toast.success("Thêm ảnh thành công");
-      }
-      if (typeof values.url3 === "object") {
-        const data3 = await uploadImage(values.url3[0]);
+        toast.success("Thêm ảnh thành công2");
+      } else if (typeof values.url3 === "object") {
+        var data3 = await uploadImage(values.url3[0]);
         const valuesss = {
           _id: id,
           title: values.title,
+          url1: data1.data.url ? data1.data.url : preview1,
+          url2: data2.data.url ? data2.data.url : preview2,
           url3: data3.data.url,
-          url1: preview1,
-          url2: preview2,
           url4: preview4,
           url5: preview5,
         };
+        console.log(3);
         await dispatch(updateSlider(valuesss)).unwrap();
         toast.success("Thêm ảnh thành công");
-      }
-      if (typeof values.url4 === "object") {
-        const data4 = await uploadImage(values.url4[0]);
+      } else if (typeof values.url4 === "object") {
+        var data4 = await uploadImage(values.url4[0]);
         const valuesss = {
           _id: id,
           title: values.title,
+          url1: data1.data.url ? data1.data.url : preview1,
+          url2: data2.data.url ? data2.data.url : preview2,
+          url3: data3.data.url ? data3.data.url : preview3,
           url4: data4.data.url,
-          url1: preview1,
-          url2: preview2,
-          url3: preview3,
           url5: preview5,
         };
+        console.log(4);
         await dispatch(updateSlider(valuesss)).unwrap();
         toast.success("Thêm ảnh thành công");
-      }
-      if (typeof values.url5 === "object") {
-        const data5 = await uploadImage(values.url5[0]);
+      } else if (typeof values.url5 === "object") {
+        let data5 = await uploadImage(values.url5[0]);
         const valuesss = {
           _id: id,
           title: values.title,
+          url1: data1.data.url ? data1.data.url : preview1,
+          url2: data2.data.url ? data2.data.url : preview2,
+          url3: data3.data.url ? data3.data.url : preview3,
+          url4: data4.data.url ? data4.data.url : preview4,
           url5: data5.data.url,
-          url1: preview1,
-          url2: preview2,
-          url4: preview4,
-          url3: preview3,
         };
+        console.log(5);
         await dispatch(updateSlider(valuesss)).unwrap();
         toast.success("Thêm ảnh thành công");
       } else {
         const valuesss = {
           _id: id,
           title: values.title,
-          url3: preview3,
           url1: preview1,
           url2: preview2,
+          url3: preview3,
           url4: preview4,
           url5: preview5,
         };
