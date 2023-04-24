@@ -35,7 +35,7 @@ const CartList = (props: Props) => {
     dispatch(decreaseQnt(productId));
   };
 
-  const handleRemoveCart = (productId: string) => {
+  const handleRemoveCart = (productId: string,prdSize:any) => {
     Swal.fire({
       title: "Bạn có chắc chắn muốn xóa SP",
       text: "Không thể hoàn tác sau khi xóa",
@@ -46,7 +46,7 @@ const CartList = (props: Props) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(removeCart(productId));
+        dispatch(removeCart({productId,prdSize}));
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
@@ -100,7 +100,7 @@ const CartList = (props: Props) => {
                       <td>
                         <button
                           type="button"
-                          onClick={() => handleRemoveCart(item.productId)}
+                          onClick={() => handleRemoveCart(item.productId,item.size)}
                           className="p-2 text-gray-400 text-xl transition ease-linear duration-200 hover:text-black"
                         >
                           <FontAwesomeIcon icon={faTimes} />

@@ -26,9 +26,7 @@ const cartSlice = createSlice({
       if (exitsProduct) {
         exitsProduct.quantity += payload.quantity;
       } else {
-        // const data = [...state.carts, payload,{key:state.carts.length+1}];
-        // console.log(data,"sssssss")
-        // state.carts=[...data]
+        state.carts = [...state.carts, payload];
       }
 
       state.totalPrice = state.carts.reduce((total, item) => {
@@ -67,9 +65,15 @@ const cartSlice = createSlice({
     },
 
     removeCart(state, { payload }) {
-      state.carts = state.carts.filter((item) => { return (
-        item.productId === payload.productId && item.size == payload.size
-      );});
+      console.log(payload, "sssssss");
+      state.carts = state.carts.filter((item) => {
+        return (
+          item.productId &&
+          item.size &&
+          (item.size !== payload.prdSize ||
+            item.productId !== payload.productId)
+        );
+      });
       // update total price
       state.totalPrice = state.carts.reduce((total, item) => {
         return total + item.productPrice * item.quantity;
