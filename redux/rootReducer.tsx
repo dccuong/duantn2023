@@ -6,9 +6,7 @@ import prdCateReducer from "./prdCateSlice";
 import siderReducer from "./sliderSlice";
 import voucheReducer from "./voucheSlice";
 import productReducer from "./productSlice";
-import prdColorReducer from "./prdColorSlice";
-import prdAmountReducer from "./prdAmountSlice";
-import prdSizeReducer from "./prdSizeSlice";
+
 import cartReducer from "./cartSlice";
 import orderReducer from "./orderSlice"
 const rootReducer = combineReducers({
@@ -19,10 +17,7 @@ const rootReducer = combineReducers({
   slider: siderReducer,
   vouche: voucheReducer,
   product: productReducer,
-  prdColor: prdColorReducer,
-  prdAmount: prdAmountReducer,
   order: orderReducer,
-  prdSize: prdSizeReducer,
   cart: cartReducer,
 });
 

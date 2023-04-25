@@ -69,7 +69,7 @@ const Login: NextPage<any> = ({ providers }) => {
             {" "}
             <span>
               Nếu bạn chưa có tài khoản,
-              <Link href="/signup">
+              <Link href="/register">
                 <span className="cursor-pointer hover:text-[#ff5722]"> đăng ký tại đây</span>
               </Link>
             </span>
