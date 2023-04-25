@@ -19,7 +19,7 @@ const Banner: any = (prop: Prop) => {
     const slide = useSelector((state: RootState) => state.slider.slider);
     const dispatch = useDispatch<any>();
     useEffect(() => {
-      dispatch(getSlider("641a788168e7709108d74825"));
+      dispatch(getSlider("6447f6881a058cfede157174"));
     }, [dispatch]);
     console.log(slide, "Sss");
   return (
