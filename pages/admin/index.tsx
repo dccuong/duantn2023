@@ -19,11 +19,11 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
   const products = useSelector((state: RootState) => state.product.products);
   console.log(products, "ssss");
   const maxBuy = products.reduce(
-    (max:any, item:any) => (item.buy > max.buy ? item : max),
+    (max: any, item: any) => (item.buy > max.buy ? item : max),
     products[0]
   );
   let oldestPerson2 = products?.reduce(
-    (max:any, person:any) => (person.buy  < max.buy ? person : max),
+    (max: any, person: any) => (person.buy < max.buy ? person : max),
     products[0]
   );
   const [orders, setOrders] = useState<any[]>([]);
@@ -59,6 +59,7 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
       }
     })();
   }, [dispatch]);
+  useEffect(() => {})
 
   return (
     <>
@@ -77,21 +78,11 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
           Dashboard{" "}
         </button>
       </header>
-      <div className="p-6 mt-24 overflow-hidden">
+      <div className="p-6 mt-10 overflow-hidden">
         <section className="">
           <div className=" bg-white">
-            <div className="bg-red-500 flex items-center px-3 text-white rounded-l-md">
-              BV
-            </div>
-            <div className="rounded-r-md flex shadow-sm items-center flex-1 justify-between px-3 py-2 leading-snug border-y border-r">
-              <div className="text-gray-500">
-                <FontAwesomeIcon icon={faEllipsisV} />
-              </div>
-            </div>
-          </div>
-          <div className=" bg-white">
-            <div className="bg-indigo-500 flex items-center px-3 text-white rounded-l-md">
-              TK
+            <div className="bg-indigo-500 flex items-center p-3 text-white rounded-l-md">
+              Tổng số người dùng
             </div>
             <div className="rounded-r-md flex shadow-sm items-center flex-1 justify-between px-3 py-2 leading-snug border-y border-r">
               <div>
@@ -106,8 +97,8 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
             </div>
           </div>
           <div className=" bg-white">
-            <div className="bg-yellow-500 flex items-center px-3 text-white rounded-l-md">
-              SP
+            <div className="bg-yellow-500 flex items-center p-3 text-white rounded-l-md">
+              Sản Phẩm
             </div>
             <div className="rounded-r-md flex shadow-sm items-center flex-1 justify-between px-3 py-2 leading-snug border-y border-r">
               <div>

@@ -133,15 +133,15 @@ const CheckoutPage = (props: Props) => {
         <title>Checkout</title>
       </Head>
 
-      <CartNav />
+      <>Thanh Toán</>
 
       <div className="form-checkout__page">
         <form
           action=""
-          className="mx-auto px-3 mt-10 mb-9 grid grid-cols-12 gap-5"
+          className="mx-auto px-3 mt-10 mb-9 grid grid-cols-12 lg:gap-5 gap-1"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="col-span-12 lg:col-span-8 border-t-2 pt-3">
+          <div className="col-span-12 lg:col-span-8  border-t-2 pt-3">
             <div className="flex items-center justify-between mb-2">
               <h3 className="uppercase text-gray-500 font-semibold text-lg">
                 Thông tin thanh toán

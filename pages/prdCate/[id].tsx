@@ -79,19 +79,19 @@ const Cateproduct = ({ cateproduct }: Props) => {
           {/* <div className="grid grid-cols-1 md:grid-cols-2 ">
             <div></div>
             <ul className="flex px-20 py-10">
-              <li className="border-2 flex items-center justify-center p-2 m-4  w-9 h-8 text-center hover:bg-[#4d8a54]  hover:text-white">
+              <li className="border-2 flex items-center justify-center p-2 m-4  w-9 h-8 text-center hover:bg-[#FF5722]  hover:text-white">
                 <Link href="/">1</Link>
               </li>
-              <li className="border-2 flex items-center justify-center p-2 m-4 w-9 h-8 text-center hover:bg-[#4d8a54]  hover:text-white ">
+              <li className="border-2 flex items-center justify-center p-2 m-4 w-9 h-8 text-center hover:bg-[#FF5722]  hover:text-white ">
                 <Link href="/">2</Link>
               </li>
-              <li className="border-2 flex items-center justify-center p-2 m-4 w-9 h-8 text-center hover:bg-[#4d8a54]  hover:text-white">
+              <li className="border-2 flex items-center justify-center p-2 m-4 w-9 h-8 text-center hover:bg-[#FF5722]  hover:text-white">
                 <Link href="/">3</Link>
               </li>
-              <li className="border-2 flex items-center justify-center p-2 m-4 w-9 h-8 text-center hover:bg-[#4d8a54]  hover:text-white">
+              <li className="border-2 flex items-center justify-center p-2 m-4 w-9 h-8 text-center hover:bg-[#FF5722]  hover:text-white">
                 <Link href="/">4</Link>
               </li>
-              <li className="border-2 flex items-center justify-center p-2 m-4 w-9 h-8 text-center hover:bg-[#4d8a54]  hover:text-white">
+              <li className="border-2 flex items-center justify-center p-2 m-4 w-9 h-8 text-center hover:bg-[#FF5722]  hover:text-white">
                 <Link href="/">5</Link>
               </li>
             </ul>

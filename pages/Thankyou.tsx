@@ -89,7 +89,7 @@ const Thankyou = (props: Props) => {
             </p>
             <div className="flex items-center justify-center mt-2">
               <Link href="/product">
-                <button className="uppercase h-8 text-[#4d8a54] font-semibold text-sm border-[#4d8a54] border-2 px-3 transition ease-linear duration-300 hover:bg-[#4d8a54] hover:text-white">
+                <button className="uppercase h-8 text-[#FF5722] font-semibold text-sm border-[#FF5722] border-2 px-3 transition ease-linear duration-300 hover:bg-[#FF5722] hover:text-white">
                   <svg
                     aria-hidden="true"
                     focusable="false"
@@ -111,7 +111,7 @@ const Thankyou = (props: Props) => {
 
               <div className="ml-2">
                 <Link href="/profile/myorder">
-                  <button className="uppercase h-8 text-[#4d8a54] font-semibold text-sm border-[#4d8a54] border-2 px-3 transition ease-linear duration-300 hover:bg-[#4d8a54] hover:text-white">
+                  <button className="uppercase h-8 text-[#FF5722] font-semibold text-sm border-[#FF5722] border-2 px-3 transition ease-linear duration-300 hover:bg-[#FF5722] hover:text-white">
                     <span>Kiểm tra đơn hàng</span>
                     <svg
                       aria-hidden="true"

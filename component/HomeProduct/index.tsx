@@ -55,16 +55,16 @@ const HomeProducts = ({ products }: HomeProductsProps) => {
 
               <div className="text-center text-lg font-bold py-3">
                 <div className="mx-3 mt-2">
-                  <div className=" md:text-[21px] text-[18px]   text-black font-medium ">
+                  <div className="  lg:text-[17px] text-[12px]   text-black font-medium ">
                     {item.name}
                   </div>
                 </div>
-                <div className="flex justify-between items-center mt-2 pb-3  mx-3">
-                  <div className="text-[20px] leading-[21px]  font-normal text-[#FF5722] p-2">
+                <div className="lg:flex lg:justify-between items-center mt-2 pb-3  mx-3">
+                  <div className=" lg:text-[16px] text-[12px] leading-[21px]  font-normal text-[#FF5722] p-2">
                     {formatCurrency(item.price  )}
                   </div>
                   <div>
-                    <button className="bg-[#FF5722]  leading-[21px]  font-semibold text-white px-2 py-1 rounded-md">
+                    <button className="bg-[#FF5722]  leading-[21px] lg:text-[16px] text-[12px] font-semibold text-white px-2 py-1 rounded-md">
                       Mua ngay
                     </button>
                   </div>

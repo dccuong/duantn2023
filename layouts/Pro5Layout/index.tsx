@@ -12,10 +12,10 @@ const ProfileLayout = ({ children }: Props) => {
     <PrivateRoute roleAccept={0}>
       <div className="container-base">
         <ul className="text-[#282828] flex flex-wrap: wrap text-[14px] font-medium leading-[24px] py-[15px] text-left">
-          <li className={`hover:text-[#4d8a54]`}>
+          <li className={`hover:text-[#FF5722]`}>
             <Link href=""> Trang chủ / </Link>
           </li>
-          <li className="text-[#4d8a54]">
+          <li className="text-[#FF5722]">
             <Link href=""> Trang thông tin</Link>
           </li>
         </ul>

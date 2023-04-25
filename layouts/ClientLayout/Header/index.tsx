@@ -1,13 +1,11 @@
 import { faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Typewriter from "typewriter-effect";
 import { searchProduct } from "../../../Api/productApi";
 import { Tuser } from "../../../models/user";
 import { selectCarts } from "../../../redux/cartSlice";
@@ -75,7 +73,7 @@ const index = (props: any) => {
   const listnav = [
     { name: "Trang Chủ", link: "/" },
     { name: "Giày", link: "/product" },
-    { name: "Giỏ Hàng", link: "/cart" },  
+    { name: "Giỏ Hàng", link: "/cart" },
     // { name: "Tin Tức", link: "/blog" },
   ];
   return (
@@ -139,7 +137,7 @@ const index = (props: any) => {
           </div>
         </div>
 
-        <ul className="hidden md:flex items-center mt-3  ">
+        <ul className="hidden md:flex items-center   ">
           {isLogged ? (
             <li className="relative flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">
               <FontAwesomeIcon icon={faUser} className="text-base" />
@@ -158,11 +156,11 @@ const index = (props: any) => {
               </li>
               <li>
                 <Link href={`/login`}>
-                  <span className=" bg-[#FF5722] lg:p-[14px] p-[12px] mx-2 rounded-xl font-bold text-white">
+                  <span className=" bg-[#FF5722] lg:p-2 p-[8px] mx-2 rounded-xl font-bold text-white">
                     Đăng Nhập
                   </span>
                 </Link>
-              </li>{" "}
+              </li>
             </>
           )}
         </ul>
@@ -236,50 +234,21 @@ const index = (props: any) => {
           show ? "block" : "hidden"
         } md:hidden w-[100%]    grid grid-cols-1`}
       >
-        <div className="flex  py-5 mx-auto border-t border-stone-300 w-full px-3">
-          <div className=" w-[40px] h-[18px] ">
-            <img src="/image 11.png" alt="" />
-          </div>
-          <div className=" w-[40px] h-[18px]  mx-2 ">VND</div>
-        </div>
         <div className="  flex  py-5 mx-auto border-t border-stone-300  w-full px-3">
           <Link href={`./register`}>
             <button>Đăng Ký</button>
           </Link>
           <div>
             <Link href={`./login`}>
-              <span className=" bg-[#FF5722] p-[10px] mx-3 rounded-xl font-bold text-white">
+              <span className=" bg-[#FF5722] p-[8px] mx-3 rounded-xl font-bold text-white">
                 Đăng Nhập
               </span>
             </Link>
           </div>
         </div>
         <ul className="py-5 mx-auto border-t border-stone-300 w-full px-3 font-normal">
-          {listnav.map((item, index) => (
-            <li
-              className="mr-[15px] md:mr-[25px] lg:mr-[70px] mt-2"
-              key={index}
-            >
-              <Link href={item.link}>
-                <span
-                  className={
-                    router.asPath == item.link
-                      ? "active   border-b-4 border-orange-500 py-1 text-orange-500 px-1"
-                      : "px-1"
-                  }
-                >
-                  {item.name == "Giỏ Hàng" ? (
-                    <label className="absolute text-xs w-5 h-5 font-semibold flex justify-center items-center border-2 border-[#4d8a54] rounded-full left-[10px] -top-[10px] bg-white text-primary">
-                      {carts.length}
-                    </label>
-                  ) : null}
-                  {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                </span>
-              </Link>
-            </li>
-          ))}
           <li
-            className={`z-[50] group relative font-bold hover:text-[#4d8a54] cursor-pointer text-[#282828] mx-3 ${
+            className={`z-[50] group relative  hover:text-[#FF5722] cursor-pointer text-[#282828] mx-1 ${
               router.pathname === "/product" && "text-primary"
             }`}
           >
@@ -290,7 +259,7 @@ const index = (props: any) => {
             <ul className="bg-white hidden group-hover:block absolute top-full left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
               {cateProduct?.map((item, index) => (
                 <Link href={`/cateproduct/${item._id}`} key={index}>
-                  <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]">
+                  <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#]">
                     {item.name}
                   </li>
                 </Link>

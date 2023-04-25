@@ -26,7 +26,7 @@ const CartList = (props: Props) => {
   const carts = useSelector(selectCarts);
   const totalPrice = useSelector(selectTotalPrice);
   const dispatch = useDispatch();
-  console.log(carts,"carts")
+  console.log(carts, "carts");
   const handleIncreaseQnt = (productId: string) => {
     dispatch(increaseQnt(productId));
   };
@@ -35,7 +35,7 @@ const CartList = (props: Props) => {
     dispatch(decreaseQnt(productId));
   };
 
-  const handleRemoveCart = (productId: string,prdSize:any) => {
+  const handleRemoveCart = (productId: string, prdSize: any) => {
     Swal.fire({
       title: "Bạn có chắc chắn muốn xóa SP",
       text: "Không thể hoàn tác sau khi xóa",
@@ -46,7 +46,7 @@ const CartList = (props: Props) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(removeCart({productId,prdSize}));
+        dispatch(removeCart({ productId, prdSize }));
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
@@ -57,9 +57,8 @@ const CartList = (props: Props) => {
       <Head>
         <title>Cart</title>
       </Head>
-      <CartNav />
-
-      <section className="container max-w-6xl mx-auto px-3 mt-10 grid grid-cols-12 mb-9">
+      <p  className="mt-3 text-center uppercase lg:text-sm text-[10px] text-gray-500">Giỏ hàng</p>
+      <section className=" w-[100%] mx-auto px-1 mt-3 grid grid-cols-12 mb-9">
         {carts.length >= 1 && (
           <>
             <form
@@ -69,27 +68,27 @@ const CartList = (props: Props) => {
               className="col-span-12 lg:col-span-8 lg:pr-6"
             >
               <table
-                className="table-auto w-full text-left border-collapse"
+                className="table-auto w-full  border-collapse"
                 id="cart__detail"
               >
                 <thead>
                   <tr className="uppercase border-b-2">
                     <th
-                      className="pb-1 uppercase text-sm text-gray-500"
-                      colSpan={3}
+                      className="pb-1 uppercase lg:text-sm text-[10px] text-gray-500"
+                      colSpan={2}
                     >
                       Sản phẩm
                     </th>
-                    <th className="pb-1 uppercase text-sm text-gray-500">
+                    <th className="p-1 uppercase lg:text-sm text-[10px]  text-gray-500">
                       Giá
                     </th>
-                    <th className="pb-1 uppercase text-sm text-gray-500">
+                    <th className="p-1 uppercase lg:text-sm text-[10px]  text-gray-500">
                       Số lượng
                     </th>
-                    <th className="pb-1 uppercase text-sm text-gray-500">
+                    <th className="p-1 uppercase lg:text-sm text-[10px]  text-gray-500">
                       Size
                     </th>
-                    <th className="pb-1 uppercase text-sm text-gray-500 text-right">
+                    <th className="pb-1 uppercase lg:text-sm text-[10px]  text-gray-500 text-right md:visible invisible">
                       Tạm tính
                     </th>
                   </tr>
@@ -100,40 +99,44 @@ const CartList = (props: Props) => {
                       <td>
                         <button
                           type="button"
-                          onClick={() => handleRemoveCart(item.productId,item.size)}
-                          className="p-2 text-gray-400 text-xl transition ease-linear duration-200 hover:text-black"
+                          onClick={() =>
+                            handleRemoveCart(item.productId, item.size)
+                          }
+                          className=" text-gray-400 lg:text-[16px] text-[10px] transition ease-linear duration-200 hover:text-black"
                         >
                           <FontAwesomeIcon icon={faTimes} />
                         </button>
                       </td>
-                      <td className="p-2">
-                        <Link href={`/product/${item.slug}`}>
-                          <div className="w-16 h-16 relative">
-                            <img
-                              className="block w-16 object-cover absolute"
-                              src={item.image}
-                              alt=""
-                            />
-                          </div>
-                        </Link>
+                      <td className="lg:flex items-center">
+                        <div className="p-2">
+                          <Link href={`/product/${item.slug}`}>
+                            <div className="w-16 h-16 relative">
+                              <img
+                                className="block w-16 object-cover absolute"
+                                src={item.image}
+                                alt=""
+                              />
+                            </div>
+                          </Link>
+                        </div>
+                        <div className="">
+                          <a
+                            className="font-semibold lg:text-[14px] text-[9px] text-center"
+                            href={`/product/${item.slug}`}
+                          >
+                            {item.name}
+                          </a>
+                        </div>
                       </td>
-                      <td className="p-2">
-                        <a
-                          className="font-semibold"
-                          href={`/product/${item.slug}`}
-                        >
-                          {item.name}
-                        </a>
-                      </td>
-                      <td className="font-bold">
+                      <td className="font-bold lg:text-[14px] text-[8px]">
                         {formatCurrency(item.productPrice)}
                       </td>
-                      <td className="p-2">
+                      <td className="p-1">
                         <div className="flex items-center h-9">
                           <button
                             type="button"
                             onClick={() => handleDecreaseQnt(item.productId)}
-                            className="px-2 bg-gray-100 border-gray-200 h-full border-l border-y transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]"
+                            className="px-1 bg-gray-100 border-gray-200 h-full border-l border-y transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]"
                           >
                             -
                           </button>
@@ -141,20 +144,20 @@ const CartList = (props: Props) => {
                             type="text"
                             readOnly
                             onChange={() => {}}
-                            className="border border-gray-200 h-full w-10 text-center outline-none shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-none focus:shadow-[0_0_5px_#ccc]"
+                            className="border border-gray-200 h-full md:w-10 w-5 text-center outline-none shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-none focus:shadow-[0_0_5px_#ccc]"
                             value={item.quantity}
                           />
                           <button
                             type="button"
                             onClick={() => handleIncreaseQnt(item.productId)}
-                            className="px-2 bg-gray-100 border-gray-200 h-full border-r border-y transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]"
+                            className="px-1 bg-gray-100 border-gray-200 h-full border-r border-y transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]"
                           >
                             +
                           </button>
                         </div>
                       </td>
-                      <td className="font-bold">{item.size}</td>
-                      <td className="font-bold text-right">
+                      <td className="font-bold lg:text-[14px] text-[10px]">{item.size}</td>
+                      <td className="font-bold text-right md:block hidden">
                         {formatCurrency(item.productPrice * item.quantity)}
                       </td>
                     </tr>
@@ -166,7 +169,7 @@ const CartList = (props: Props) => {
                   <Link href="/product">
                     <button
                       type="button"
-                      className="select-none uppercase h-8 text-primary font-semibold text-sm border-[#ff5722] border-2 px-3 transition ease-linear duration-300 hover:bg-[#ff5722] hover:text-white"
+                      className="select-none uppercase h-8 text-primary font-semibold lg:text-[16px] text-[10px] border-[#ff5722] border-2 px-3 transition ease-linear duration-300 hover:bg-[#ff5722] hover:text-white"
                     >
                       <FontAwesomeIcon icon={faLeftLong} />
                       <span> Tiếp tục xem sản phẩm</span>
@@ -179,28 +182,31 @@ const CartList = (props: Props) => {
               <table className="table-fixed w-full text-left">
                 <thead>
                   <tr className="uppercase border-b-2">
-                    <th className="pb-1 text-sm text-gray-500" colSpan={2}>
+                    <th className="pb-1 lg:text-[16px] text-[10px] text-gray-500" colSpan={2}>
                       Cộng giỏ hàng
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b">
-                    <td>Tạm tính</td>
-                    <td className="py-2 text-right font-semibold">
+                    <td className="lg:text-[16px] text-[10px]">Tạm tính</td>
+                    <td className="py-2 text-right font-semibold lg:text-[16px] text-[10px]">
                       {formatCurrency(totalPrice)}
                     </td>
                   </tr>
                   <tr className="border-b">
-                    <td>Tổng</td>
-                    <td className="py-2 text-right font-semibold">
+                    <td className="lg:text-[16px] text-[10px]">Tổng</td>
+                    <td className="py-2 text-right font-semibold lg:text-[16px] text-[10px]">
                       {formatCurrency(totalPrice)}
                     </td>
                   </tr>
                 </tbody>
               </table>
               <Link href="/checkout">
-                <button className="mt-4 w-full px-3 py-2 bg-primary font-semibold uppercase text-black text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+              <button
+                      type="button"
+                      className=" w-[100%] uppercase h-8 text-primary font-semibold text-sm border-[#ff5722] border-2 px-3 transition ease-linear duration-300 hover:bg-[#ff5722] hover:text-white"
+                    >
                   Tiến hành thanh toán
                 </button>
               </Link>
