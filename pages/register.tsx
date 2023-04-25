@@ -13,6 +13,7 @@ type Inputs = {
   email: string;
   phone: string;
   password: string;
+
 };
 
 
