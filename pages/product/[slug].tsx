@@ -121,7 +121,7 @@ const ProductDetail = ({ product }: Props) => {
         </ul>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 my-10 lg:gap-8 gap-0 place-items-center">
-        <div className=" text-center md:max-w-[450px] max-w-[250px]">
+        <div className=" text-center md:max-w-[450px] max-w-[350px]">
           {product.image && (
             <img
               src={product.image}
@@ -192,7 +192,7 @@ const ProductDetail = ({ product }: Props) => {
             <button
               onClick={handleBuyNow}
               type="submit"
-              className="lg:text-[18px] md:text-[14px] text-[10px] border border-orange-300 ml-4 mb-7 rounded-full bg-primary p-2 w-52 text-lg font-bold text-black"
+              className="lg:text-[18px] md:text-[14px] text-[10px] border border-orange-300 rounded-full bg-green-50 p-2.5 w-56  font-bold text-primary"
             >
               Mua ngay
             </button>
