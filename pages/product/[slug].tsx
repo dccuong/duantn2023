@@ -29,7 +29,7 @@ const ProductDetail = ({ product }: Props) => {
   const [orderSize, setSize] = useState<any>(null);
   const router = useRouter();
   const dispatch = useDispatch();
-  const size = [45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35];
+  const size = [44, 43, 42, 41, 40, 39, 38, 37, 36];
   const handleChangeQnt = (e: ChangeEvent<HTMLInputElement>) => {
     const qnt = +e.target.value;
 
@@ -54,11 +54,11 @@ const ProductDetail = ({ product }: Props) => {
   };
 
   const handleAddCart = () => {
-    if (quantity < 1 ) {
+    if (quantity < 1) {
       toast.info("Vui lòng chọn ít nhất 1 sản phẩm");
       return;
     }
-    if ( orderSize == null) {
+    if (orderSize == null) {
       toast.info("Vui lòng chọn size");
       return;
     }
@@ -78,11 +78,11 @@ const ProductDetail = ({ product }: Props) => {
     setQuantity(1);
   };
   const handleBuyNow = () => {
-    if (quantity < 1 ) {
+    if (quantity < 1) {
       toast.info("Vui lòng chọn ít nhất 1 sản phẩm");
       return;
     }
-    if ( orderSize == null) {
+    if (orderSize == null) {
       toast.info("Vui lòng chọn size");
       return;
     }
@@ -116,12 +116,12 @@ const ProductDetail = ({ product }: Props) => {
           </li>{" "}
           <span className="px-3 ">/</span>
           <li>
-            <Link href="/product">Sản phẩm</Link>
+            <Link href="/">Sản phẩm</Link>
           </li>
         </ul>
       </div>
-      <section className="grid grid-cols-1 md:grid-cols-2 my-10 gap-8 place-items-center">
-        <div className=" h-full w-full text-center max-w-[450px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 my-10 lg:gap-8 gap-0 place-items-center">
+        <div className=" text-center md:max-w-[450px] max-w-[250px]">
           {product.image && (
             <img
               src={product.image}
@@ -132,15 +132,17 @@ const ProductDetail = ({ product }: Props) => {
             />
           )}
         </div>
-        <section>
+        <div className="w-[100%] md:col-span-2">
           <div>
-            <h2 className="text-2xl text-normal font-semibold pt-50">
+            <h2 className="lg:text-[20px] md:text-[16px] text-[14px] font-semibold pt-50">
               {product.name}
             </h2>
-            <p className="italic pt-3">{product.desc}</p>
+            <p className="italic pt-3 lg:text-[18px] md:text-[16px] text-[10px]">
+              {product.desc}
+            </p>
             <p className="text-lg">
               Giá:{" "}
-              <span className="text-primary text-2xl font-bold">
+              <span className="text-primary lg:text-[20px] md:text-[16px] text-[14px] font-bold">
                 {formatCurrency(product.price)}
               </span>{" "}
             </p>
@@ -149,7 +151,7 @@ const ProductDetail = ({ product }: Props) => {
               {size.map((Item, index) => (
                 <div
                   className={
-                    `p-2 border-solid font-bold  border-2 mx-2 rounded-md ` +
+                    `md:p-2 p-1 border-solid font-bold  lg:text-[18px] md:text-[14px] text-[10px] border-2 mx-1 rounded-md ` +
                     `${
                       orderSize == Item ? "border-[#ff5722]" : "border-gray-500"
                     }`
@@ -178,11 +180,11 @@ const ProductDetail = ({ product }: Props) => {
             </button>
           </div>
 
-          <div>
+          <div className=" ">
             <button
               type="button"
               onClick={handleAddCart}
-              className=" border border-orange-300 rounded-full bg-green-50 p-2.5 w-56  font-bold text-primary"
+              className="lg:text-[18px] md:text-[14px] text-[10px] border border-orange-300 rounded-full bg-green-50 p-2.5 w-56  font-bold text-primary"
             >
               <FontAwesomeIcon className="px-2" icon={faCartPlus} />
               Thêm vào giỏ hàng
@@ -190,7 +192,7 @@ const ProductDetail = ({ product }: Props) => {
             <button
               onClick={handleBuyNow}
               type="submit"
-              className="border border-orange-300 ml-4 mb-7 rounded-full bg-primary p-2 w-52 text-lg font-bold text-black"
+              className="lg:text-[18px] md:text-[14px] text-[10px] border border-orange-300 ml-4 mb-7 rounded-full bg-primary p-2 w-52 text-lg font-bold text-black"
             >
               Mua ngay
             </button>
@@ -198,19 +200,19 @@ const ProductDetail = ({ product }: Props) => {
           <hr />
           <div className="py-3">
             <p>
-              <span className="font-semibold pb-3">Giao hàng miễn phí:</span> Áp
+              <span className="font-semibold pb-3 lg:text-[18px] md:text-[14px] text-[10px]">Giao hàng miễn phí:</span> Áp
               dụng đơn hàng {">"} 200.000đ
             </p>
             <p>
-              <span className="font-semibold">Thanh toán tại nhà:</span> Nhanh
+              <span className="font-semibold lg:text-[18px] md:text-[14px] text-[10px]">Thanh toán tại nhà:</span> Nhanh
               chóng và an toàn
             </p>
           </div>
-        </section>
-      </section>
+        </div>
+      </div>
 
       <section>
-        <h1 className="text-3xl font-semibold pt-50 text-center">
+        <h1 className="lg:text-[18px] md:text-[14px] text-[12px] font-semibold pt-50 text-center">
           CÓ THỂ BẠN THÍCH
         </h1>
       </section>

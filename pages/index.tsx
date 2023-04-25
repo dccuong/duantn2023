@@ -29,10 +29,10 @@ const index = (props: Props) => {
           {/* ssssssssssss */}
         </div>
 
-        <div className="flex justify-between xl:mx-[200px]  lg:mx-[100px] md:mx-[80px] mx-[15px]  font-bold "></div>
+        <HomeProducts products={props.products} />
         {/* sssssss */}
 
-        <HomeProducts products={props.products} />
+       
       </div>
     </>
   );

@@ -16,28 +16,48 @@ type Prop = {
 };
 
 const Banner: any = (prop: Prop) => {
-    const slide = useSelector((state: RootState) => state.slider.slider);
-    const dispatch = useDispatch<any>();
-    useEffect(() => {
-      dispatch(getSlider("6447f6881a058cfede157174"));
-    }, [dispatch]);
-    console.log(slide, "Sss");
+  const slide = useSelector((state: RootState) => state.slider.slider);
+  const dispatch = useDispatch<any>();
+  useEffect(() => {
+    dispatch(getSlider("6447f6881a058cfede157174"));
+  }, [dispatch]);
+  console.log(slide, "Sss");
   return (
     <Carousel autoplay>
       <div className="">
-        <img src={slide?.url1} alt="" className={"w-[100%] lg:h-screen "} />
+        <img
+          src={slide?.url1}
+          alt=""
+          className={"w-[100%] md:h-screen  h-[300px]"}
+        />
       </div>
       <div className="">
-        <img src={slide?.url2} alt="" className={"w-[100%] lg:h-screen "} />
+        <img
+          src={slide?.url2}
+          alt=""
+          className={"w-[100%] md:h-screen h-[300px] "}
+        />
       </div>
       <div className="">
-        <img src={slide?.url3} alt="" className={"w-[100%] lg:h-screen "} />
+        <img
+          src={slide?.url3}
+          alt=""
+          className={"w-[100%] md:h-screen h-[300px]"}
+        />
       </div>
       <div className="">
-        <img src={slide?.url4} alt="" className={"w-[100%] lg:h-screen "} />
+        <img
+          src={slide?.url4}
+          alt=""
+          className={"w-[100%] md:h-screen h-[300px]"}
+        />
       </div>
       <div className="">
-        <img src={slide?.url5} alt="" className={"w-[100%] lg:h-screen "} />
+        <img
+          src={slide?.url5}
+          alt=""
+          className={"w-[100%] md:h-screen h-[300px]"}
+        />
       </div>
     </Carousel>
   );

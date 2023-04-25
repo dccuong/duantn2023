@@ -247,8 +247,26 @@ const index = (props: any) => {
           </div>
         </div>
         <ul className="py-5 mx-auto border-t border-stone-300 w-full px-3 font-normal">
+          {listnav.map((item, index) => (
+            <li
+              className="mr-[15px] md:mr-[25px] lg:mr-[70px] mt-2"
+              key={index}
+            >
+              <span
+                className={
+                  router.asPath == item.link
+                    ? "active   border-b-4 border-orange-500 py-1 text-orange-500 px-1"
+                    : "px-1"
+                }
+              >
+                <Link href={item.link}>
+                  <button> {item.name} </button>
+                </Link>
+              </span>
+            </li>
+          ))}
           <li
-            className={`z-[50] group relative  hover:text-[#FF5722] cursor-pointer text-[#282828] mx-1 ${
+            className={`z-[50] group relative  hover:text-[#FF5722] cursor-pointer text-[#282828] m-1 ${
               router.pathname === "/product" && "text-primary"
             }`}
           >
@@ -273,17 +291,19 @@ const index = (props: any) => {
         <ul className="flex pt-[10px] md:py-[15px] text-[14px] md:text-[16px] xl:mx-[200px]  lg:mx-[100px] md:mx-[90px]  sm:mx-[60px] mx-[10px] font-medium">
           {listnav.map((item, index) => (
             <li className="" key={index}>
-              <Link href={item.link}>
-                <span
-                  className={
-                    router.asPath == item.link
-                      ? "active   border-b-4 border-orange-500 py-4 text-orange-500 px-5"
-                      : "px-5"
-                  }
-                >
-                  {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                </span>
-              </Link>
+              <span
+                className={
+                  router.asPath == item.link
+                    ? "active   border-b-4 border-orange-500 py-4 text-orange-500 px-5"
+                    : "px-5"
+                }
+              >
+                <Link href={item.link}>
+                  <button>
+                    {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                  </button>
+                </Link>
+              </span>
             </li>
           ))}
           <li
