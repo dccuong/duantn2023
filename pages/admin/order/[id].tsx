@@ -42,7 +42,7 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
       title: "Bạn có chắc chắn muốn cập nhật trạng thái?",
       text: "Không thể hoàn tác sau khi cập nhật",
       icon: "warning",
-      showCancelButton: true, 
+      showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
@@ -212,10 +212,10 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
                       ) : (
                         <div className="pl-3">
                           <Link
-                            href={`/product/${item.product.slug }`}
+                            href={`/product/${item.product.slug}`}
                             className="text-blue-500"
                           >
-                            {item.product?.name}
+                            {item.product?.name.substring(0, 20)+'...'}
                           </Link>
                         </div>
                       )}

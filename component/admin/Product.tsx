@@ -57,10 +57,6 @@ console.log(product,"sss")
             </th>
             <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
               {" "}
-              Description{" "}
-            </th>
-            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-              {" "}
               CatygoryId{" "}
             </th>
             <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -74,7 +70,7 @@ console.log(product,"sss")
             
             <tr key={index}>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{++index}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.name}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.name.substring(4, 15)}...</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 h-10 w-10">
@@ -85,7 +81,6 @@ console.log(product,"sss")
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(item.price)}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.desc.substring(0, 30)}...</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.catygoryId}</td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <Link href={`/admin/products/${item._id}`}>
