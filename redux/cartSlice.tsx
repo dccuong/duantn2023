@@ -36,7 +36,9 @@ const cartSlice = createSlice({
 
     increaseQnt(state, { payload }) {
       const exitsProduct = state.carts.find(
-        (item) => item.productId === payload
+        (item) => item.size 
+          == payload.prdSize &&
+          item.productId == payload.productId
       );
 
       exitsProduct!.quantity++;
@@ -49,11 +51,20 @@ const cartSlice = createSlice({
 
     decreaseQnt(state, { payload }) {
       const exitsProduct = state.carts.find(
-        (item) => item.productId === payload
+        (item) => item.size 
+          == payload.prdSize &&
+          item.productId == payload.productId
       );
 
       if (exitsProduct?.quantity! <= 1) {
-        state.carts = state.carts.filter((item) => item.productId !== payload);
+        state.carts = state.carts.filter((item) => {
+          return (
+            item.productId &&
+            item.size &&
+            (item.size !== payload.prdSize ||
+              item.productId !== payload.productId)
+          );
+        });
       } else {
         exitsProduct!.quantity--;
       }

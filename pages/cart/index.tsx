@@ -27,12 +27,12 @@ const CartList = (props: Props) => {
   const totalPrice = useSelector(selectTotalPrice);
   const dispatch = useDispatch();
   console.log(carts, "carts");
-  const handleIncreaseQnt = (productId: string) => {
-    dispatch(increaseQnt(productId));
+  const handleIncreaseQnt = (productId: string, prdSize: any) => {
+    dispatch(increaseQnt({productId,prdSize}));
   };
 
-  const handleDecreaseQnt = (productId: string) => {
-    dispatch(decreaseQnt(productId));
+  const handleDecreaseQnt = (productId: string, prdSize: any) => {
+    dispatch(decreaseQnt({productId,prdSize}));
   };
 
   const handleRemoveCart = (productId: string, prdSize: any) => {
@@ -57,7 +57,9 @@ const CartList = (props: Props) => {
       <Head>
         <title>Cart</title>
       </Head>
-      <p  className="mt-3 text-center uppercase lg:text-sm text-[10px] text-gray-500">Giỏ hàng</p>
+      <p className="mt-3 text-center uppercase lg:text-sm text-[10px] text-gray-500">
+        Giỏ hàng
+      </p>
       <section className=" w-[100%] mx-auto px-1 mt-3 grid grid-cols-12 mb-9">
         {carts.length >= 1 && (
           <>
@@ -135,7 +137,9 @@ const CartList = (props: Props) => {
                         <div className="flex items-center h-9">
                           <button
                             type="button"
-                            onClick={() => handleDecreaseQnt(item.productId)}
+                            onClick={() =>
+                              handleDecreaseQnt(item.productId, item.size)
+                            }
                             className="px-1 bg-gray-100 border-gray-200 h-full border-l border-y transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]"
                           >
                             -
@@ -149,14 +153,16 @@ const CartList = (props: Props) => {
                           />
                           <button
                             type="button"
-                            onClick={() => handleIncreaseQnt(item.productId)}
+                            onClick={() => handleIncreaseQnt(item.productId,item.size)}
                             className="px-1 bg-gray-100 border-gray-200 h-full border-r border-y transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]"
                           >
                             +
                           </button>
                         </div>
                       </td>
-                      <td className="font-bold lg:text-[14px] text-[10px]">{item.size}</td>
+                      <td className="font-bold lg:text-[14px] text-[10px]">
+                        {item.size}
+                      </td>
                       <td className="font-bold text-right md:block hidden">
                         {formatCurrency(item.productPrice * item.quantity)}
                       </td>
@@ -182,7 +188,10 @@ const CartList = (props: Props) => {
               <table className="table-fixed w-full text-left">
                 <thead>
                   <tr className="uppercase border-b-2">
-                    <th className="pb-1 lg:text-[16px] text-[10px] text-gray-500" colSpan={2}>
+                    <th
+                      className="pb-1 lg:text-[16px] text-[10px] text-gray-500"
+                      colSpan={2}
+                    >
                       Cộng giỏ hàng
                     </th>
                   </tr>
@@ -203,10 +212,10 @@ const CartList = (props: Props) => {
                 </tbody>
               </table>
               <Link href="/checkout">
-              <button
-                      type="button"
-                      className=" w-[100%] uppercase h-8 text-primary font-semibold text-sm border-[#ff5722] border-2 px-3 transition ease-linear duration-300 hover:bg-[#ff5722] hover:text-white"
-                    >
+                <button
+                  type="button"
+                  className=" w-[100%] uppercase h-8 text-primary font-semibold text-sm border-[#ff5722] border-2 px-3 transition ease-linear duration-300 hover:bg-[#ff5722] hover:text-white"
+                >
                   Tiến hành thanh toán
                 </button>
               </Link>

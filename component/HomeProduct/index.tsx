@@ -38,7 +38,7 @@ const HomeProducts = ({ products }: HomeProductsProps) => {
     <section className="container-base">
       <div className="py-16">
         <h2 className="uppercase font-bebas text-4xl text-normal text-center">
-          Sản phầm mới
+          Sản phẩm mới
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-12 gap-5">
           {products.slice(0, 8).map((item, index) => (

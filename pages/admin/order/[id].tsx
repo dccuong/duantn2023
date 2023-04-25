@@ -40,9 +40,9 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
   const handleUpdateStt = (stt: number) => {
     Swal.fire({
       title: "Bạn có chắc chắn muốn cập nhật trạng thái?",
-      text: "Không thể hoàn tác sau khi xóa",
+      text: "Không thể hoàn tác sau khi cập nhật",
       icon: "warning",
-      showCancelButton: true,
+      showCancelButton: true, 
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
@@ -84,7 +84,7 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
         <title>Order Detail</title>
       </Head>
 
-      <header className="z-10 fixed top-14 left-0 md:left-60 right-0 px-4 py-1.5 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-between">
+      <header className="z-10 fixed top-0 left-0 md:left-60 right-0 px-4 py-1.5 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-between">
         <div className="flex items-center text-sm text-gray-600">
           <h5 className="relative pr-5 after:content-[''] after:absolute after:w-[1px] after:h-4 after:top-1/2 after:-translate-y-1/2 after:right-2.5 after:bg-gray-300">
             Order
@@ -146,7 +146,7 @@ const OrderDetail: NextPageWithLayout = (props: Props) => {
         </div>
       </header>
 
-      <div className="p-6 mt-24 overflow-hidden">
+      <div className="p-6 mt-6 overflow-hidden">
         <div className="shadow sm:rounded-md bg-white p-5">
           <div>
             Đơn hàng #<mark>{order._id}</mark> đặt lúc{" "}
