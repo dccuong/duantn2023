@@ -50,7 +50,7 @@ const CheckoutPage = (props: Props) => {
       createDate
     )}&vnp_CurrCode=VND&vnp_ExpireDate=${String(
       createDate + 1000000
-    )}&vnp_IpAddr=192.168.0.101&vnp_Locale=vn&vnp_OrderInfo=thanh+toan+don+hang&vnp_OrderType=other&vnp_ReturnUrl=https%3A%2F%2Fduantn2023-git-dev-dccuong.vercel.app%2FThankyou&vnp_TmnCode=OG4BJSNB&vnp_TxnRef=${String(
+    )}&vnp_IpAddr=192.168.0.101&vnp_Locale=vn&vnp_OrderInfo=thanh+toan+don+hang&vnp_OrderType=other&vnp_ReturnUrl=https%3A%2F%2Fduantn2023-dccuong.vercel.app%2FThankyou&vnp_TmnCode=OG4BJSNB&vnp_TxnRef=${String(
       createDate
     )}&vnp_Version=2.1.0` as string;
 
