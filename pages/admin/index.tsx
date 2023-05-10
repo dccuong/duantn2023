@@ -1,10 +1,12 @@
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
 import Head from "next/head";
-import React, { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrderByUser } from "../../Api/orderApi";
 import { AdminLayout } from "../../layouts";
 import { NextPageWithLayout } from "../../models/layout";
+import { getOrders } from "../../redux/orderSlice";
 import {
   getproduct,
   getproductleast,
@@ -12,10 +14,6 @@ import {
 } from "../../redux/productSlice";
 import { RootState } from "../../redux/store";
 import { getUsers } from "../../redux/userSlice";
-import { getOrders } from "../../redux/orderSlice";
-import Item from "antd/lib/list/Item";
-import { get, getOrderByUser } from "../../Api/orderApi";
-import { Order } from "../../models/order";
 
 type Props = {};
 
@@ -33,16 +31,6 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
   const users = useSelector((state: RootState) => state.user.users);
   const order = useSelector((state: RootState) => state.order.orders);
   const dispatch = useDispatch<any>();
-  const currentUser = useSelector(
-    (state: RootState) => state.auth.currentUser
-  ) as any;
-  console.log(users, "S");
-  let a = 0;
-  order.forEach((item) => {
-    if (item.status == 3) {
-      a = a + item.totalPrice;
-    }
-  });
 
   useEffect(() => {
     (async () => {
@@ -79,8 +67,8 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
           type="button"
           className="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          {" "}
-          Dashboard{" "}
+  
+          Dashboard
         </button>
       </header>
       <div className="p-6 mt-10 overflow-hidden">
@@ -111,19 +99,25 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
                 <span className="block text-gray-500">
                   {products?.length} Sản phẩm
                 </span>
-                <span className="block font-semibold">Các sản phẩm bán chay nhất</span>
-              {productmost.map((item,index)=>(
-               <div className={index>2?'hidden':""}>
-                <span>{item.name}</span> {"+>"} bán được  {" "} <span>{item.buy}</span>
-                </div>
-              ))}
+                <span className="block font-semibold">
+                  Các sản phẩm bán chay nhất
+                </span>
+                {productmost.map((item, index) => (
+                  <div className={index > 2 ? "hidden" : ""} key={index}>
+                    <span>{item.name}</span> {"+>"} bán được{" "}
+                    <span>{item.buy}</span>
+                  </div>
+                ))}
 
                 <span className="block font-semibold"> Bán Ế Nhất</span>
-                {productmost.map((item,index)=>(
-               <div className={index<productmost.length-4?'hidden':""}>
-                <span>{item.name}</span> {"+>"} bán được  {" "} <span>{item.buy}</span>
-                </div>
-              ))}
+                {productmost.map((item, index) => (
+                  <div
+                  key={index}  className={index < productmost.length - 4 ? "hidden" : ""}
+                  >
+                    <span>{item.name}</span> {"+>"} bán được{" "}
+                    <span>{item.buy}</span>
+                  </div>
+                ))}
                 <span className="block text-gray-500"> </span>
               </div>
               <div className="text-gray-500">
@@ -138,8 +132,12 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
             <div className="rounded-r-md flex shadow-sm items-center flex-1 justify-between px-3 py-2 leading-snug border-y border-r">
               <div>
                 <span className="block font-semibold">Doanh thu</span>
-                <span className="block text-gray-500">{totalprice.data?.[0]} VND</span>
-                <span className="block text-gray-500">{totalprice.data?.[1]} VND</span>
+                <span className="block text-gray-500">
+                  {totalprice.data?.[0]} VND
+                </span>
+                <span className="block text-gray-500">
+                  {totalprice.data?.[1]} VND
+                </span>
               </div>
               <div className="text-gray-500">
                 <FontAwesomeIcon icon={faEllipsisV} />
