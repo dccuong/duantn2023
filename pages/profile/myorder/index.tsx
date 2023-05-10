@@ -82,7 +82,7 @@ const Myoder: NextPageWithLayout = (props: Props) => {
             </tr>
           </thead>
           <tbody>
-            {orders?.map((item, index) => (
+            {orders?.map((item:any, index) => (
               <tr className="bg-white " key={index}>
                 <th
                   scope="row"

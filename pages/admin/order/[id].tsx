@@ -20,7 +20,7 @@ type Props = {};
 const OrderDetail: NextPageWithLayout = (props: Props) => {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id, "myid");
+
   const dispatch = useDispatch<any>();
   const order = useSelector((state: RootState) => state.order.order) as Order;
   console.log(order, "order");
