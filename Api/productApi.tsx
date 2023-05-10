@@ -1,4 +1,4 @@
-import { Product } from "../models/product";
+import { Product, TotalPriceAdmin } from "../models/product";
 import axiosClient, { axiosServer } from "./config";
 
 export const getAll = (): Promise<Product[]> => {
@@ -8,7 +8,7 @@ export const getmost = (): Promise<Product[]> => {
   return axiosServer.get("/maxbuys");
 };
 
-export const getleast = (): Promise<Product[]> => {
+export const getleast = (): Promise<TotalPriceAdmin> => {
   return axiosServer.get("/total-price");
 };
 export const remove = (id: string): Promise<Product> => {

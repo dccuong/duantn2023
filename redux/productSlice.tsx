@@ -8,7 +8,7 @@ import {
   remove,
   update,
 } from "../Api/productApi";
-import { Product } from "../models/product";
+import { Product, TotalPriceAdmin } from "../models/product";
 // type ProductState={
 //     products:Product[];
 //     product:Product[] | {};
@@ -20,14 +20,14 @@ import { Product } from "../models/product";
 type UserState = {
   products: Product[];
   productmost: Product[];
-  totalprice: any|{};
+  totalprice: any[] ;
   product: Product | {};
 };
 
 const initialState: UserState = {
   products: [],
   productmost: [],
-  totalprice: {},
+  totalprice: [],
   product: {},
 };
 
@@ -47,7 +47,7 @@ export const getproductleast = createAsyncThunk(
   "product/getproductleast",
   async () => {
     const response = await getleast();
-    return response;
+    return response.data;
   }
 );
 export const removeproduct = createAsyncThunk(

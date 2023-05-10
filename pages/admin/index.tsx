@@ -1,12 +1,10 @@
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Head from "next/head";
-import { ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderByUser } from "../../Api/orderApi";
+import Head from "next/head";
+import React, { ReactElement, useEffect, useState } from "react";
 import { AdminLayout } from "../../layouts";
 import { NextPageWithLayout } from "../../models/layout";
-import { getOrders } from "../../redux/orderSlice";
 import {
   getproduct,
   getproductleast,
@@ -14,6 +12,11 @@ import {
 } from "../../redux/productSlice";
 import { RootState } from "../../redux/store";
 import { getUsers } from "../../redux/userSlice";
+import { getOrders } from "../../redux/orderSlice";
+import Item from "antd/lib/list/Item";
+import { get, getOrderByUser } from "../../Api/orderApi";
+import { Order } from "../../models/order";
+import { formatCurrency } from "../../untils";
 
 type Props = {};
 
@@ -26,12 +29,11 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
   const totalprice = useSelector(
     (state: RootState) => state.product.totalprice
   );
+  console.log(totalprice,"123123")
   const [orders, setOrders] = useState<any[]>([]);
 
   const users = useSelector((state: RootState) => state.user.users);
-  const order = useSelector((state: RootState) => state.order.orders);
   const dispatch = useDispatch<any>();
-
   useEffect(() => {
     (async () => {
       try {
@@ -52,8 +54,6 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
       }
     })();
   }, [dispatch]);
-  useEffect(() => {});
-
   return (
     <>
       <Head>
@@ -67,8 +67,8 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
           type="button"
           className="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-  
-          Dashboard
+          {" "}
+          Dashboard{" "}
         </button>
       </header>
       <div className="p-6 mt-10 overflow-hidden">
@@ -111,8 +111,9 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
 
                 <span className="block font-semibold"> Bán Ế Nhất</span>
                 {productmost.map((item, index) => (
-                  <div
-                  key={index}  className={index < productmost.length - 4 ? "hidden" : ""}
+                  <div 
+                  key={index}
+                    className={index < productmost.length - 4 ? "hidden" : ""}
                   >
                     <span>{item.name}</span> {"+>"} bán được{" "}
                     <span>{item.buy}</span>
@@ -132,12 +133,10 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
             <div className="rounded-r-md flex shadow-sm items-center flex-1 justify-between px-3 py-2 leading-snug border-y border-r">
               <div>
                 <span className="block font-semibold">Doanh thu</span>
-                <span className="block text-gray-500">
-                  {totalprice.data?.[0]} VND
-                </span>
-                <span className="block text-gray-500">
-                  {totalprice.data?.[1]} VND
-                </span>
+                {totalprice?.map((item, index) => (
+                  
+                  <span className="block text-gray-500" key={index}> <b>{item._id} </b> == {formatCurrency(item.totalPrice)}</span>
+                ))}
               </div>
               <div className="text-gray-500">
                 <FontAwesomeIcon icon={faEllipsisV} />
