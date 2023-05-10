@@ -5,7 +5,11 @@ import Head from "next/head";
 import React, { ReactElement, useEffect, useState } from "react";
 import { AdminLayout } from "../../layouts";
 import { NextPageWithLayout } from "../../models/layout";
-import { getproduct } from "../../redux/productSlice";
+import {
+  getproduct,
+  getproductleast,
+  getproductmost,
+} from "../../redux/productSlice";
 import { RootState } from "../../redux/store";
 import { getUsers } from "../../redux/userSlice";
 import { getOrders } from "../../redux/orderSlice";
@@ -17,14 +21,12 @@ type Props = {};
 
 const Dashboard: NextPageWithLayout = (props: Props) => {
   const products = useSelector((state: RootState) => state.product.products);
-  console.log(products, "ssss");
-  const maxBuy = products.reduce(
-    (max: any, item: any) => (item.buy > max.buy ? item : max),
-    products[0]
+
+  const productmost = useSelector(
+    (state: RootState) => state.product.productmost
   );
-  let oldestPerson2 = products?.reduce(
-    (max: any, person: any) => (person.buy < max.buy ? person : max),
-    products[0]
+  const totalprice = useSelector(
+    (state: RootState) => state.product.totalprice
   );
   const [orders, setOrders] = useState<any[]>([]);
 
@@ -46,7 +48,10 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
     (async () => {
       try {
         await dispatch(getproduct()).unwrap();
+        await dispatch(getproductmost()).unwrap();
+        await dispatch(getproductleast()).unwrap();
         await dispatch(getUsers()).unwrap();
+
         users?.forEach(async (Item) => {
           const res = await getOrderByUser(Item._id!);
           console.log(res.length, "123");
@@ -59,7 +64,7 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
       }
     })();
   }, [dispatch]);
-  useEffect(() => {})
+  useEffect(() => {});
 
   return (
     <>
@@ -106,16 +111,20 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
                 <span className="block text-gray-500">
                   {products?.length} Sản phẩm
                 </span>
-                <span className="block font-semibold">Bán chay nhất</span>
-                <span className="block text-gray-500">
-                  {" "}
-                  {maxBuy?.name} bán được {maxBuy?.buy}
-                </span>
-                <span className="block font-semibold">Bán chay nhất</span>
-                <span className="block text-gray-500">
-                  {" "}
-                  {oldestPerson2?.name} bán được {oldestPerson2?.buy || 0}
-                </span>
+                <span className="block font-semibold">Các sản phẩm bán chay nhất</span>
+              {productmost.map((item,index)=>(
+               <div className={index>2?'hidden':""}>
+                <span>{item.name}</span> {"+>"} bán được  {" "} <span>{item.buy}</span>
+                </div>
+              ))}
+
+                <span className="block font-semibold"> Bán Ế Nhất</span>
+                {productmost.map((item,index)=>(
+               <div className={index<productmost.length-4?'hidden':""}>
+                <span>{item.name}</span> {"+>"} bán được  {" "} <span>{item.buy}</span>
+                </div>
+              ))}
+                <span className="block text-gray-500"> </span>
               </div>
               <div className="text-gray-500">
                 <FontAwesomeIcon icon={faEllipsisV} />
@@ -129,7 +138,8 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
             <div className="rounded-r-md flex shadow-sm items-center flex-1 justify-between px-3 py-2 leading-snug border-y border-r">
               <div>
                 <span className="block font-semibold">Doanh thu</span>
-                <span className="block text-gray-500">{a} VND</span>
+                <span className="block text-gray-500">{totalprice.data?.[0]} VND</span>
+                <span className="block text-gray-500">{totalprice.data?.[1]} VND</span>
               </div>
               <div className="text-gray-500">
                 <FontAwesomeIcon icon={faEllipsisV} />

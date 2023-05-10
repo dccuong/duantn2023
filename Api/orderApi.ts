@@ -5,6 +5,7 @@ export const getAll = (): Promise<Order[]> => {
   return axiosClient.get("/order");
 };
 
+
 export const remove = (id: string): Promise<Order> => {
   return axiosClient.delete(`/order/${id}`);
 };

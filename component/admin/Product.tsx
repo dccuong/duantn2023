@@ -61,6 +61,10 @@ console.log(product,"sss")
             </th>
             <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
               {" "}
+              Buy{" "}
+            </th>
+            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              {" "}
               function{" "}
             </th>
           </tr>
@@ -82,6 +86,7 @@ console.log(product,"sss")
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(item.price)}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.catygoryId}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.buy?item.buy:0}</td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <Link href={`/admin/products/${item._id}`}>
                   <span className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

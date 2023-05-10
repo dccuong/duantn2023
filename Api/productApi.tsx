@@ -4,6 +4,13 @@ import axiosClient, { axiosServer } from "./config";
 export const getAll = (): Promise<Product[]> => {
   return axiosServer.get("/product");
 };
+export const getmost = (): Promise<Product[]> => {
+  return axiosServer.get("/maxbuys");
+};
+
+export const getleast = (): Promise<Product[]> => {
+  return axiosServer.get("/total-price");
+};
 export const remove = (id: string): Promise<Product> => {
   return axiosClient.delete(`/product/${id}`);
 };
