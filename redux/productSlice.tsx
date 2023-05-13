@@ -3,7 +3,9 @@ import {
   add,
   get,
   getAll,
-  getleast,
+  getleast1,
+  getleast2,
+  getleast3,
   getmost,
   remove,
   update,
@@ -20,7 +22,9 @@ import { Product, TotalPriceAdmin } from "../models/product";
 type UserState = {
   products: Product[];
   productmost: Product[];
-  totalprice: any[] ;
+  totalprice: any[];
+  total7price: any[];
+  total1price: any[];
   product: Product | {};
 };
 
@@ -28,6 +32,8 @@ const initialState: UserState = {
   products: [],
   productmost: [],
   totalprice: [],
+  total7price: [],
+  total1price: [],
   product: {},
 };
 
@@ -46,7 +52,21 @@ export const getproductmost = createAsyncThunk(
 export const getproductleast = createAsyncThunk(
   "product/getproductleast",
   async () => {
-    const response = await getleast();
+    const response = await getleast1();
+    return response.data;
+  }
+);
+export const getproductleast7 = createAsyncThunk(
+  "product/getproductleast7",
+  async () => {
+    const response = await getleast2();
+    return response.data;
+  }
+);
+export const getproductleast1 = createAsyncThunk(
+  "product/getproductleast1",
+  async () => {
+    const response = await getleast3();
     return response.data;
   }
 );
@@ -88,6 +108,12 @@ const productSlice = createSlice({
     }),
       build.addCase(getproductleast.fulfilled, (state, { payload }) => {
         state.totalprice = payload || [];
+      }),
+      build.addCase(getproductleast7.fulfilled, (state, { payload }) => {
+        state.total7price = payload || [];
+      }),
+      build.addCase(getproductleast1.fulfilled, (state, { payload }) => {
+        state.total1price = payload || [];
       }),
       build.addCase(getproductmost.fulfilled, (state, { payload }) => {
         state.productmost = payload || [];

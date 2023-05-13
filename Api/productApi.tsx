@@ -8,8 +8,14 @@ export const getmost = (): Promise<Product[]> => {
   return axiosServer.get("/maxbuys");
 };
 
-export const getleast = (): Promise<TotalPriceAdmin> => {
+export const getleast1 = (): Promise<TotalPriceAdmin> => {
   return axiosServer.get("/total-price");
+};
+export const getleast2 = (): Promise<TotalPriceAdmin> => {
+  return axiosServer.get("/total-price-7-date");
+};
+export const getleast3 = (): Promise<TotalPriceAdmin> => {
+  return axiosServer.get("/total-price-date");
 };
 export const remove = (id: string): Promise<Product> => {
   return axiosClient.delete(`/product/${id}`);

@@ -8,6 +8,8 @@ import { NextPageWithLayout } from "../../models/layout";
 import {
   getproduct,
   getproductleast,
+  getproductleast1,
+  getproductleast7,
   getproductmost,
 } from "../../redux/productSlice";
 import { RootState } from "../../redux/store";
@@ -17,6 +19,7 @@ import Item from "antd/lib/list/Item";
 import { get, getOrderByUser } from "../../Api/orderApi";
 import { Order } from "../../models/order";
 import { formatCurrency } from "../../untils";
+import LineChart from "../../component/LineChart";
 
 type Props = {};
 
@@ -29,7 +32,13 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
   const totalprice = useSelector(
     (state: RootState) => state.product.totalprice
   );
-  console.log(totalprice,"123123")
+  const totalprice1 = useSelector(
+    (state: RootState) => state.product.total1price
+  );
+  const totalprice7 = useSelector(
+    (state: RootState) => state.product.total7price
+  );
+  console.log(totalprice, "123123");
   const [orders, setOrders] = useState<any[]>([]);
 
   const users = useSelector((state: RootState) => state.user.users);
@@ -40,6 +49,8 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
         await dispatch(getproduct()).unwrap();
         await dispatch(getproductmost()).unwrap();
         await dispatch(getproductleast()).unwrap();
+        await dispatch(getproductleast7()).unwrap();
+        await dispatch(getproductleast1()).unwrap();
         await dispatch(getUsers()).unwrap();
 
         users?.forEach(async (Item) => {
@@ -99,27 +110,64 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
                 <span className="block text-gray-500">
                   {products?.length} Sản phẩm
                 </span>
-                <span className="block font-semibold">
-                  Các sản phẩm bán chay nhất
-                </span>
-                {productmost.map((item, index) => (
-                  <div className={index > 2 ? "hidden" : ""} key={index}>
-                    <span>{item.name}</span> {"+>"} bán được{" "}
-                    <span>{item.buy}</span>
+                <div className=" flex">
+                  <div className="w-[40%]">
+                    <span className="block font-semibold">
+                      Các sản phẩm bán chay nhất
+                    </span>
+                    {productmost.map((item, index) => (
+                      <div
+                        className={
+                          index > 2
+                            ? "hidden"
+                            : "" +
+                              "flex m-2 p-2 bg-orange-400 rounded-lg items-center"
+                        }
+                        key={index}
+                      >
+                        <div className="w-[60px] rounded-md mr-2">
+                          <img src={item.image} className="rounded-lg" alt="" />
+                        </div>
+                        <div>
+                          <div className=" font-semibold text-white">
+                            {item.name}
+                          </div>
+                          <div className=" font-semibold text-white">
+                            {" "}
+                            Bán được :{item.buy}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-
-                <span className="block font-semibold"> Bán Ế Nhất</span>
-                {productmost.map((item, index) => (
-                  <div 
-                  key={index}
-                    className={index < productmost.length - 4 ? "hidden" : ""}
-                  >
-                    <span>{item.name}</span> {"+>"} bán được{" "}
-                    <span>{item.buy}</span>
+                  <div className="w-[40%]">
+                    <span className="block font-semibold"> Bán Ế Nhất</span>
+                    {productmost.map((item, index) => (
+                      <div
+                        className={
+                          index < productmost.length - 3
+                            ? "hidden"
+                            : "" +
+                              "flex m-2 p-2 bg-slate-400 rounded-lg items-center"
+                        }
+                        key={index}
+                      >
+                        <div className="w-[60px] rounded-md mr-2">
+                          <img src={item.image} className="rounded-lg" alt="" />
+                        </div>
+                        <div>
+                          <div className=" font-semibold text-white">
+                            {item.name}
+                          </div>
+                          <div className=" font-semibold text-white">
+                            {" "}
+                            Bán được :{item.buy}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-                <span className="block text-gray-500"> </span>
+                </div>
               </div>
               <div className="text-gray-500">
                 <FontAwesomeIcon icon={faEllipsisV} />
@@ -130,16 +178,45 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
             <div className="bg-green-500 flex items-center px-3 text-white rounded-l-md">
               DT
             </div>
-            <div className="rounded-r-md flex shadow-sm items-center flex-1 justify-between px-3 py-2 leading-snug border-y border-r">
-              <div>
-                <span className="block font-semibold">Doanh thu</span>
-                {totalprice?.map((item, index) => (
-                  
-                  <span className="block text-gray-500" key={index}> <b>{item._id} </b> == {formatCurrency(item.totalPrice)}</span>
-                ))}
+            <div className="rounded-r-md  shadow-sm items-center px-3 py-2 leading-snug border-y border-r">
+              <div className="flex  flex-1 justify-between mb-3">
+                <div>
+                  <span className="block font-semibold">Doanh thu hôm nay</span>
+                  {totalprice1?.map((item, index) => (
+                    <span className="block text-gray-500" key={index}>
+                      <b>{item._id} </b> == {formatCurrency(item.totalPrice)}
+                    </span>
+                  ))}
+                </div>
+                <div className="w-[70%]"></div>
               </div>
-              <div className="text-gray-500">
-                <FontAwesomeIcon icon={faEllipsisV} />
+              <div className="flex  flex-1 justify-between  mb-3">
+                <div>
+                  <span className="block font-semibold">Doanh thu</span>
+                  {totalprice?.map((item, index) => (
+                    <span className="block text-gray-500" key={index}>
+                      {" "}
+                      <b>{item._id} </b> == {formatCurrency(item.totalPrice)}
+                    </span>
+                  ))}
+                </div>
+                <div className="w-[70%]">
+                  <LineChart data={totalprice} />
+                </div>
+              </div>
+
+              <div className="flex  flex-1 justify-between mb-3">
+                <div>
+                  <span className="block font-semibold">Doanh thu</span>
+                  {totalprice7?.map((item, index) => (
+                    <span className="block text-gray-500" key={index}>
+                      <b>{item._id} </b> == {formatCurrency(item.totalPrice)}
+                    </span>
+                  ))}
+                </div>
+                <div className="w-[70%]">
+                  <LineChart data={totalprice7} />
+                </div>
               </div>
             </div>
           </div>

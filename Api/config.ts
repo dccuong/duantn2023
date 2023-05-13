@@ -16,7 +16,7 @@ export const axiosServer = axios.create({
     },
 });
 
-axiosServer.interceptors.response.use(
+axiosServer.interceptors.response.use( 
     function (response) {
         return response.data;
     },
