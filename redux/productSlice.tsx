@@ -65,8 +65,8 @@ export const getproductleast7 = createAsyncThunk(
 );
 export const getproductleast1 = createAsyncThunk(
   "product/getproductleast1",
-  async () => {
-    const response = await getleast3();
+  async (date:any) => {
+    const response = await getleast3(date);
     return response.data;
   }
 );

@@ -14,12 +14,14 @@ import {
 } from "../../redux/productSlice";
 import { RootState } from "../../redux/store";
 import { getUsers } from "../../redux/userSlice";
-import { getOrders } from "../../redux/orderSlice";
-import Item from "antd/lib/list/Item";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { get, getOrderByUser } from "../../Api/orderApi";
 import { Order } from "../../models/order";
 import { formatCurrency } from "../../untils";
 import LineChart from "../../component/LineChart";
+import { getOrders } from "../../redux/orderSlice";
+import moment from "moment";
 
 type Props = {};
 
@@ -35,6 +37,7 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
   const totalprice1 = useSelector(
     (state: RootState) => state.product.total1price
   );
+  const [startDate, setStartDate] = useState(new Date());
   const totalprice7 = useSelector(
     (state: RootState) => state.product.total7price
   );
@@ -43,6 +46,11 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
 
   const users = useSelector((state: RootState) => state.user.users);
   const dispatch = useDispatch<any>();
+  const handleDateChange = (date: any) => {
+    setStartDate(date);
+    const formattedDate = moment(date).format("MM/DD/YY");
+    dispatch(getproductleast1(formattedDate)).unwrap();
+  };
   useEffect(() => {
     (async () => {
       try {
@@ -50,7 +58,7 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
         await dispatch(getproductmost()).unwrap();
         await dispatch(getproductleast()).unwrap();
         await dispatch(getproductleast7()).unwrap();
-        await dispatch(getproductleast1()).unwrap();
+        handleDateChange(startDate);
         await dispatch(getUsers()).unwrap();
 
         users?.forEach(async (Item) => {
@@ -182,6 +190,11 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
               <div className="flex  flex-1 justify-between mb-3">
                 <div>
                   <span className="block font-semibold">Doanh thu hôm nay</span>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={handleDateChange}
+                    dateFormat="MM/dd/yy"
+                  />
                   {totalprice1?.map((item, index) => (
                     <span className="block text-gray-500" key={index}>
                       <b>{item._id} </b> == {formatCurrency(item.totalPrice)}
