@@ -12,6 +12,7 @@ import { selectCarts } from "../../../redux/cartSlice";
 import { getprdCates } from "../../../redux/prdCateSlice";
 import { RootState } from "../../../redux/store";
 import { formatCurrency } from "../../../untils";
+import { getAll } from "../../../Api/prdCateApi";
 
 const index = (props: any) => {
   const isLogged = useSelector((state: RootState) => state.auth.isLogged);
@@ -19,24 +20,7 @@ const index = (props: any) => {
     (state: RootState) => state.auth.currentUser
   ) as Tuser;
   const router = useRouter();
-  const cateProduct = [
-    {
-      _id: "641a766f68e7709108d7480f",
-      name: "danh mục một",
-      slug: "danh-muc-mot",
-    },
-
-    {
-      _id: "641a768d68e7709108d74811",
-      name: "danh mục hai",
-      slug: "danh-muc-hai",
-    },
-    {
-      _id: "641a769d68e7709108d74813",
-      name: "danh mục ba",
-      slug: "danh-muc-ba",
-    },
-  ];
+  const [cateProduct, setCateProduct] = useState<any>([]);
   const dispatch = useDispatch<any>();
   const carts = useSelector(selectCarts);
   const [search, setSearch] = useState("");
@@ -70,6 +54,15 @@ const index = (props: any) => {
       }
     })();
   }, [dispatch]);
+
+  useEffect(() => {
+    const fetchDataCate = async () => {
+      const data = await getAll();
+      setCateProduct(data);
+    };
+    fetchDataCate();
+  }, []);
+
   const listnav = [
     { name: "Trang Chủ", link: "/" },
     { name: "Giày", link: "/product" },
@@ -277,7 +270,7 @@ const index = (props: any) => {
             <ul className="bg-white hidden group-hover:block absolute top-full left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
               {cateProduct?.map((item, index) => (
                 <Link href={`/prdCate/${item._id}`} key={index}>
-                <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#]">
+                  <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#]">
                     {item.name}
                   </li>
                 </Link>
