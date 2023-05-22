@@ -17,7 +17,6 @@ import { getUsers } from "../../redux/userSlice";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { get, getOrderByUser } from "../../Api/orderApi";
-import { Order } from "../../models/order";
 import { formatCurrency } from "../../untils";
 import LineChart from "../../component/LineChart";
 import { getOrders } from "../../redux/orderSlice";
@@ -205,7 +204,7 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
               </div>
               <div className="flex  flex-1 justify-between  mb-3">
                 <div>
-                  <span className="block font-semibold">Doanh thu</span>
+                  <span className="block font-semibold">Doanh thu các tháng gần đây</span>
                   {totalprice?.map((item, index) => (
                     <span className="block text-gray-500" key={index}>
                       {" "}
@@ -220,7 +219,7 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
 
               <div className="flex  flex-1 justify-between mb-3">
                 <div>
-                  <span className="block font-semibold">Doanh thu</span>
+                  <span className="block font-semibold">Doanh thu 7 ngày gần nhất</span>
                   {totalprice7?.map((item, index) => (
                     <span className="block text-gray-500" key={index}>
                       <b>{item._id} </b> == {formatCurrency(item.totalPrice)}
