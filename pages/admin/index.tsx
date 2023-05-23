@@ -148,7 +148,7 @@ const Dashboard: NextPageWithLayout = (props: Props) => {
                     ))}
                   </div>
                   <div className="w-[40%]">
-                    <span className="block font-semibold"> Bán Ế Nhất</span>
+                    <span className="block font-semibold"> Bán ít </span>
                     {productmost.map((item, index) => (
                       <div
                         className={
